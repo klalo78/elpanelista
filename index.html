@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Panelista</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            text-align: center; 
+            margin: 0; 
+            padding: 20px; 
+            color: white; 
+            background-color: #1a1a1a;
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('back.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        h1 { color: #facc15; text-shadow: 3px 3px #e11d48; font-size: 35px; margin-bottom: 25px; }
+        
+        .tablero { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+            max-width: 400px; 
+            margin: 0 auto 30px auto; 
+        }
+        
+        button { 
+            font-family: 'Montserrat', sans-serif;
+            height: 90px; border-radius: 12px; border: 2px solid white;
+            font-weight: 900; color: white; font-size: 12px; 
+            cursor: pointer; text-transform: uppercase;
+            transition: 0.2s;
+        }
+
+        button:active { transform: scale(0.95); }
+
+        .btn-rojo { background-color: #e11d48; }
+        .btn-azul { background-color: #2563eb; }
+        .btn-verde { background-color: #16a34a; }
+        .btn-amarillo { background-color: #ca8a04; }
+
+        .seccion-dado {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px dashed #facc15;
+            border-radius: 20px;
+            padding: 15px;
+            display: inline-block;
+        }
+
+        #boton-dado {
+            background-color: white; color: black; width: 60px; height: 60px; 
+            border-radius: 15px; font-size: 30px; display: flex;
+            justify-content: center; align-items: center; margin: 10px auto;
+        }
+
+        .pantalla-carta { 
+            display: none; position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.95); z-index: 100;
+            flex-direction: column; justify-content: center; align-items: center;
+        }
+
+        #visor { max-width: 80%; max-height: 50vh; border: 3px solid white; border-radius: 10px; background: #333; }
+
+        .contenedor-pistas {
+            margin-top: 20px; background: rgba(255, 255, 255, 0.1);
+            padding: 15px; border-radius: 15px; width: 85%; max-width: 320px;
+        }
+
+        #texto-pista { color: #facc15; font-size: 14px; margin-bottom: 15px; min-height: 40px; font-weight: bold; }
+
+        .controles-pistas { display: flex; justify-content: space-between; gap: 10px; }
+
+        .btn-nav-pista { background: #2563eb; flex: 1; height: 40px !important; font-size: 10px !important; }
+
+        /* Estilo para cuando el botón está oculto */
+        .btn-nav-pista.oculto { visibility: hidden; }
+
+        .btn-cerrar {
+            position: absolute; top: 20px; right: 20px;
+            background: #e11d48; color: white; border: 2px solid white;
+            border-radius: 50%; width: 45px; height: 45px; font-weight: bold;
+        }
+
+        .girando { animation: vibrar 0.1s infinite; }
+        @keyframes vibrar {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(-5deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="menu-principal">
+        <h1>EL PANELISTA</h1>
+        <div class="tablero">
+            <button class="btn-rojo" onclick="abrirMazo()">ADIVINA EL PERSONAJE</button>
+            <button class="btn-azul" onclick="alert('Próximamente...')">POR LO MENOS TRES...</button>
+            <button class="btn-verde" onclick="alert('Próximamente...')">QUIÉN DIJO</button>
+            <button class="btn-amarillo" onclick="alert('Próximamente...')">CHISMES</button>
+        </div>
+        <div class="seccion-dado">
+            <span style="font-size: 10px; font-weight: bold; color: #facc15;">DADO</span>
+            <div id="boton-dado" onclick="tirarDado()">??</div>
+        </div>
+    </div>
+
+    <div id="area-carta" class="pantalla-carta">
+        <button class="btn-cerrar" onclick="cerrarCarta()">X</button>
+        <img id="visor" src="" alt="Ficha">
+        <div class="contenedor-pistas">
+            <div id="texto-pista"></div>
+            <div class="controles-pistas">
+                <button class="btn-nav-pista" id="btn-atras" onclick="cambiarPista(-1)">« ATRÁS</button>
+                <button class="btn-nav-pista" id="btn-adelante" onclick="cambiarPista(1)">SIGUIENTE »</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="sonido-dado" src="dado.mp3"></audio>
+
+    <script>
+        const mazoPersonajes = [
+            {
+                // CAMBIADO A .JPG
+                archivo: 'personajes/p_01marley.jpg',
+                pistas: [
+                    "Pista 1: Su verdadero nombre es Alejandro.",
+                    "Pista 2: Empezó como columnista en un magazine.",
+                    "Pista 3: Viajó por todo el mundo.",
+                    "Pista 4: Tiene un hijo llamado Mirko."
+                ]
+            }
+        ];
+
+        let personajeActual = null;
+        let indicePista = 0; // EMPIEZA EN 0 PARA MOSTRAR LA PISTA 1 DE ENTRADA
+
+        function abrirMazo() {
+            personajeActual = mazoPersonajes[0]; 
+            indicePista = 0; // Inicia en la primera pista directamente
+            
+            document.getElementById('visor').src = personajeActual.archivo;
+            document.getElementById('texto-pista').innerText = personajeActual.pistas[indicePista];
+            
+            actualizarBotones();
+            document.getElementById('menu-principal').style.display = 'none';
+            document.getElementById('area-carta').style.display = 'flex';
+        }
+
+        function cambiarPista(dir) {
+            let nuevo = indicePista + dir;
+            if (nuevo >= 0 && nuevo < personajeActual.pistas.length) {
+                indicePista = nuevo;
+                document.getElementById('texto-pista').innerText = personajeActual.pistas[indicePista];
+            }
+            actualizarBotones();
+        }
+
+        function actualizarBotones() {
+            const btnAtras = document.getElementById('btn-atras');
+            const btnAdelante = document.getElementById('btn-adelante');
+
+            // OCULTA EL BOTÓN ATRÁS SI ESTÁ EN LA PISTA 1 (índice 0)
+            if (indicePista === 0) {
+                btnAtras.classList.add('oculto');
+            } else {
+                btnAtras.classList.remove('oculto');
+            }
+            
+            // DESACTIVA SIGUIENTE SI NO HAY MÁS
+            btnAdelante.disabled = (indicePista === personajeActual.pistas.length - 1);
+        }
+
+        function cerrarCarta() {
+            document.getElementById('area-carta').style.display = 'none';
+            document.getElementById('menu-principal').style.display = 'block';
+        }
+
+        function tirarDado() {
+            const d = document.getElementById('boton-dado');
+            const s = document.getElementById('sonido-dado');
+            if(s) s.play().catch(()=>{});
+            d.classList.add('girando');
+            let v = 0;
+            const i = setInterval(() => {
+                d.innerText = Math.floor(Math.random() * 6) + 1;
+                if(v++ > 10) { clearInterval(i); d.classList.remove('girando'); }
+            }, 80);
+        }
+    </script>
+</body>
+</html>
