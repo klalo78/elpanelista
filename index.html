@@ -6,17 +6,17 @@
     <title>El Panelista</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <style>
-        /* Estilos base */
         body { 
             font-family: 'Montserrat', sans-serif; 
-            text-align: center; margin: 0; padding: 20px; color: white; 
+            text-align: center; 
+            margin: 0; padding: 20px; color: white; 
             background-color: #1a1a1a;
             background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('back.jpg');
             background-size: cover; background-position: center; background-attachment: fixed;
-            overflow: hidden; /* Evita scrolls raros en pantalla completa */
+            overflow: hidden;
         }
 
-        /* --- PANTALLA DE INICIO --- */
+        /* --- PANTALLA DE INICIO (PORTADA) --- */
         #pantalla-inicio {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #1a1a1a url('back.jpg') center/cover no-repeat;
@@ -25,165 +25,297 @@
         }
 
         .logo-portada {
-            max-width: 300px; width: 80%; margin-bottom: 40px;
-            filter: drop-shadow(0 0 15px rgba(250, 204, 21, 0.5));
+            max-width: 300px; width: 85%; margin-bottom: 40px;
+            filter: drop-shadow(0 0 15px rgba(250, 204, 21, 0.6));
+            animation: latido 2s infinite;
+        }
+
+        @keyframes latido {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .btn-entrar {
-            background: #facc15; color: black; border: 4px solid white;
+            background-color: #facc15; color: black; border: 4px solid white;
             padding: 20px 50px; font-size: 22px; font-weight: 900;
             border-radius: 50px; cursor: pointer; text-transform: uppercase;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
-        /* --- MENU Y MAZOS (Ocultos al inicio) --- */
-        #menu-principal, .pantalla-carta { display: none; }
+        /* --- MENÚ PRINCIPAL (OCULTO AL INICIO) --- */
+        #menu-principal { display: none; }
 
-        .header-logo { max-width: 180px; width: 50%; margin: 10px auto 20px; }
-        .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 400px; margin: 0 auto; }
-        
-        /* Botones de colores */
-        button { font-family: 'Montserrat', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; font-weight: 900; color: white; font-size: 13px; cursor: pointer; text-transform: uppercase; }
-        .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
-
-        /* Contenedores de Cartas */
-        .pantalla-carta { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.95); z-index: 500;
-            flex-direction: column; justify-content: center; align-items: center; 
+        .header-logo {
+            max-width: 220px; width: 65%; height: auto;
+            margin: 10px auto 25px auto; display: block;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
         }
-        #visor, #visor-video { max-width: 85%; max-height: 45vh; border: 4px solid white; border-radius: 15px; }
 
-        /* Dado y Panelista abajo */
-        .controles-inferiores { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px; }
-        .caja-dado { background: rgba(0,0,0,0.5); border: 2px dashed #facc15; border-radius: 15px; padding: 10px; }
-        #boton-dado { background: white; color: black; width: 55px; height: 55px; border-radius: 10px; font-size: 28px; display: flex; justify-content: center; align-items: center; margin: 5px auto; }
-        .btn-estrella { background: black; color: #facc15; border: 2px solid #facc15; width: 70px; height: 70px; border-radius: 15px; font-size: 35px; }
+        .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 400px; margin: 0 auto 20px auto; }
+        
+        button { 
+            font-family: 'Montserrat', sans-serif; height: 95px; border-radius: 12px; border: 2px solid white; 
+            font-weight: 900; color: white; font-size: 14px; cursor: pointer; text-transform: uppercase; transition: 0.3s ease; 
+        }
 
-        .btn-cerrar { position: absolute; top: 20px; right: 20px; background: #e11d48; border-radius: 50%; width: 45px; height: 45px; color: white; font-weight: bold; border: 2px solid white; }
+        .btn-rojo { background-color: #e11d48; }
+        .btn-verde { background-color: #16a34a; }
+        .btn-amarillo { background-color: #ca8a04; }
+        .btn-azul { background-color: #2563eb; }
+
+        /* Botón Panelista (Estrella) */
+        .btn-especial {
+            background-color: #000000; color: #facc15; border: 3px solid #facc15;
+            font-size: 40px !important; display: flex; justify-content: center; align-items: center;
+            width: 80px; height: 80px; margin: 10px auto; border-radius: 15px;
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+        }
+
+        /* --- PANTALLA DE CARTA / VIDEO --- */
+        .pantalla-carta { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.95); z-index: 500; flex-direction: column; justify-content: center; align-items: center; 
+        }
+        
+        #visor, #visor-video { max-width: 85%; max-height: 48vh; border: 4px solid white; border-radius: 15px; background: #333; }
+
+        .contenedor-inferior { margin-top: 20px; width: 90%; max-width: 380px; }
+        
+        #texto-frase-escrita { 
+            color: white; font-size: 22px; margin-top: 15px; font-style: italic; min-height: 50px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+        }
+
+        .btn-audio { 
+            background: #facc15; color: black; width: 100%; height: 65px !important; 
+            font-size: 18px !important; border: 3px solid white; display: none; 
+        }
+
+        #seccion-pistas { 
+            background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px; 
+            border: 1px solid rgba(255,255,255,0.3); display: none; 
+        }
+
+        #texto-pista { color: #facc15; font-size: 20px; margin-bottom: 20px; min-height: 60px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+        
+        .controles-pistas { display: flex; justify-content: center; gap: 10px; height: 50px; }
+        .btn-nav-pista { background: #2563eb; border: 2px solid white; font-size: 13px !important; height: 50px !important; transition: all 0.4s ease; }
+        
+        #btn-atras { flex: 0; width: 0; padding: 0; margin: 0; opacity: 0; border: none; pointer-events: none; white-space: nowrap; }
+        #btn-atras.visible { flex: 1; opacity: 1; padding: 0 10px; border: 2px solid white; pointer-events: auto; }
+        #btn-adelante { flex: 2; }
+        #btn-adelante.compartido { flex: 1; }
+        
+        .btn-cerrar { position: absolute; top: 20px; right: 20px; background: #e11d48; color: white; border: 2px solid white; border-radius: 50%; width: 50px; height: 50px; font-weight: bold; font-size: 22px; z-index: 600; }
+
+        /* --- CONTROLES ABAJO --- */
+        .seccion-controles-abajo { display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 10px; }
+        .seccion-dado { background: rgba(0, 0, 0, 0.5); border: 2px dashed #facc15; border-radius: 20px; padding: 10px; }
+        #boton-dado { background-color: white; color: black; width: 60px; height: 60px; border-radius: 12px; font-size: 30px; display: flex; justify-content: center; align-items: center; margin: 5px auto; cursor: pointer; user-select: none; }
+        
+        .girando { animation: vibrar 0.1s infinite; }
+        @keyframes vibrar { 0% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } 100% { transform: rotate(-5deg); } }
     </style>
 </head>
 <body>
 
     <div id="pantalla-inicio">
-        <img src="logo.jpg" class="logo-portada">
-        <button class="btn-entrar" onclick="iniciarTodo()">ENTRAR AL JUEGO</button>
+        <img src="logo.jpg" alt="Logo El Panelista" class="logo-portada">
+        <button class="btn-entrar" onclick="entrarAlJuego()">ENTRAR AL JUEGO</button>
     </div>
 
     <div id="menu-principal">
-        <img src="logo.jpg" class="header-logo">
+        <img src="logo.jpg" alt="Logo" class="header-logo">
+        
         <div class="tablero">
             <button class="btn-rojo" onclick="abrirMazo('personajes')">ADIVIN&Aacute; EL PERSONAJE</button>
             <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO</button>
-            <button class="btn-azul" onclick="alert('Pr&oacute;ximamente')">POR LO MENOS TRES</button>
-            <button class="btn-amarillo" onclick="alert('Pr&oacute;ximamente')">CHISMES</button>
+            <button class="btn-azul" onclick="alert('Pr&oacute;ximamente...')">POR LO MENOS TRES...</button>
+            <button class="btn-amarillo" onclick="alert('Pr&oacute;ximamente...')">CHISMES</button>
         </div>
-        <div class="controles-inferiores">
-            <div class="caja-dado">
+
+        <div class="seccion-controles-abajo">
+            <div class="seccion-dado">
+                <span style="font-size: 10px; font-weight: bold; color: #facc15;">DADO</span>
                 <div id="boton-dado" onclick="tirarDado()">🎲</div>
             </div>
-            <div onclick="abrirVideoAleatorio()">
-                <button class="btn-estrella">★</button>
-                <div style="font-size: 10px; color:#facc15; margin-top:5px; font-weight:bold;">PANELISTA</div>
+            
+            <div>
+                <button class="btn-especial" onclick="abrirVideoAleatorio()">★</button>
+                <div style="font-size: 10px; font-weight: bold; color: #facc15;">PANELISTA</div>
             </div>
         </div>
     </div>
 
     <div id="area-carta" class="pantalla-carta">
-        <button class="btn-cerrar" onclick="cerrar()">X</button>
-        <img id="visor" style="display:none;">
+        <button class="btn-cerrar" onclick="detenerYcerrar()">X</button>
+        
+        <img id="visor" src="" style="display:none;">
         <video id="visor-video" controls style="display:none;"></video>
-        <div id="pistas-cont" style="margin-top:20px; width:80%;">
-            <div id="txt-pista" style="font-size:18px; color:#facc15; margin-bottom:15px; font-weight:bold;"></div>
-            <button id="btn-sig" style="width:100%; background:#2563eb; height:50px !important;" onclick="sigPista()">SIGUIENTE</button>
+        
+        <div class="contenedor-inferior">
+            <button id="btn-escuchar" class="btn-audio" onclick="reproducirFrase()">🔊 ESCUCHAR FRASE</button>
+            <div id="texto-frase-escrita"></div>
+            
+            <div id="seccion-pistas">
+                <div id="texto-pista"></div>
+                <div class="controles-pistas">
+                    <button class="btn-nav-pista" id="btn-atras" onclick="cambiarPista(-1)">&laquo; ATR&Aacute;S</button>
+                    <button class="btn-nav-pista" id="btn-adelante" onclick="cambiarPista(1)">SIGUIENTE &raquo;</button>
+                </div>
+            </div>
         </div>
-        <button id="btn-audio" style="display:none; background:#facc15; color:black; width:80%; height:60px !important; margin-top:15px;" onclick="oir()">🔊 ESCUCHAR</button>
-        <div id="frase-txt" style="margin-top:10px; font-style:italic; font-size:20px;"></div>
     </div>
 
-    <audio id="repro-frase"></audio>
+    <audio id="reproductor-frase"></audio>
     <audio id="sonido-dado" src="dado.mp3"></audio>
 
     <script>
-        // LÓGICA DE PANTALLA COMPLETA
-        function iniciarTodo() {
-            // 1. Ocultar portada y mostrar juego
+        // CONFIGURACIÓN DE MAZOS
+        const mazos = {
+            personajes: [
+                {
+                    imagen: 'personajes/p_01marley.jpg',
+                    pistas: [
+                        "Pista 1: Su verdadero nombre es Alejandro.", 
+                        "Pista 2: Empez&oacute; como columnista en un magazine.", 
+                        "Pista 3: Viaj&oacute; por todo el mundo.", 
+                        "Pista 4: Tiene un hijo llamado Mirko."
+                    ]
+                }
+            ],
+            quien_dijo: [
+                {
+                    imagen: 'personajes/p_06fort.jpg',
+                    audios: [
+                        { file: 'sonidos/p_06fort_01.mp3', texto: '“¡Mam&aacute;, cortaste toda la luz!”' }
+                    ]
+                }
+            ]
+        };
+
+        let listaVideos = ['panelistas/pane01.mp4']; 
+        let mazoActual = ""; 
+        let itemActual = null; 
+        let indicePista = 0;
+
+        // INICIAR JUEGO Y PANTALLA COMPLETA
+        function entrarAlJuego() {
             document.getElementById('pantalla-inicio').style.display = 'none';
             document.getElementById('menu-principal').style.display = 'block';
-
-            // 2. Activar Pantalla Completa
-            let e = document.documentElement;
-            if (e.requestFullscreen) e.requestFullscreen();
-            else if (e.webkitRequestFullscreen) e.webkitRequestFullscreen();
-            else if (e.msRequestFullscreen) e.msRequestFullscreen();
+            
+            let elem = document.documentElement;
+            if (elem.requestFullscreen) { elem.requestFullscreen(); }
+            else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
+            else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); }
         }
 
-        // MAZOS
-        const mazos = {
-            personajes: [{img:'personajes/p_01marley.jpg', pistas:["Es Alejandro.","Viajero.","Papá de Mirko."]}],
-            quien_dijo: [{img:'personajes/p_06fort.jpg', audios:[{f:'sonidos/p_06fort_01.mp3', t:'“¡Cortaste toda la luz!”'}]}]
-        };
-        let vids = ['panelistas/pane01.mp4'];
-        let actual = null; let idx = 0;
-
-        function abrirMazo(t) {
-            actual = mazos[t][0]; // Por ahora el primero
-            document.getElementById('visor').src = actual.img;
+        // ABRIR MAZOS DE IMAGEN/PISTAS
+        function abrirMazo(tipo) {
+            mazoActual = tipo;
+            const lista = mazos[tipo];
+            itemActual = lista[Math.floor(Math.random() * lista.length)];
+            
+            document.getElementById('visor').src = itemActual.imagen;
             document.getElementById('visor').style.display = 'block';
             document.getElementById('visor-video').style.display = 'none';
-            document.getElementById('frase-txt').innerHTML = "";
-
-            if(t === 'quien_dijo') {
-                document.getElementById('pistas-cont').style.display = 'none';
-                document.getElementById('btn-audio').style.display = 'block';
+            document.getElementById('texto-frase-escrita').innerHTML = ""; 
+            
+            if (tipo === 'quien_dijo') {
+                document.getElementById('btn-escuchar').style.display = 'block';
+                document.getElementById('seccion-pistas').style.display = 'none';
             } else {
-                idx = 0;
-                document.getElementById('pistas-cont').style.display = 'block';
-                document.getElementById('btn-audio').style.display = 'none';
-                document.getElementById('txt-pista').innerHTML = actual.pistas[idx];
+                document.getElementById('btn-escuchar').style.display = 'none';
+                document.getElementById('seccion-pistas').style.display = 'block';
+                indicePista = 0;
+                document.getElementById('texto-pista').innerHTML = itemActual.pistas[indicePista];
+                actualizarBotonesPistas();
             }
+
+            document.getElementById('menu-principal').style.display = 'none';
             document.getElementById('area-carta').style.display = 'flex';
         }
 
-        function sigPista() {
-            if(idx < actual.pistas.length - 1) {
-                idx++;
-                document.getElementById('txt-pista').innerHTML = actual.pistas[idx];
-            }
-        }
-
-        function oir() {
-            const r = document.getElementById('repro-frase');
-            r.src = actual.audios[0].f;
-            document.getElementById('frase-txt').innerHTML = actual.audios[0].t;
-            r.play();
-        }
-
+        // ABRIR VIDEO PANELISTA
         function abrirVideoAleatorio() {
-            if(vids.length === 0) return alert("Fin");
-            const v = document.getElementById('visor-video');
-            v.src = vids[0];
+            if (listaVideos.length === 0) {
+                alert("¡No quedan más videos de panelistas!");
+                return;
+            }
+
+            const indexAleatorio = Math.floor(Math.random() * listaVideos.length);
+            const videoSeleccionado = listaVideos[indexAleatorio];
+            listaVideos.splice(indexAleatorio, 1);
+
+            const videoPlayer = document.getElementById('visor-video');
+            videoPlayer.src = videoSeleccionado;
+            
             document.getElementById('visor').style.display = 'none';
             document.getElementById('visor-video').style.display = 'block';
-            document.getElementById('pistas-cont').style.display = 'none';
-            document.getElementById('btn-audio').style.display = 'none';
+            document.getElementById('btn-escuchar').style.display = 'none';
+            document.getElementById('seccion-pistas').style.display = 'none';
+            document.getElementById('texto-frase-escrita').innerHTML = "";
+
+            document.getElementById('menu-principal').style.display = 'none';
             document.getElementById('area-carta').style.display = 'flex';
-            v.play();
+            
+            videoPlayer.load();
+            videoPlayer.play().catch(e => console.log("Autoplay bloqueado."));
+        }
+
+        function reproducirFrase() {
+            if (itemActual.audios) {
+                const repro = document.getElementById('reproductor-frase');
+                const objetoAudio = itemActual.audios[Math.floor(Math.random() * itemActual.audios.length)];
+                repro.src = objetoAudio.file;
+                document.getElementById('texto-frase-escrita').innerHTML = objetoAudio.texto;
+                repro.play();
+            }
+        }
+
+        function cambiarPista(dir) {
+            let nuevo = indicePista + dir;
+            if (nuevo >= 0 && nuevo < itemActual.pistas.length) {
+                indicePista = nuevo;
+                document.getElementById('texto-pista').innerHTML = itemActual.pistas[indicePista];
+                actualizarBotonesPistas();
+            }
+        }
+
+        function actualizarBotonesPistas() {
+            const btnAtras = document.getElementById('btn-atras');
+            const btnAdelante = document.getElementById('btn-adelante');
+
+            if (indicePista === 0) {
+                btnAtras.classList.remove('visible');
+                btnAdelante.classList.remove('compartido');
+            } else {
+                btnAtras.classList.add('visible');
+                btnAdelante.classList.add('compartido');
+            }
+            btnAdelante.disabled = (indicePista === itemActual.pistas.length - 1);
         }
 
         function tirarDado() {
             const d = document.getElementById('boton-dado');
-            let c = 0;
-            let i = setInterval(() => {
-                d.innerText = Math.floor(Math.random()*6)+1;
-                if(c++ > 10) clearInterval(i);
+            const s = document.getElementById('sonido-dado');
+            if(s) s.play().catch(()=>{});
+            d.classList.add('girando');
+            let v = 0;
+            const i = setInterval(() => {
+                d.innerText = Math.floor(Math.random() * 6) + 1;
+                if(v++ > 10) { clearInterval(i); d.classList.remove('girando'); }
             }, 80);
         }
 
-        function cerrar() {
-            document.getElementById('repro-frase').pause();
-            document.getElementById('visor-video').pause();
+        function detenerYcerrar() {
+            document.getElementById('reproductor-frase').pause();
+            const videoPlayer = document.getElementById('visor-video');
+            videoPlayer.pause();
+            videoPlayer.src = ""; 
             document.getElementById('area-carta').style.display = 'none';
+            document.getElementById('menu-principal').style.display = 'block';
         }
     </script>
 </body>
