@@ -10,9 +10,16 @@
             font-family: 'Montserrat', sans-serif; 
             text-align: center; margin: 0; padding: 0; color: white; 
             background-color: #1a1a1a;
+            /* Fondo inicial */
             background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('back.jpg');
             background-size: cover; background-position: center; background-attachment: fixed;
             overflow: hidden;
+            transition: background-image 0.5s ease-in-out; /* Transición suave al cambiar fondo */
+        }
+
+        /* Clase que aplicaremos por JavaScript para cambiar al fondo 2 */
+        body.fondo-mazo {
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('back2.jpg');
         }
 
         /* --- PANTALLA DE INICIO --- */
@@ -20,18 +27,18 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #1a1a1a url('back.jpg') no-repeat;
             background-size: cover;
-            background-position: center 20%; /* SUBE LA IMAGEN DE FONDO UN POCO */
+            background-position: center 20%; 
             display: flex; flex-direction: column; 
             justify-content: flex-start; 
             align-items: center;
             z-index: 9999;
-            padding-top: 2vh; 
+            padding-top: 8vh; 
         }
 
         .logo-portada {
-            max-width: 220px; width: 65%; margin-bottom: 20px;
+            max-width: 220px; width: 65%; margin-bottom: 30px;
             filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.5));
-            animation: latido 2s infinite; /* EFECTO MOVIMIENTO */
+            animation: latido 2s infinite;
         }
 
         @keyframes latido {
@@ -41,34 +48,28 @@
         }
 
         .btn-entrar {
-            background-color: transparent; 
-            color: #facc15; 
-            border: 2px solid #facc15;
-            padding: 8px 25px; 
-            font-size: 14px; font-weight: 900;
-            border-radius: 30px; cursor: pointer; text-transform: uppercase;
-            letter-spacing: 1px;
+            background-color: rgba(225, 29, 72, 0.7); 
+            color: white; border: 2px solid white;
+            padding: 12px 35px; font-size: 18px; font-weight: 900;
+            border-radius: 50px; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
             transition: 0.3s;
         }
-        .btn-entrar:active { background: #facc15; color: black; }
 
         /* --- MENÚ PRINCIPAL --- */
         #menu-principal { display: none; padding: 20px; }
         
         .header-logo { 
-            max-width: 260px; 
-            width: 75%; 
-            margin: 5px auto 20px auto; 
-            display: block; 
-            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
-            animation: latido 2s infinite; /* AHORA EL LOGO PRINCIPAL TAMBIÉN SE MUEVE */
+            max-width: 260px; width: 75%; margin: 5px auto 20px auto; 
+            display: block; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+            animation: latido 2s infinite; 
         }
 
         .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 380px; margin: 0 auto 20px auto; }
         button { font-family: 'Montserrat', sans-serif; height: 85px; border-radius: 12px; border: 2px solid white; font-weight: 900; color: white; font-size: 13px; text-transform: uppercase; cursor: pointer; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
-        /* CONTROLES INFERIORES */
         .seccion-controles-abajo { display: flex; justify-content: center; align-items: center; gap: 20px; }
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 8px; }
         #boton-dado { background: white; color: black; width: 45px; height: 45px; border-radius: 8px; font-size: 22px; display: flex; justify-content: center; align-items: center; margin: 0 auto; cursor: pointer; }
@@ -80,7 +81,7 @@
         .btn-cerrar { position: absolute; top: 15px; right: 15px; background: #e11d48; color: white; border: 2px solid white; border-radius: 50%; width: 45px; height: 45px; font-weight: bold; }
     </style>
 </head>
-<body>
+<body id="cuerpo-web">
 
     <div id="pantalla-inicio">
         <img src="logo.png" alt="Logo" class="logo-portada">
@@ -118,8 +119,23 @@
 
     <script>
         const datos = {
-            personajes: [{img:'personajes/p_01marley.jpg', pistas:["Es Alejandro.","Empez&oacute; en un magazine.","Viaj&oacute; por el mundo.","Pap&aacute; de Mirko."]}],
-            quien_dijo: [{img:'personajes/p_06fort.jpg', audios:[{f:'sonidos/p_06fort_01.mp3', t:'“¡Cortaste toda la luz!”'}]}]
+            personajes: [
+                {
+                    img: 'personajes/p_01marley.jpg', 
+                    pistas: [
+                        "Pista 1: Su verdadero nombre es Alejandro.",
+                        "Pista 2: Empez&oacute; como columnista en un magazine.",
+                        "Pista 3: Viaj&oacute; por todo el mundo.",
+                        "Pista 4: Tiene un hijo llamado Mirko."
+                    ]
+                }
+            ],
+            quien_dijo: [
+                {
+                    img: 'personajes/p_06fort.jpg', 
+                    audios: [{f:'sonidos/p_06fort_01.mp3', t:'“¡Mam&aacute;, cortaste toda la luz!”'}]
+                }
+            ]
         };
         let vids = ['panelistas/pane01.mp4'];
         let actual = null; let pIdx = 0;
@@ -133,11 +149,15 @@
         }
 
         function abrirMazo(t) {
+            // CAMBIO AL FONDO 2
+            document.getElementById('cuerpo-web').classList.add('fondo-mazo');
+
             actual = datos[t][Math.floor(Math.random() * datos[t].length)];
             document.getElementById('visor').src = actual.img;
             document.getElementById('visor').style.display = 'block';
             document.getElementById('visor-video').style.display = 'none';
             document.getElementById('texto-frase').innerHTML = "";
+            
             if(t === 'quien_dijo') {
                 document.getElementById('pistas-bloque').style.display = 'none';
                 document.getElementById('btn-audio').style.display = 'block';
@@ -166,6 +186,10 @@
 
         function abrirVideoAleatorio() {
             if(vids.length === 0) return alert("No hay más videos");
+            
+            // CAMBIO AL FONDO 2
+            document.getElementById('cuerpo-web').classList.add('fondo-mazo');
+
             const vp = document.getElementById('visor-video');
             vp.src = vids[0];
             document.getElementById('visor').style.display = 'none';
@@ -186,9 +210,13 @@
         }
 
         function cerrar() {
+            // VOLVER AL FONDO ORIGINAL
+            document.getElementById('cuerpo-web').classList.remove('fondo-mazo');
+
             document.getElementById('repro-frase').pause();
             document.getElementById('visor-video').pause();
             document.getElementById('area-carta').style.display = 'none';
+            document.getElementById('menu-principal').style.display = 'block';
         }
     </script>
 </body>
