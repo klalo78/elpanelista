@@ -76,4 +76,120 @@
 
         /* CARTAS */
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; flex-direction: column; justify-content: center; align-items: center; }
-        #visor, #visor-video
+        #visor, #visor-video { max-width: 85%; max-height: 45vh; border: 3px solid white; border-radius: 10px; }
+        .btn-cerrar { position: absolute; top: 15px; right: 15px; background: #e11d48; color: white; border: 2px solid white; border-radius: 50%; width: 45px; height: 45px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="pantalla-inicio">
+        <img src="logo.png" alt="Logo" class="logo-portada">
+        <button class="btn-entrar" onclick="entrarAlJuego()">Entrar</button>
+    </div>
+
+    <div id="menu-principal">
+        <img src="logo.png" class="header-logo">
+        <div class="tablero">
+            <button class="btn-rojo" onclick="abrirMazo('personajes')">ADIVIN&Aacute;</button>
+            <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO</button>
+            <button class="btn-azul" onclick="alert('Pr&oacute;ximamente')">TRES...</button>
+            <button class="btn-amarillo" onclick="alert('Pr&oacute;ximamente')">CHISMES</button>
+        </div>
+        <div class="seccion-controles-abajo">
+            <div class="seccion-dado"><div id="boton-dado" onclick="tirarDado()">🎲</div></div>
+            <div onclick="abrirVideoAleatorio()"><button class="btn-especial">★</button></div>
+        </div>
+    </div>
+
+    <div id="area-carta" class="pantalla-carta">
+        <button class="btn-cerrar" onclick="cerrar()">X</button>
+        <img id="visor" style="display:none;">
+        <video id="visor-video" controls style="display:none;"></video>
+        <div id="pistas-bloque" style="margin-top:20px; width:85%; display:none;">
+            <div id="txt-pista" style="color:#facc15; font-size:18px; font-weight:bold; margin-bottom:15px; min-height:50px;"></div>
+            <button style="width:100%; background:#2563eb; height:50px !important;" onclick="cambiarPista(1)">SIGUIENTE</button>
+        </div>
+        <button id="btn-audio" style="display:none; background:#facc15; color:black; width:80%; height:60px !important; margin-top:15px;" onclick="sonar()">🔊 ESCUCHAR</button>
+        <div id="texto-frase" style="margin-top:10px; font-style:italic; font-size:20px;"></div>
+    </div>
+
+    <audio id="repro-frase"></audio>
+    <audio id="sonido-dado" src="dado.mp3"></audio>
+
+    <script>
+        const datos = {
+            personajes: [{img:'personajes/p_01marley.jpg', pistas:["Es Alejandro.","Empez&oacute; en un magazine.","Viaj&oacute; por el mundo.","Pap&aacute; de Mirko."]}],
+            quien_dijo: [{img:'personajes/p_06fort.jpg', audios:[{f:'sonidos/p_06fort_01.mp3', t:'“¡Cortaste toda la luz!”'}]}]
+        };
+        let vids = ['panelistas/pane01.mp4'];
+        let actual = null; let pIdx = 0;
+
+        function entrarAlJuego() {
+            document.getElementById('pantalla-inicio').style.display = 'none';
+            document.getElementById('menu-principal').style.display = 'block';
+            let e = document.documentElement;
+            if (e.requestFullscreen) e.requestFullscreen();
+            else if (e.webkitRequestFullscreen) e.webkitRequestFullscreen();
+        }
+
+        function abrirMazo(t) {
+            actual = datos[t][Math.floor(Math.random() * datos[t].length)];
+            document.getElementById('visor').src = actual.img;
+            document.getElementById('visor').style.display = 'block';
+            document.getElementById('visor-video').style.display = 'none';
+            document.getElementById('texto-frase').innerHTML = "";
+            if(t === 'quien_dijo') {
+                document.getElementById('pistas-bloque').style.display = 'none';
+                document.getElementById('btn-audio').style.display = 'block';
+            } else {
+                pIdx = 0;
+                document.getElementById('pistas-bloque').style.display = 'block';
+                document.getElementById('btn-audio').style.display = 'none';
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+            }
+            document.getElementById('area-carta').style.display = 'flex';
+        }
+
+        function sonar() {
+            const r = document.getElementById('repro-frase');
+            r.src = actual.audios[0].f;
+            document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
+            r.play();
+        }
+
+        function cambiarPista(d) {
+            if(pIdx < actual.pistas.length - 1) {
+                pIdx += d;
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+            }
+        }
+
+        function abrirVideoAleatorio() {
+            if(vids.length === 0) return alert("No hay más videos");
+            const vp = document.getElementById('visor-video');
+            vp.src = vids[0];
+            document.getElementById('visor').style.display = 'none';
+            document.getElementById('visor-video').style.display = 'block';
+            document.getElementById('area-carta').style.display = 'flex';
+            vp.play();
+        }
+
+        function tirarDado() {
+            const d = document.getElementById('boton-dado');
+            const s = document.getElementById('sonido-dado');
+            if(s) s.play().catch(()=>{});
+            let c = 0;
+            let i = setInterval(() => {
+                d.innerText = Math.floor(Math.random()*6)+1;
+                if(c++ > 10) clearInterval(i);
+            }, 80);
+        }
+
+        function cerrar() {
+            document.getElementById('repro-frase').pause();
+            document.getElementById('visor-video').pause();
+            document.getElementById('area-carta').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
