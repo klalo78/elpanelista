@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>El Panelista</title>
     <style>
-        /* --- REGISTRO DE TU FUENTE LOCAL --- */
         @font-face {
             font-family: 'Super Sunkissed';
             src: url('Super Sunkissed.ttf');
@@ -25,7 +24,6 @@
             font-size: 18px;
         }
 
-        /* CAPA DE INICIO */
         #pantalla-inicio {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #1a1a1a url('back.jpg') no-repeat;
@@ -38,22 +36,18 @@
         .logo-portada { max-width: 220px; width: 65%; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(250,204,21,0.5)); animation: latido 2s infinite; }
         @keyframes latido { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
         
+        /* BOTÓN JUGAR: Achicado pero con fuente grande */
         .btn-entrar { 
             font-family: 'Super Sunkissed', sans-serif;
             background: rgba(225,29,72,0.9); color: white; border: 2px solid white; 
-            padding: 12px 40px; font-size: 28px; cursor: pointer; margin-top: -15px; 
+            padding: 6px 25px; font-size: 28px; cursor: pointer; margin-top: -15px; 
             box-shadow: 0 5px 15px black; border-radius: 50px; text-transform: uppercase;
         }
 
         #menu-principal { display: none; padding: 20px; position: relative; z-index: 10; transition: opacity 0.5s ease; }
         #menu-principal.atenuado { opacity: 0.15; }
 
-        .header-logo { 
-            max-width: 260px; width: 75%; 
-            margin: 45px auto 20px auto; 
-            display: block; animation: latido 2s infinite; 
-        }
-
+        .header-logo { max-width: 260px; width: 75%; margin: 45px auto 20px auto; display: block; animation: latido 2s infinite; }
         .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto 20px auto; }
         
         button { 
@@ -65,13 +59,8 @@
         
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
-        /* --- CONTROLES ABAJO NIVELADOS --- */
         .seccion-controles-abajo { 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; /* Alineación central para nivelar ambos botones */
-            gap: 65px; 
-            margin-top: 25px; 
+            display: flex; justify-content: center; align-items: center; gap: 65px; margin-top: 25px; 
         }
 
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
@@ -79,16 +68,8 @@
         
         .btn-especial { background: black; color: #facc15; border: 4px solid #facc15; width: 105px; height: 105px; border-radius: 20px; font-size: 55px; box-shadow: 0 0 15px rgba(250,204,21,0.5); cursor: pointer;}
 
-        .label-control { 
-            font-size: 22px; 
-            font-weight: bold; 
-            color: #facc15; 
-            margin-top: 10px; 
-            text-transform: uppercase; 
-            text-shadow: 2px 2px 4px black;
-        }
+        .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
 
-        /* AREA CARTAS */
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         #visor { max-width: 85%; max-height: 40vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
@@ -96,8 +77,13 @@
         .btn-cerrar { position: absolute; top: 20px; right: 20px; background: #e11d48; color: white; border: 2px solid white; border-radius: 50%; width: 50px; height: 50px; font-weight: bold; font-size: 20px; z-index: 5001; }
         
         #txt-pista { color:#facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
+        
+        .controles-pistas { display: flex; gap: 10px; width: 90%; }
+        .btn-pista { flex: 1; font-family: 'Super Sunkissed', sans-serif; height: 60px !important; border: 2px solid white; border-radius: 10px; color: white; font-size: 20px; cursor: pointer; }
+        .btn-prev { background: #e11d48; }
+        .btn-next { background: #2563eb; }
+
         #texto-frase { margin-top: 10px; font-size: 32px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; }
-        .btn-siguiente { font-family: 'Super Sunkissed', sans-serif; width:100%; background:#2563eb; height:60px !important; border: 2px solid white; border-radius: 10px; color: white; font-size: 22px; cursor: pointer; }
         .btn-audio-carta { font-family: 'Super Sunkissed', sans-serif; background:#facc15; color:black; width:90%; height:70px !important; margin-top:15px; border: 2px solid white; border-radius: 10px; font-size: 22px; cursor: pointer; }
     </style>
 </head>
@@ -105,7 +91,7 @@
 
     <div id="pantalla-inicio">
         <img src="logo.png" class="logo-portada">
-        <button class="btn-entrar" onclick="entrarAlJuego()">Entrar</button>
+        <button class="btn-entrar" onclick="entrarAlJuego()">JUGAR</button>
     </div>
 
     <div id="menu-principal">
@@ -134,9 +120,12 @@
         <img id="visor" style="display:none;">
         <video id="visor-video" controls style="display:none;"></video>
         
-        <div id="pistas-bloque" style="display:none; width: 90%; margin-top: 15px;">
+        <div id="pistas-bloque" style="display:none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center;">
             <div id="txt-pista"></div>
-            <button class="btn-siguiente" onclick="cambiarPista(1)">SIGUIENTE</button>
+            <div class="controles-pistas">
+                <button class="btn-pista btn-prev" onclick="cambiarPista(-1)">ANTERIOR</button>
+                <button class="btn-pista btn-next" onclick="cambiarPista(1)">SIGUIENTE</button>
+            </div>
         </div>
         
         <button id="btn-audio" class="btn-audio-carta" style="display:none;" onclick="sonar()">🔊 ESCUCHAR</button>
@@ -152,8 +141,8 @@
                     img: 'personajes/p_01marley.jpg', 
                     pistas: [
                         "Su verdadero nombre es Alejandro.", 
-                        "Empez&oacute; como columnista en un magazine.", 
-                        "Viaj&oacute; por todo el mundo.", 
+                        "Empezó como columnista en un magazine.", 
+                        "Viajó por todo el mundo.", 
                         "Tiene un hijo llamado Mirko."
                     ]
                 }
@@ -161,7 +150,7 @@
             quien_dijo: [
                 {
                     img: 'personajes/p_06fort.jpg', 
-                    audios: [{f:'sonidos/p_06fort_01.mp3', t:'“¡Mam&aacute;, cortaste toda la luz!”'}]
+                    audios: [{f:'sonidos/p_06fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}]
                 }
             ]
         };
@@ -186,12 +175,13 @@
             document.getElementById('visor').style.display = 'block';
             document.getElementById('visor-video').style.display = 'none';
             document.getElementById('texto-frase').innerHTML = "";
+            
             if(t === 'quien_dijo') {
                 document.getElementById('pistas-bloque').style.display = 'none';
                 document.getElementById('btn-audio').style.display = 'block';
             } else {
                 pIdx = 0;
-                document.getElementById('pistas-bloque').style.display = 'block';
+                document.getElementById('pistas-bloque').style.display = 'flex';
                 document.getElementById('btn-audio').style.display = 'none';
                 document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
             }
@@ -206,6 +196,14 @@
             vp.pause(); vp.src = "";
             document.getElementById('area-carta').style.display = 'none';
             document.getElementById('menu-principal').style.display = 'block';
+        }
+
+        function cambiarPista(d) {
+            let nuevaPista = pIdx + d;
+            if(nuevaPista >= 0 && nuevaPista < actual.pistas.length) {
+                pIdx = nuevaPista;
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+            }
         }
 
         function abrirVideoAleatorio() {
@@ -228,13 +226,6 @@
             r.src = actual.audios[0].f;
             document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
             r.play();
-        }
-
-        function cambiarPista(d) {
-            if(pIdx < actual.pistas.length - 1) {
-                pIdx += d;
-                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
-            }
         }
 
         function tirarDado() {
