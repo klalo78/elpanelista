@@ -16,7 +16,6 @@
         body { 
             font-family: 'Super Sunkissed', sans-serif; 
             text-align: center; color: white; 
-            /* Fondo con desplazamiento a la derecha */
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat;
             background-size: cover;
             background-position: 95% center; 
@@ -46,11 +45,9 @@
             box-shadow: 0 5px 15px black; border-radius: 50px; text-transform: uppercase;
         }
 
-        /* JUEGO */
         #menu-principal { display: none; padding: 20px; position: relative; z-index: 10; transition: opacity 0.5s ease; }
         #menu-principal.atenuado { opacity: 0.15; }
 
-        /* Logo con más aire arriba */
         .header-logo { 
             max-width: 260px; width: 75%; 
             margin: 45px auto 20px auto; 
@@ -62,16 +59,17 @@
         button { 
             font-family: 'Super Sunkissed', sans-serif; 
             height: 90px; border-radius: 12px; border: 2px solid white; 
-            color: white; font-size: 20px; text-transform: uppercase; cursor: pointer; 
+            color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; 
+            padding: 5px; line-height: 1.1;
         }
         
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
-        /* SECCIÓN DE BOTONES INFERIORES MÁS GRANDES */
+        /* --- CONTROLES ABAJO NIVELADOS --- */
         .seccion-controles-abajo { 
             display: flex; 
             justify-content: center; 
-            align-items: flex-end; 
+            align-items: center; /* Alineación central para nivelar ambos botones */
             gap: 65px; 
             margin-top: 25px; 
         }
@@ -81,7 +79,6 @@
         
         .btn-especial { background: black; color: #facc15; border: 4px solid #facc15; width: 105px; height: 105px; border-radius: 20px; font-size: 55px; box-shadow: 0 0 15px rgba(250,204,21,0.5); cursor: pointer;}
 
-        /* Etiquetas Dado y Panelista agrandadas */
         .label-control { 
             font-size: 22px; 
             font-weight: bold; 
@@ -114,13 +111,13 @@
     <div id="menu-principal">
         <img src="logo.png" class="header-logo">
         <div class="tablero">
-            <button class="btn-rojo" onclick="abrirMazo('personajes')">ADIVIN&Aacute;</button>
-            <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO</button>
+            <button class="btn-rojo" onclick="abrirMazo('personajes')">ADIVIN&Aacute; QUI&Eacute;N SOY?</button>
+            <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO QUI&Eacute;N DIJO...</button>
             <button class="btn-azul" onclick="alert('Próximamente')">TRES...</button>
             <button class="btn-amarillo" onclick="alert('Próximamente')">CHISMES</button>
         </div>
         <div class="seccion-controles-abajo">
-            <div>
+            <div style="text-align: center;">
                 <div class="seccion-dado"><div id="boton-dado" onclick="tirarDado()">🎲</div></div>
                 <div class="label-control">DADO</div>
             </div>
