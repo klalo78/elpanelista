@@ -76,18 +76,18 @@
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         #visor { max-width: 85%; max-height: 40vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
         #visor-video { width: 85%; max-height: 55vh; border: 4px solid white; border-radius: 15px; background: black; }
-        .btn-cerrar { position: absolute; top: 20px; right: 20px; background: #e11d48; color: white; border: 2px solid white; border-radius: 50%; width: 50px; height: 50px; font-weight: bold; font-size: 20px; z-index: 5001; }
         
-        /* VOLVER AL MENÚ PIE DE PÁGINA */
+        /* BOTÓN VOLVER AL MENÚ MEJORADO */
         .volver-pie {
             margin-top: auto;
-            margin-bottom: 30px;
-            font-size: 16px;
+            margin-bottom: 60px; /* Más arriba */
+            font-size: 22px; /* Más grande */
             color: white;
-            opacity: 0.6;
+            opacity: 0.9; /* Más visible */
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.9); /* Sombra marcada */
         }
 
         #txt-pista { color:#facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
@@ -129,7 +129,6 @@
     </div>
 
     <div id="area-carta" class="pantalla-carta">
-        <button class="btn-cerrar" onclick="cerrar()">X</button>
         <img src="logo.png" class="logo-mazo">
         <img id="visor" style="display:none;">
         <video id="visor-video" controls style="display:none;"></video>
