@@ -36,13 +36,15 @@
         .logo-portada { max-width: 220px; width: 65%; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(250,204,21,0.5)); animation: latido 2s infinite; }
         @keyframes latido { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
         
-        /* BOTÓN JUGAR: Elevado un poco más */
+        /* BOTÓN JUGAR: Bajado apenas 10px */
         .btn-entrar { 
             font-family: 'Super Sunkissed', sans-serif;
             background: rgba(225,29,72,0.9); color: white; border: 2px solid white; 
             padding: 6px 25px; font-size: 28px; cursor: pointer; 
-            margin-top: -35px; /* Cambiado de -15px a -35px para subirlo */
+            margin-top: -25px; /* De -35px a -25px para bajarlo un poquito */
             box-shadow: 0 5px 15px black; border-radius: 50px; text-transform: uppercase;
+            position: relative;
+            z-index: 10;
         }
 
         #menu-principal { display: none; padding: 20px; position: relative; z-index: 10; transition: opacity 0.5s ease; }
@@ -96,4 +98,154 @@
     </div>
 
     <div id="menu-principal">
-        <img src="logo.png" class="header-logo
+        <img src="logo.png" class="header-logo">
+        <div class="tablero">
+            <button class="btn-rojo" onclick="abrirMazo('personajes')">ADIVIN&Aacute; QUI&Eacute;N SOY?</button>
+            <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO QUI&Eacute;N DIJO...</button>
+            <button class="btn-azul" onclick="alert('Próximamente')">TRES...</button>
+            <button class="btn-amarillo" onclick="alert('Próximamente')">CHISMES</button>
+        </div>
+        <div class="seccion-controles-abajo">
+            <div style="text-align: center;">
+                <div class="seccion-dado"><div id="boton-dado" onclick="tirarDado()">🎲</div></div>
+                <div class="label-control">DADO</div>
+            </div>
+            <div onclick="abrirVideoAleatorio()" style="text-align: center;">
+                <button class="btn-especial">★</button>
+                <div class="label-control">PANELISTA</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="area-carta" class="pantalla-carta">
+        <button class="btn-cerrar" onclick="cerrar()">X</button>
+        <img src="logo.png" class="logo-mazo">
+        <img id="visor" style="display:none;">
+        <video id="visor-video" controls style="display:none;"></video>
+        
+        <div id="pistas-bloque" style="display:none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center;">
+            <div id="txt-pista"></div>
+            <div class="controles-pistas">
+                <button id="btn-pista-prev" class="btn-pista btn-prev" onclick="cambiarPista(-1)">ANTERIOR</button>
+                <button class="btn-pista btn-next" onclick="cambiarPista(1)">SIGUIENTE</button>
+            </div>
+        </div>
+        
+        <button id="btn-audio" class="btn-audio-carta" style="display:none;" onclick="sonar()">🔊 ESCUCHAR</button>
+        <div id="texto-frase"></div>
+    </div>
+
+    <audio id="repro-frase"></audio>
+
+    <script>
+        const datos = {
+            personajes: [
+                {
+                    img: 'personajes/p_01marley.jpg', 
+                    pistas: [
+                        "Su verdadero nombre es Alejandro.", 
+                        "Empezó como columnista en un magazine.", 
+                        "Viajó por todo el mundo.", 
+                        "Tiene un hijo llamado Mirko."
+                    ]
+                }
+            ],
+            quien_dijo: [
+                {
+                    img: 'personajes/p_06fort.jpg', 
+                    audios: [{f:'sonidos/p_06fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}]
+                }
+            ]
+        };
+        
+        let vids = ['panelistas/pane01.mp4'];
+        let actual = null; let pIdx = 0;
+
+        function entrarAlJuego() {
+            const capaInicio = document.getElementById('pantalla-inicio');
+            if(capaInicio) capaInicio.remove();
+            document.getElementById('menu-principal').style.display = 'block';
+            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat 95% center / cover fixed";
+            let e = document.documentElement;
+            if (e.requestFullscreen) e.requestFullscreen();
+        }
+
+        function abrirMazo(t) {
+            document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
+            document.getElementById('menu-principal').classList.add('atenuado');
+            actual = datos[t][Math.floor(Math.random() * datos[t].length)];
+            document.getElementById('visor').src = actual.img;
+            document.getElementById('visor').style.display = 'block';
+            document.getElementById('visor-video').style.display = 'none';
+            document.getElementById('texto-frase').innerHTML = "";
+            
+            if(t === 'quien_dijo') {
+                document.getElementById('pistas-bloque').style.display = 'none';
+                document.getElementById('btn-audio').style.display = 'block';
+            } else {
+                pIdx = 0;
+                document.getElementById('pistas-bloque').style.display = 'flex';
+                document.getElementById('btn-audio').style.display = 'none';
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+                document.getElementById('btn-pista-prev').style.display = 'none';
+            }
+            document.getElementById('area-carta').style.display = 'flex';
+        }
+
+        function cerrar() {
+            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat 95% center / cover fixed";
+            document.getElementById('menu-principal').classList.remove('atenuado');
+            document.getElementById('repro-frase').pause();
+            const vp = document.getElementById('visor-video');
+            vp.pause(); vp.src = "";
+            document.getElementById('area-carta').style.display = 'none';
+            document.getElementById('menu-principal').style.display = 'block';
+        }
+
+        function cambiarPista(d) {
+            let nuevaPista = pIdx + d;
+            if(nuevaPista >= 0 && nuevaPista < actual.pistas.length) {
+                pIdx = nuevaPista;
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+                const btnPrev = document.getElementById('btn-pista-prev');
+                if(pIdx > 0) {
+                    btnPrev.style.display = 'block';
+                } else {
+                    btnPrev.style.display = 'none';
+                }
+            }
+        }
+
+        function abrirVideoAleatorio() {
+            if(vids.length === 0) return alert("¡Fin!");
+            document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
+            document.getElementById('menu-principal').classList.add('atenuado');
+            const videoElegido = vids.splice(Math.floor(Math.random() * vids.length), 1)[0];
+            const vp = document.getElementById('visor-video');
+            vp.src = videoElegido;
+            document.getElementById('visor').style.display = 'none';
+            document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('btn-audio').style.display = 'none';
+            document.getElementById('visor-video').style.display = 'block';
+            document.getElementById('area-carta').style.display = 'flex';
+            vp.play();
+        }
+
+        function sonar() {
+            const r = document.getElementById('repro-frase');
+            r.src = actual.audios[0].f;
+            document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
+            r.play();
+        }
+
+        function tirarDado() {
+            const d = document.getElementById('boton-dado');
+            let c = 0;
+            let i = setInterval(() => {
+                d.innerText = Math.floor(Math.random()*6)+1;
+                if(c++ > 10) clearInterval(i);
+            }, 80);
+        }
+    </script>
+</body>
+</html>
