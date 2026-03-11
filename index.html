@@ -15,10 +15,10 @@
         body { 
             font-family: 'Super Sunkissed', sans-serif; 
             text-align: center; color: white; 
-            /* CORREGIDO: Imagen anclada a la derecha */
+            /* CORRECCIÓN DE FONDO: Anclado totalmente a la derecha */
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat;
             background-size: cover;
-            background-position: 90% center; 
+            background-position: right center; 
             background-attachment: fixed;
             overflow: hidden;
             transition: background 0.6s ease-in-out;
@@ -29,7 +29,7 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #1a1a1a url('back.jpg') no-repeat;
             background-size: cover;
-            background-position: 90% center;
+            background-position: right center;
             display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
             z-index: 9999; padding-top: 8vh; 
         }
@@ -63,21 +63,31 @@
         
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
+        /* CONTROLES INFERIORES */
         .seccion-controles-abajo { 
             display: flex; 
             justify-content: center; 
-            align-items: flex-start; 
+            align-items: flex-end; 
             gap: 60px; 
-            margin-top: 15px; 
+            margin-top: 25px; 
         }
 
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
-        #boton-dado { background: white; color: black; width: 65px; height: 65px; border-radius: 12px; font-size: 35px; display: flex; justify-content: center; align-items: center; margin: 0 auto; cursor: pointer;}
+        #boton-dado { background: white; color: black; width: 80px; height: 80px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; margin: 0 auto; cursor: pointer;}
         
-        .btn-especial { background: black; color: #facc15; border: 4px solid #facc15; width: 85px; height: 85px; border-radius: 20px; font-size: 45px; box-shadow: 0 0 15px rgba(250,204,21,0.5); cursor: pointer;}
+        .btn-especial { background: black; color: #facc15; border: 4px solid #facc15; width: 100px; height: 100px; border-radius: 20px; font-size: 55px; box-shadow: 0 0 15px rgba(250,204,21,0.5); cursor: pointer;}
 
-        .label-control { font-size: 14px; font-weight: bold; color: #facc15; margin-top: 5px; text-transform: uppercase; }
+        /* TEXTO MÁS GRANDE PARA DADO Y PANELISTA */
+        .label-control { 
+            font-size: 22px; /* Aumentado de 14px a 22px */
+            font-weight: bold; 
+            color: #facc15; 
+            margin-top: 10px; 
+            text-transform: uppercase; 
+            text-shadow: 2px 2px 4px black;
+        }
 
+        /* AREA CARTAS */
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         #visor { max-width: 85%; max-height: 40vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
@@ -162,7 +172,10 @@
             const capaInicio = document.getElementById('pantalla-inicio');
             if(capaInicio) capaInicio.remove();
             document.getElementById('menu-principal').style.display = 'block';
-            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat 90% center / cover fixed";
+            
+            // Forzamos el anclaje a la derecha en JS
+            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat right center / cover fixed";
+            
             let e = document.documentElement;
             if (e.requestFullscreen) e.requestFullscreen();
         }
@@ -188,7 +201,8 @@
         }
 
         function cerrar() {
-            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat 90% center / cover fixed";
+            // Restauramos el anclaje a la derecha al cerrar
+            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat right center / cover fixed";
             document.getElementById('menu-principal').classList.remove('atenuado');
             document.getElementById('repro-frase').pause();
             const vp = document.getElementById('visor-video');
