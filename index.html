@@ -75,7 +75,16 @@
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         #visor { max-width: 85%; max-height: 40vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        #visor-video { width: 85%; max-height: 55vh; border: 4px solid white; border-radius: 15px; background: black; }
+        
+        /* VISOR DE VIDEO: Caja más angosta (70%) sin deformar el video */
+        #visor-video { 
+            width: 70%; 
+            max-height: 55vh; 
+            border: 4px solid white; 
+            border-radius: 15px; 
+            background: black; 
+            object-fit: contain; /* Mantiene la proporción original del video */
+        }
         
         .volver-pie {
             margin-top: auto;
@@ -169,7 +178,6 @@
             ]
         };
         
-        // --- LISTA DE VIDEOS ACTUALIZADA ---
         let vids = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4'];
         let actual = null; let pIdx = 0;
 
@@ -230,7 +238,6 @@
 
         function abrirVideoAleatorio() {
             if(vids.length === 0) {
-                // Si se acaban los videos, los recargamos para que el juego siga
                 vids = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4'];
             }
             document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
