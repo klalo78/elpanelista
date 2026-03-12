@@ -72,16 +72,43 @@
 
         .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
 
-        .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
+        /* --- PANTALLA CARTA ACTUALIZADA CON SOMBRA Y BORDES --- */
+        .pantalla-carta { 
+            display: none; 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); /* Centrado perfecto */
+            width: 90%; 
+            max-width: 500px; /* Ancho máximo para no deformar en PC */
+            height: auto; 
+            max-height: 90vh;
+            background: rgba(0,0,0,0.9); /* Fondo negro casi opaco para la carta */
+            z-index: 5000; 
+            flex-direction: column; 
+            justify-content: flex-start; 
+            align-items: center; 
+            padding: 20px;
+            overflow-y: auto; /* Scroll si el contenido es largo */
+            
+            /* --- NUEVOS ESTILOS: SOMBRA Y BORDES REDONDEADOS --- */
+            border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4); /* Sombra suave y difuminada */
+            border: 1px solid rgba(255,255,255,0.1); /* Borde muy sutil para definir la carta */
+        }
+        
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         
-        /* --- VISOR DE CARTAS AGRANDADO INTERMEDIO (~30%) --- */
+        /* --- VISOR DE CARTAS ACTUALIZADO: MÁS PEQUEÑO Y SIN FILETE --- */
         #visor { 
-            width: 85%; /* Ajustado */
-            max-height: 55vh; /* Ajustado: intermedio entre 40vh y 80vh */
-            border: 3px solid white; 
+            width: 60%; /* Imagen más pequeña */
+            max-height: 35vh; /* Altura máxima reducida */
+            
+            /* --- FILETE ELIMINADO --- */
+            border: none; /* Sin borde */
+            
             border-radius: 10px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7); /* Sombra para que la foto no flote */
             object-fit: contain;
         }
         
@@ -96,8 +123,8 @@
         
         .volver-pie {
             margin-top: auto;
-            margin-bottom: 60px;
-            font-size: 22px;
+            margin-bottom: 30px; /* Ajustado para que quepa en el nuevo diseño centrado */
+            font-size: 20px;
             color: white;
             opacity: 0.9;
             cursor: pointer;
@@ -107,29 +134,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
+            padding-top: 20px; /* Espacio arriba */
         }
 
         .flecha-volver {
-            font-size: 32px;
+            font-size: 28px;
             display: inline-block;
             animation: deslizar 1.5s infinite ease-in-out;
         }
 
         @keyframes deslizar {
             0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(-10px); }
+            50% { transform: translateX(-8px); }
         }
 
-        #txt-pista { color:#facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
+        #txt-pista { color:#facc15; font-size: 26px; margin-bottom: 15px; min-height: 50px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.2; }
         
-        .controles-pistas { display: flex; gap: 10px; width: 90%; }
-        .btn-pista { flex: 1; font-family: 'Super Sunkissed', sans-serif; height: 60px !important; border: 2px solid white; border-radius: 10px; color: white; font-size: 20px; cursor: pointer; }
+        .controles-pistas { display: flex; gap: 10px; width: 90%; margin-bottom: 15px; }
+        .btn-pista { flex: 1; font-family: 'Super Sunkissed', sans-serif; height: 50px !important; border: 2px solid white; border-radius: 10px; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
         .btn-prev { background: #e11d48; display: none; }
         .btn-next { background: #2563eb; }
 
-        #texto-frase { margin-top: 10px; font-size: 32px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; }
-        .btn-audio-carta { font-family: 'Super Sunkissed', sans-serif; background:#facc15; color:black; width:90%; height:70px !important; margin-top:15px; border: 2px solid white; border-radius: 10px; font-size: 22px; cursor: pointer; }
+        #texto-frase { margin-top: 5px; font-size: 28px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; }
+        .btn-audio-carta { font-family: 'Super Sunkissed', sans-serif; background:#facc15; color:black; width:90%; height:60px !important; margin-top:10px; border: 2px solid white; border-radius: 10px; font-size: 20px; text-transform: uppercase; cursor: pointer; }
     </style>
 </head>
 <body id="cuerpo">
@@ -164,7 +192,7 @@
         <img id="visor" style="display:none;">
         <video id="visor-video" controls style="display:none;"></video>
         
-        <div id="pistas-bloque" style="display:none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center;">
+        <div id="pistas-bloque" style="display:none; width: 90%; flex-direction: column; align-items: center;">
             <div id="txt-pista"></div>
             <div class="controles-pistas">
                 <button id="btn-pista-prev" class="btn-pista btn-prev" onclick="cambiarPista(-1)">ANTERIOR</button>
