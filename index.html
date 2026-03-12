@@ -85,7 +85,6 @@
             object-fit: contain;
         }
         
-        /* BOTÓN VOLVER AL MENÚ CON FLECHA ANIMADA */
         .volver-pie {
             margin-top: auto;
             margin-bottom: 60px;
@@ -99,18 +98,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px; /* Espacio entre flecha y texto */
+            gap: 15px;
         }
 
         .flecha-volver {
-            font-size: 32px; /* Flecha más grande */
+            font-size: 32px;
             display: inline-block;
             animation: deslizar 1.5s infinite ease-in-out;
         }
 
         @keyframes deslizar {
             0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(-10px); } /* Se mueve a la izquierda */
+            50% { transform: translateX(-10px); }
         }
 
         #txt-pista { color:#facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
@@ -178,7 +177,7 @@
         const datos = {
             personajes: [
                 {
-                    img: 'personajes/p_01marley.jpg', 
+                    img: 'personajes/marley.jpg', 
                     pistas: [
                         "Su verdadero nombre es Alejandro.", 
                         "Empezó como columnista en un magazine.", 
@@ -189,8 +188,8 @@
             ],
             quien_dijo: [
                 {
-                    img: 'personajes/p_06fort.jpg', 
-                    audios: [{f:'sonidos/p_06fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}]
+                    img: 'personajes/fort.jpg', 
+                    audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}] // Audio actualizado
                 }
             ]
         };
