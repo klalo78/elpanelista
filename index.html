@@ -85,31 +85,42 @@
             object-fit: contain;
         }
         
-        .volver-pie {
+        /* --- BOTÓN VOLVER AL MENÚ ACTUALIZADO --- */
+        .volver- pie-contenedor {
             margin-top: auto;
-            margin-bottom: 60px;
+            margin-bottom: 110px; /* SUBIDO: De 60px a 110px */
+            cursor: pointer;
+            display: flex;
+            flex-direction: column; /* DISPOSICIÓN VERTICAL */
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Espacio entre texto y flecha */
+            
+            /* ANIMACIÓN APLICADA A TODO EL CONJUNTO */
+            animation: deslizarVertical 1.5s infinite ease-in-out;
+        }
+
+        .volver-pie-texto {
             font-size: 22px;
             color: white;
             opacity: 0.9;
-            cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
         }
 
-        .flecha-volver {
-            font-size: 32px;
-            display: inline-block;
-            animation: deslizar 1.5s infinite ease-in-out;
+        .flecha-volver-svg {
+            width: 40px; /* FLECHA MÁS NOTABLE (Ancho) */
+            height: 40px; /* FLECHA MÁS NOTABLE (Alto) */
+            fill: white; /* Color de la flecha */
+            opacity: 0.9;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.9));
         }
 
-        @keyframes deslizar {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(-10px); }
+        /* ANIMACIÓN VERTICAL (Hacia arriba y abajo) */
+        @keyframes deslizarVertical {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); } /* Se mueve hacia arriba */
         }
 
         #txt-pista { color:#facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
@@ -166,8 +177,11 @@
         <button id="btn-audio" class="btn-audio-carta" style="display:none;" onclick="sonar()">🔊 ESCUCHAR</button>
         <div id="texto-frase"></div>
 
-        <div class="volver-pie" onclick="cerrar()">
-            <span class="flecha-volver">←</span> volver al menú
+        <div class="volver-pie-contenedor" onclick="cerrar()">
+            <div class="volver-pie-texto">volver al menú</div>
+            <svg class="flecha-volver-svg" viewBox="0 0 24 24">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
         </div>
     </div>
 
@@ -189,7 +203,7 @@
             quien_dijo: [
                 {
                     img: 'personajes/fort.jpg', 
-                    audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}] // Audio actualizado
+                    audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}]
                 }
             ]
         };
@@ -219,74 +233,3 @@
                 document.getElementById('btn-audio').style.display = 'block';
                 document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
             } else {
-                pIdx = 0;
-                document.getElementById('pistas-bloque').style.display = 'flex';
-                document.getElementById('btn-audio').style.display = 'none';
-                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
-                document.getElementById('btn-pista-prev').style.display = 'none';
-                document.getElementById('texto-frase').innerHTML = ""; 
-            }
-            document.getElementById('area-carta').style.display = 'flex';
-        }
-
-        function cerrar() {
-            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat 95% center / cover fixed";
-            document.getElementById('menu-principal').classList.remove('atenuado');
-            document.getElementById('repro-frase').pause();
-            const vp = document.getElementById('visor-video');
-            vp.pause(); vp.src = "";
-            document.getElementById('area-carta').style.display = 'none';
-            document.getElementById('menu-principal').style.display = 'block';
-        }
-
-        function cambiarPista(d) {
-            let nuevaPista = pIdx + d;
-            if(nuevaPista >= 0 && nuevaPista < actual.pistas.length) {
-                pIdx = nuevaPista;
-                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
-                const btnPrev = document.getElementById('btn-pista-prev');
-                if(pIdx > 0) {
-                    btnPrev.style.display = 'block';
-                } else {
-                    btnPrev.style.display = 'none';
-                }
-            }
-        }
-
-        function abrirVideoAleatorio() {
-            if(vids.length === 0) {
-                vids = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4'];
-            }
-            document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
-            document.getElementById('menu-principal').classList.add('atenuado');
-            
-            const indiceAleatorio = Math.floor(Math.random() * vids.length);
-            const videoElegido = vids.splice(indiceAleatorio, 1)[0];
-            
-            const vp = document.getElementById('visor-video');
-            vp.src = videoElegido;
-            document.getElementById('visor').style.display = 'none';
-            document.getElementById('pistas-bloque').style.display = 'none';
-            document.getElementById('btn-audio').style.display = 'none';
-            document.getElementById('visor-video').style.display = 'block';
-            document.getElementById('area-carta').style.display = 'flex';
-            vp.play();
-        }
-
-        function sonar() {
-            const r = document.getElementById('repro-frase');
-            r.src = actual.audios[0].f;
-            r.play();
-        }
-
-        function tirarDado() {
-            const d = document.getElementById('boton-dado');
-            let c = 0;
-            let i = setInterval(() => {
-                d.innerText = Math.floor(Math.random()*6)+1;
-                if(c++ > 10) clearInterval(i);
-            }, 80);
-        }
-    </script>
-</body>
-</html>
