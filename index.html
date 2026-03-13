@@ -233,3 +233,74 @@
                 document.getElementById('btn-audio').style.display = 'block';
                 document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
             } else {
+                pIdx = 0;
+                document.getElementById('pistas-bloque').style.display = 'flex';
+                document.getElementById('btn-audio').style.display = 'none';
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+                document.getElementById('btn-pista-prev').style.display = 'none';
+                document.getElementById('texto-frase').innerHTML = ""; 
+            }
+            document.getElementById('area-carta').style.display = 'flex';
+        }
+
+        function cerrar() {
+            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat 95% center / cover fixed";
+            document.getElementById('menu-principal').classList.remove('atenuado');
+            document.getElementById('repro-frase').pause();
+            const vp = document.getElementById('visor-video');
+            vp.pause(); vp.src = "";
+            document.getElementById('area-carta').style.display = 'none';
+            document.getElementById('menu-principal').style.display = 'block';
+        }
+
+        function cambiarPista(d) {
+            let nuevaPista = pIdx + d;
+            if(nuevaPista >= 0 && nuevaPista < actual.pistas.length) {
+                pIdx = nuevaPista;
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+                const btnPrev = document.getElementById('btn-pista-prev');
+                if(pIdx > 0) {
+                    btnPrev.style.display = 'block';
+                } else {
+                    btnPrev.style.display = 'none';
+                }
+            }
+        }
+
+        function abrirVideoAleatorio() {
+            if(vids.length === 0) {
+                vids = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4'];
+            }
+            document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
+            document.getElementById('menu-principal').classList.add('atenuado');
+            
+            const indiceAleatorio = Math.floor(Math.random() * vids.length);
+            const videoElegido = vids.splice(indiceAleatorio, 1)[0];
+            
+            const vp = document.getElementById('visor-video');
+            vp.src = videoElegido;
+            document.getElementById('visor').style.display = 'none';
+            document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('btn-audio').style.display = 'none';
+            document.getElementById('visor-video').style.display = 'block';
+            document.getElementById('area-carta').style.display = 'flex';
+            vp.play();
+        }
+
+        function sonar() {
+            const r = document.getElementById('repro-frase');
+            r.src = actual.audios[0].f;
+            r.play();
+        }
+
+        function tirarDado() {
+            const d = document.getElementById('boton-dado');
+            let c = 0;
+            let i = setInterval(() => {
+                d.innerText = Math.floor(Math.random()*6)+1;
+                if(c++ > 10) clearInterval(i);
+            }, 80);
+        }
+    </script>
+</body>
+</html>
