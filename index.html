@@ -84,43 +84,50 @@
             background: black; 
             object-fit: contain;
         }
+
+        #mensaje-fin-videos {
+            font-size: 32px;
+            color: #facc15;
+            text-shadow: 3px 3px 5px black;
+            padding: 40px;
+            line-height: 1.3;
+            display: none;
+        }
         
-        /* --- BOTÓN VOLVER AL MENÚ ACTUALIZADO --- */
-        .volver- pie-contenedor {
+        .volver-pie-contenedor {
             margin-top: auto;
-            margin-bottom: 110px; /* SUBIDO: De 60px a 110px */
+            margin-bottom: 40px;
             cursor: pointer;
             display: flex;
-            flex-direction: column; /* DISPOSICIÓN VERTICAL */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px; /* Espacio entre texto y flecha */
-            
-            /* ANIMACIÓN APLICADA A TODO EL CONJUNTO */
-            animation: deslizarVertical 1.5s infinite ease-in-out;
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            animation: deslizarVertical 2s infinite ease-in-out;
         }
 
         .volver-pie-texto {
-            font-size: 22px;
+            font-size: 18px;
             color: white;
-            opacity: 0.9;
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.9);
+            font-weight: bold;
         }
 
         .flecha-volver-svg {
-            width: 40px; /* FLECHA MÁS NOTABLE (Ancho) */
-            height: 40px; /* FLECHA MÁS NOTABLE (Alto) */
-            fill: white; /* Color de la flecha */
-            opacity: 0.9;
-            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.9));
+            width: 30px;
+            height: 30px;
+            fill: white;
         }
 
-        /* ANIMACIÓN VERTICAL (Hacia arriba y abajo) */
         @keyframes deslizarVertical {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); } /* Se mueve hacia arriba */
+            50% { transform: translateY(8px); }
         }
 
         #txt-pista { color:#facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
@@ -163,6 +170,9 @@
 
     <div id="area-carta" class="pantalla-carta">
         <img src="logo.png" class="logo-mazo">
+        
+        <div id="mensaje-fin-videos">YA NO HAY MÁS PANELISTAS,<br>TIRÁ EL DADO NUEVAMENTE</div>
+
         <img id="visor" style="display:none;">
         <video id="visor-video" controls style="display:none;"></video>
         
@@ -180,7 +190,7 @@
         <div class="volver-pie-contenedor" onclick="cerrar()">
             <div class="volver-pie-texto">volver al menú</div>
             <svg class="flecha-volver-svg" viewBox="0 0 24 24">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/>
             </svg>
         </div>
     </div>
@@ -208,7 +218,9 @@
             ]
         };
         
-        let vids = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4'];
+        // --- LÓGICA DE VIDEOS SIN REPETICIÓN ---
+        const VIDEOS_ORIGINALES = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4'];
+        let videosDisponibles = [...VIDEOS_ORIGINALES];
         let actual = null; let pIdx = 0;
 
         function entrarAlJuego() {
@@ -223,6 +235,7 @@
         function abrirMazo(t) {
             document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
             document.getElementById('menu-principal').classList.add('atenuado');
+            document.getElementById('mensaje-fin-videos').style.display = 'none';
             actual = datos[t][Math.floor(Math.random() * datos[t].length)];
             document.getElementById('visor').src = actual.img;
             document.getElementById('visor').style.display = 'block';
@@ -259,32 +272,38 @@
                 pIdx = nuevaPista;
                 document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
                 const btnPrev = document.getElementById('btn-pista-prev');
-                if(pIdx > 0) {
-                    btnPrev.style.display = 'block';
-                } else {
-                    btnPrev.style.display = 'none';
-                }
+                btnPrev.style.display = (pIdx > 0) ? 'block' : 'none';
             }
         }
 
         function abrirVideoAleatorio() {
-            if(vids.length === 0) {
-                vids = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4'];
-            }
             document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
             document.getElementById('menu-principal').classList.add('atenuado');
             
-            const indiceAleatorio = Math.floor(Math.random() * vids.length);
-            const videoElegido = vids.splice(indiceAleatorio, 1)[0];
+            const visorV = document.getElementById('visor-video');
+            const msgFin = document.getElementById('mensaje-fin-videos');
             
-            const vp = document.getElementById('visor-video');
-            vp.src = videoElegido;
-            document.getElementById('visor').style.display = 'none';
-            document.getElementById('pistas-bloque').style.display = 'none';
-            document.getElementById('btn-audio').style.display = 'none';
-            document.getElementById('visor-video').style.display = 'block';
+            // Si ya no quedan videos disponibles
+            if(videosDisponibles.length === 0) {
+                document.getElementById('visor').style.display = 'none';
+                document.getElementById('pistas-bloque').style.display = 'none';
+                document.getElementById('btn-audio').style.display = 'none';
+                visorV.style.display = 'none';
+                msgFin.style.display = 'block';
+            } else {
+                msgFin.style.display = 'none';
+                const indiceAleatorio = Math.floor(Math.random() * videosDisponibles.length);
+                const videoElegido = videosDisponibles.splice(indiceAleatorio, 1)[0];
+                
+                visorV.src = videoElegido;
+                document.getElementById('visor').style.display = 'none';
+                document.getElementById('pistas-bloque').style.display = 'none';
+                document.getElementById('btn-audio').style.display = 'none';
+                visorV.style.display = 'block';
+                visorV.play();
+            }
+            
             document.getElementById('area-carta').style.display = 'flex';
-            vp.play();
         }
 
         function sonar() {
