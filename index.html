@@ -171,7 +171,7 @@
     <div id="area-carta" class="pantalla-carta">
         <img src="logo.png" class="logo-mazo">
         
-        <div id="mensaje-fin-videos">YA NO HAY MÁS PANELISTAS,<br>TIRÁ EL DADO NUEVAMENTE</div>
+        <div id="mensaje-fin-videos">YA NO HAY MÁS CARTAS / PANELISTAS,<br>TIRÁ EL DADO NUEVAMENTE</div>
 
         <img id="visor" style="display:none;">
         <video id="visor-video" controls style="display:none;"></video>
@@ -201,6 +201,7 @@
         const datos = {
             personajes: [
                 {
+                    id: 'marley',
                     img: 'personajes/marley.jpg', 
                     pistas: [
                         "Su verdadero nombre es Alejandro.", 
@@ -212,10 +213,12 @@
             ],
             quien_dijo: [
                 {
+                    id: 'fort',
                     img: 'personajes/fort.jpg', 
                     audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}]
                 },
                 {
+                    id: 'barbieri',
                     img: 'personajes/barbieri.jpg', 
                     audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}]
                 }
@@ -224,7 +227,13 @@
         
         const VIDEOS_ORIGINALES = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4'];
         let videosDisponibles = [...VIDEOS_ORIGINALES];
-        let actual = null; let pIdx = 0;
+        
+        // --- CONTROL DE REPETICIÓN MAZO VERDE ---
+        let audiosVistosMazoVerde = {}; // Formato: { 'fort': [0], 'barbieri': [0] }
+
+        let actual = null; 
+        let audioActualIdx = 0;
+        let pIdx = 0;
 
         function entrarAlJuego() {
             const capaInicio = document.getElementById('pantalla-inicio');
@@ -239,22 +248,58 @@
             document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
             document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('mensaje-fin-videos').style.display = 'none';
-            actual = datos[t][Math.floor(Math.random() * datos[t].length)];
-            document.getElementById('visor').src = actual.img;
-            document.getElementById('visor').style.display = 'block';
-            document.getElementById('visor-video').style.display = 'none';
             document.getElementById('texto-frase').innerHTML = "";
-
-            if(t === 'quien_dijo') {
-                document.getElementById('pistas-bloque').style.display = 'none';
-                document.getElementById('btn-audio').style.display = 'block';
-                document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
+            document.getElementById('visor-video').style.display = 'none';
+            
+            if (t === 'quien_dijo') {
+                seleccionarAudioMazoVerde();
             } else {
+                // Mazo Rojo (lógica estándar)
+                actual = datos[t][Math.floor(Math.random() * datos[t].length)];
+                document.getElementById('visor').src = actual.img;
+                document.getElementById('visor').style.display = 'block';
                 pIdx = 0;
                 document.getElementById('pistas-bloque').style.display = 'flex';
                 document.getElementById('btn-audio').style.display = 'none';
                 document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
                 document.getElementById('btn-pista-prev').style.display = 'none';
+                document.getElementById('area-carta').style.display = 'flex';
+            }
+        }
+
+        function seleccionarAudioMazoVerde() {
+            // Buscamos combinaciones disponibles
+            let opcionesDisponibles = [];
+            
+            datos.quien_dijo.forEach(pers => {
+                pers.audios.forEach((audio, index) => {
+                    if (!audiosVistosMazoVerde[pers.id] || !audiosVistosMazoVerde[pers.id].includes(index)) {
+                        opcionesDisponibles.push({ personaje: pers, audioIdx: index });
+                    }
+                });
+            });
+
+            if (opcionesDisponibles.length === 0) {
+                // Ya no hay más combinaciones imagen + audio
+                document.getElementById('visor').style.display = 'none';
+                document.getElementById('pistas-bloque').style.display = 'none';
+                document.getElementById('btn-audio').style.display = 'none';
+                document.getElementById('mensaje-fin-videos').style.display = 'block';
+            } else {
+                const eleccion = opcionesDisponibles[Math.floor(Math.random() * opcionesDisponibles.length)];
+                actual = eleccion.personaje;
+                audioActualIdx = eleccion.audioIdx;
+
+                // Marcar como visto
+                if (!audiosVistosMazoVerde[actual.id]) audiosVistosMazoVerde[actual.id] = [];
+                audiosVistosMazoVerde[actual.id].push(audioActualIdx);
+
+                // Mostrar en pantalla
+                document.getElementById('visor').src = actual.img;
+                document.getElementById('visor').style.display = 'block';
+                document.getElementById('pistas-bloque').style.display = 'none';
+                document.getElementById('btn-audio').style.display = 'block';
+                document.getElementById('texto-frase').innerHTML = actual.audios[audioActualIdx].t;
             }
             document.getElementById('area-carta').style.display = 'flex';
         }
@@ -308,7 +353,8 @@
 
         function sonar() {
             const r = document.getElementById('repro-frase');
-            r.src = actual.audios[0].f;
+            // En el mazo verde usamos audioActualIdx
+            r.src = actual.audios[audioActualIdx].f;
             r.play();
         }
 
