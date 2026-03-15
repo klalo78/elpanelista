@@ -214,6 +214,10 @@
                 {
                     img: 'personajes/fort.jpg', 
                     audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}]
+                },
+                {
+                    img: 'personajes/barbieri.jpg', 
+                    audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}]
                 }
             ]
         };
@@ -239,7 +243,8 @@
             document.getElementById('visor').src = actual.img;
             document.getElementById('visor').style.display = 'block';
             document.getElementById('visor-video').style.display = 'none';
-            
+            document.getElementById('texto-frase').innerHTML = "";
+
             if(t === 'quien_dijo') {
                 document.getElementById('pistas-bloque').style.display = 'none';
                 document.getElementById('btn-audio').style.display = 'block';
@@ -250,7 +255,6 @@
                 document.getElementById('btn-audio').style.display = 'none';
                 document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
                 document.getElementById('btn-pista-prev').style.display = 'none';
-                document.getElementById('texto-frase').innerHTML = ""; 
             }
             document.getElementById('area-carta').style.display = 'flex';
         }
@@ -278,13 +282,9 @@
         function abrirVideoAleatorio() {
             document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
             document.getElementById('menu-principal').classList.add('atenuado');
-            
             const visorV = document.getElementById('visor-video');
             const msgFin = document.getElementById('mensaje-fin-videos');
-            const textoFrase = document.getElementById('texto-frase'); // Nuevo elemento a limpiar
-            
-            // LIMPIEZA DE TEXTOS PREVIOS
-            textoFrase.innerHTML = ""; 
+            document.getElementById('texto-frase').innerHTML = ""; 
 
             if(videosDisponibles.length === 0) {
                 document.getElementById('visor').style.display = 'none';
@@ -296,7 +296,6 @@
                 msgFin.style.display = 'none';
                 const indiceAleatorio = Math.floor(Math.random() * videosDisponibles.length);
                 const videoElegido = videosDisponibles.splice(indiceAleatorio, 1)[0];
-                
                 visorV.src = videoElegido;
                 document.getElementById('visor').style.display = 'none';
                 document.getElementById('pistas-bloque').style.display = 'none';
@@ -304,7 +303,6 @@
                 visorV.style.display = 'block';
                 visorV.play();
             }
-            
             document.getElementById('area-carta').style.display = 'flex';
         }
 
