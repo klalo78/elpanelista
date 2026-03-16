@@ -264,4 +264,106 @@
                 seleccionarAudioMazoVerde();
             } else {
                 actual = datos[t][Math.floor(Math.random() * datos[t].length)];
-                document.getElementById('visor').src
+                document.getElementById('visor').src = actual.img;
+                document.getElementById('visor').style.display = 'block';
+                pIdx = 0;
+                document.getElementById('pistas-bloque').style.display = 'flex';
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+                document.getElementById('btn-pista-prev').style.display = 'none';
+                document.getElementById('area-carta').style.display = 'flex';
+            }
+        }
+
+        function seleccionarAudioMazoVerde() {
+            let opcionesDisponibles = [];
+            
+            datos.quien_dijo.forEach(pers => {
+                pers.audios.forEach((audio, index) => {
+                    if (!audiosVistosMazoVerde[pers.id] || !audiosVistosMazoVerde[pers.id].includes(index)) {
+                        opcionesDisponibles.push({ personaje: pers, audioIdx: index });
+                    }
+                });
+            });
+
+            if (opcionesDisponibles.length === 0) {
+                document.getElementById('mensaje-fin-videos').style.display = 'block';
+            } else {
+                const eleccion = opcionesDisponibles[Math.floor(Math.random() * opcionesDisponibles.length)];
+                actual = eleccion.personaje;
+                audioActualIdx = eleccion.audioIdx;
+
+                if (!audiosVistosMazoVerde[actual.id]) audiosVistosMazoVerde[actual.id] = [];
+                audiosVistosMazoVerde[actual.id].push(audioActualIdx);
+
+                document.getElementById('visor').src = actual.img;
+                document.getElementById('visor').style.display = 'block';
+                document.getElementById('btn-audio').style.display = 'block';
+                document.getElementById('texto-frase').innerHTML = actual.audios[audioActualIdx].t;
+            }
+            document.getElementById('area-carta').style.display = 'flex';
+        }
+
+        function cerrar() {
+            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat 95% center / cover fixed";
+            document.getElementById('menu-principal').classList.remove('atenuado');
+            document.getElementById('repro-frase').pause();
+            const vp = document.getElementById('visor-video');
+            vp.pause(); vp.src = "";
+            document.getElementById('area-carta').style.display = 'none';
+            document.getElementById('menu-principal').style.display = 'block';
+        }
+
+        function cambiarPista(d) {
+            let nuevaPista = pIdx + d;
+            if(nuevaPista >= 0 && nuevaPista < actual.pistas.length) {
+                pIdx = nuevaPista;
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+                const btnPrev = document.getElementById('btn-pista-prev');
+                btnPrev.style.display = (pIdx > 0) ? 'block' : 'none';
+            }
+        }
+
+        function abrirVideoAleatorio() {
+            document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
+            document.getElementById('menu-principal').classList.add('atenuado');
+            const visorV = document.getElementById('visor-video');
+            const msgFin = document.getElementById('mensaje-fin-videos');
+            
+            document.getElementById('texto-frase').innerHTML = ""; 
+            document.getElementById('visor').style.display = 'none';
+            document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('btn-audio').style.display = 'none';
+
+            if(videosDisponibles.length === 0) {
+                visorV.style.display = 'none';
+                msgFin.style.display = 'block';
+            } else {
+                msgFin.style.display = 'none';
+                const indiceAleatorio = Math.floor(Math.random() * videosDisponibles.length);
+                const videoElegido = videosDisponibles.splice(indiceAleatorio, 1)[0];
+                visorV.src = videoElegido;
+                visorV.style.display = 'block';
+                visorV.play();
+            }
+            document.getElementById('area-carta').style.display = 'flex';
+        }
+
+        function sonar() {
+            const r = document.getElementById('repro-frase');
+            r.src = actual.audios[audioActualIdx].f;
+            r.play();
+        }
+
+        function tirarDado() {
+            let c = 0;
+            let i = setInterval(() => {
+                document.getElementById('boton-dado').innerText = Math.floor(Math.random()*6)+1;
+                if(c++ > 10) {
+                    clearInterval(i);
+                    vibrar(100); // Única vibración: al detenerse el dado
+                }
+            }, 80);
+        }
+    </script>
+</body>
+</html>
