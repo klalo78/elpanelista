@@ -68,7 +68,6 @@
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
         #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; margin: 0 auto; cursor: pointer;}
         
-        /* --- ESTILOS ACTUALIZADOS PARA EL BOTÓN ESPECIAL --- */
         .btn-especial { 
             background: black; 
             color: #facc15; 
@@ -76,25 +75,23 @@
             width: 105px; 
             height: 105px; 
             border-radius: 20px; 
-            box-shadow: 0 0 15px rgba(250,204,21,0.5)); 
+            box-shadow: 0 0 15px rgba(250,204,21,0.5); 
             cursor: pointer;
-            display: flex; /* Para centrar la imagen */
+            display: flex; 
             align-items: center;
             justify-content: center;
-            padding: 0; /* Quitar padding por defecto */
-            overflow: hidden; /* Evitar que la imagen salga */
+            padding: 0; 
+            overflow: hidden; 
         }
 
-        /* --- NUEVOS ESTILOS PARA LA IMAGEN star.png Y SU ANIMACIÓN --- */
         .star-icon {
-            width: 80%; /* Tamaño relativo al botón */
+            width: 80%; 
             height: 80%;
-            object-fit: contain; /* Mantener proporción */
-            /* Animación: giro lento y suave, infinito */
+            object-fit: contain; 
             animation: girarEstrella 10s linear infinite;
+            border-radius: 50%; /* Por si el jpg tiene bordes rectos y querés que se vea circular */
         }
 
-        /* Definición de la animación de giro */
         @keyframes girarEstrella {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -193,7 +190,7 @@
             </div>
             <div onclick="abrirVideoAleatorio()" style="text-align: center;">
                 <button class="btn-especial">
-                    <img src="star.png" alt="estrella giratoria" class="star-icon">
+                    <img src="star.jpg" alt="estrella giratoria" class="star-icon">
                 </button>
                 <div class="label-control">PANELISTA</div>
             </div>
