@@ -89,7 +89,7 @@
             height: 80%;
             object-fit: contain; 
             animation: girarEstrella 10s linear infinite;
-            border-radius: 50%; /* Por si el jpg tiene bordes rectos y querés que se vea circular */
+            border-radius: 50%;
         }
 
         @keyframes girarEstrella {
@@ -226,6 +226,7 @@
 
     <audio id="repro-frase"></audio>
     <audio id="repro-dado" src="sonidos/dado.mp3"></audio>
+    <audio id="repro-rojo" src="sonidos/moria_01.mp3"></audio>
 
     <script>
         const datos = {
@@ -256,6 +257,11 @@
                     id: 'pachano',
                     img: 'personajes/pachano.jpg', 
                     audios: [{f:'sonidos/pachano01.mp3', t:'“¡Tinguitingui tinguitingui!”'}]
+                },
+                {
+                    id: 'fantino',
+                    img: 'personajes/fantino.jpg', 
+                    audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}]
                 }
             ]
         };
@@ -291,6 +297,13 @@
             if (t === 'quien_dijo') {
                 seleccionarAudioMazoVerde();
             } else {
+                // Si es el mazo rojo, suena Moria
+                if(t === 'personajes') {
+                    const audioMoria = document.getElementById('repro-rojo');
+                    audioMoria.currentTime = 0;
+                    audioMoria.play();
+                }
+
                 actual = datos[t][Math.floor(Math.random() * datos[t].length)];
                 document.getElementById('visor').src = actual.img;
                 document.getElementById('visor').style.display = 'block';
