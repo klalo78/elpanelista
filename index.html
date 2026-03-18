@@ -102,19 +102,17 @@
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         
-        /* --- ESTILOS ACTUALIZADOS PARA AGRANDAR CARTAS (MAZOS) --- */
         #visor { 
-            max-width: 98%; /* Aumentado de 85% */
-            max-height: 46vh; /* Aumentado de 40vh (aprox 15% más de altura) */
+            max-width: 98%; 
+            max-height: 46vh; 
             border: 3px solid white; 
             border-radius: 10px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
         }
         
-        /* --- ESTILOS ACTUALIZADOS PARA AGRANDAR VIDEO (PANELISTA) --- */
         #visor-video { 
-            width: 92%; /* Aumentado de 80% */
-            max-height: 69vh; /* Aumentado de 60vh (aprox 15% más de altura) */
+            width: 92%; 
+            max-height: 69vh; 
             border: 4px solid white; 
             border-radius: 15px; 
             background: black; 
@@ -252,6 +250,11 @@
                 }
             ],
             quien_dijo: [
+                {
+                    id: 'moria',
+                    img: 'personajes/moria.jpg', 
+                    audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] // Frase corregida
+                },
                 {
                     id: 'fort',
                     img: 'personajes/fort.jpg', 
