@@ -101,11 +101,20 @@
 
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
-        #visor { max-width: 85%; max-height: 40vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
         
+        /* --- ESTILOS ACTUALIZADOS PARA AGRANDAR CARTAS (MAZOS) --- */
+        #visor { 
+            max-width: 98%; /* Aumentado de 85% */
+            max-height: 46vh; /* Aumentado de 40vh (aprox 15% más de altura) */
+            border: 3px solid white; 
+            border-radius: 10px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
+        }
+        
+        /* --- ESTILOS ACTUALIZADOS PARA AGRANDAR VIDEO (PANELISTA) --- */
         #visor-video { 
-            width: 80%; 
-            max-height: 60vh; 
+            width: 92%; /* Aumentado de 80% */
+            max-height: 69vh; /* Aumentado de 60vh (aprox 15% más de altura) */
             border: 4px solid white; 
             border-radius: 15px; 
             background: black; 
@@ -261,153 +270,4 @@
                 {
                     id: 'fantino',
                     img: 'personajes/fantino.jpg', 
-                    audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}]
-                }
-            ]
-        };
-        
-        const VIDEOS_ORIGINALES = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
-        let videosDisponibles = [...VIDEOS_ORIGINALES];
-        
-        let audiosVistosMazoVerde = {}; 
-
-        let actual = null; 
-        let audioActualIdx = 0;
-        let pIdx = 0;
-
-        function entrarAlJuego() {
-            const capaInicio = document.getElementById('pantalla-inicio');
-            if(capaInicio) capaInicio.remove();
-            document.getElementById('menu-principal').style.display = 'block';
-            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat 95% center / cover fixed";
-            let e = document.documentElement;
-            if (e.requestFullscreen) e.requestFullscreen();
-        }
-
-        function abrirMazo(t) {
-            document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
-            document.getElementById('menu-principal').classList.add('atenuado');
-            document.getElementById('mensaje-fin-videos').style.display = 'none';
-            document.getElementById('texto-frase').innerHTML = "";
-            document.getElementById('visor-video').style.display = 'none';
-            document.getElementById('visor').style.display = 'none';
-            document.getElementById('btn-audio').style.display = 'none';
-            document.getElementById('pistas-bloque').style.display = 'none';
-            
-            if (t === 'quien_dijo') {
-                seleccionarAudioMazoVerde();
-            } else {
-                // Si es el mazo rojo, suena Moria
-                if(t === 'personajes') {
-                    const audioMoria = document.getElementById('repro-rojo');
-                    audioMoria.currentTime = 0;
-                    audioMoria.play();
-                }
-
-                actual = datos[t][Math.floor(Math.random() * datos[t].length)];
-                document.getElementById('visor').src = actual.img;
-                document.getElementById('visor').style.display = 'block';
-                pIdx = 0;
-                document.getElementById('pistas-bloque').style.display = 'flex';
-                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
-                document.getElementById('btn-pista-prev').style.display = 'none';
-                document.getElementById('area-carta').style.display = 'flex';
-            }
-        }
-
-        function seleccionarAudioMazoVerde() {
-            let opcionesDisponibles = [];
-            
-            datos.quien_dijo.forEach(pers => {
-                pers.audios.forEach((audio, index) => {
-                    if (!audiosVistosMazoVerde[pers.id] || !audiosVistosMazoVerde[pers.id].includes(index)) {
-                        opcionesDisponibles.push({ personaje: pers, audioIdx: index });
-                    }
-                });
-            });
-
-            if (opcionesDisponibles.length === 0) {
-                document.getElementById('mensaje-fin-videos').style.display = 'block';
-            } else {
-                const eleccion = opcionesDisponibles[Math.floor(Math.random() * opcionesDisponibles.length)];
-                actual = eleccion.personaje;
-                audioActualIdx = eleccion.audioIdx;
-
-                if (!audiosVistosMazoVerde[actual.id]) audiosVistosMazoVerde[actual.id] = [];
-                audiosVistosMazoVerde[actual.id].push(audioActualIdx);
-
-                document.getElementById('visor').src = actual.img;
-                document.getElementById('visor').style.display = 'block';
-                document.getElementById('btn-audio').style.display = 'block';
-                document.getElementById('texto-frase').innerHTML = actual.audios[audioActualIdx].t;
-            }
-            document.getElementById('area-carta').style.display = 'flex';
-        }
-
-        function cerrar() {
-            document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat 95% center / cover fixed";
-            document.getElementById('menu-principal').classList.remove('atenuado');
-            document.getElementById('repro-frase').pause();
-            const vp = document.getElementById('visor-video');
-            vp.pause(); vp.src = "";
-            document.getElementById('area-carta').style.display = 'none';
-            document.getElementById('menu-principal').style.display = 'block';
-        }
-
-        function cambiarPista(d) {
-            let nuevaPista = pIdx + d;
-            if(nuevaPista >= 0 && nuevaPista < actual.pistas.length) {
-                pIdx = nuevaPista;
-                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
-                const btnPrev = document.getElementById('btn-pista-prev');
-                btnPrev.style.display = (pIdx > 0) ? 'block' : 'none';
-            }
-        }
-
-        function abrirVideoAleatorio() {
-            document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
-            document.getElementById('menu-principal').classList.add('atenuado');
-            const visorV = document.getElementById('visor-video');
-            const msgFin = document.getElementById('mensaje-fin-videos');
-            
-            document.getElementById('texto-frase').innerHTML = ""; 
-            document.getElementById('visor').style.display = 'none';
-            document.getElementById('pistas-bloque').style.display = 'none';
-            document.getElementById('btn-audio').style.display = 'none';
-
-            if(videosDisponibles.length === 0) {
-                visorV.style.display = 'none';
-                msgFin.style.display = 'block';
-            } else {
-                msgFin.style.display = 'none';
-                const indiceAleatorio = Math.floor(Math.random() * videosDisponibles.length);
-                const videoElegido = videosDisponibles.splice(indiceAleatorio, 1)[0];
-                visorV.src = videoElegido;
-                visorV.style.display = 'block';
-                visorV.play();
-            }
-            document.getElementById('area-carta').style.display = 'flex';
-        }
-
-        function sonar() {
-            const r = document.getElementById('repro-frase');
-            r.src = actual.audios[audioActualIdx].f;
-            r.play();
-        }
-
-        function tirarDado() {
-            const audioDado = document.getElementById('repro-dado');
-            audioDado.currentTime = 0;
-            audioDado.play();
-            
-            let c = 0;
-            let i = setInterval(() => {
-                document.getElementById('boton-dado').innerText = Math.floor(Math.random()*6)+1;
-                if(c++ > 10) {
-                    clearInterval(i);
-                }
-            }, 80);
-        }
-    </script>
-</body>
-</html>
+                    audios:
