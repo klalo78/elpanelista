@@ -252,6 +252,16 @@
             ],
             quien_dijo: [
                 {
+                    id: 'charlotte',
+                    img: 'personajes/charlotte.jpg', 
+                    audios: [{f:'sonidos/charlotte_01.mp3', t:'“¡A mí me gusta el shampein!”'}]
+                },
+                {
+                    id: 'basile',
+                    img: 'personajes/basile.jpg', 
+                    audios: [{f:'sonidos/basile_01.mp3', t:'“¡Qué boludo, mamita querida!”'}]
+                },
+                {
                     id: 'bambino',
                     img: 'personajes/bambino.jpg', 
                     audios: [{f:'sonidos/bambino_01.mp3', t:'“¡Es una tormenta de facha!”'}]
@@ -435,7 +445,6 @@
         }
 
         function tirarDado() {
-            // El dado usa su propio sonido exclusivo
             const audioDado = document.getElementById('repro-dado');
             audioDado.currentTime = 0;
             audioDado.play();
