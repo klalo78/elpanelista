@@ -187,8 +187,8 @@
         <div class="tablero">
             <button class="btn-rojo" onclick="abrirMazo('personajes')">¿QUI&Eacute;NES SON?</button>
             <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO QUI&Eacute;N DIJO...</button>
-            <button class="btn-azul" onclick="alert('Próximamente')">TRES...</button>
-            <button class="btn-amarillo" onclick="alert('Próximamente')">CHISMES</button>
+            <button class="btn-azul" onclick="sonarClick('alert')">TRES...</button>
+            <button class="btn-amarillo" onclick="sonarClick('alert')">CHISMES</button>
         </div>
         <div class="seccion-controles-abajo">
             <div style="text-align: center;">
@@ -234,6 +234,7 @@
     <audio id="repro-frase"></audio>
     <audio id="repro-dado" src="sonidos/dado.mp3"></audio>
     <audio id="repro-rojo" src="sonidos/moria_01.mp3"></audio>
+    <audio id="repro-click" src="sonidos/click.mp3"></audio>
 
     <script>
         const datos = {
@@ -251,9 +252,19 @@
             ],
             quien_dijo: [
                 {
+                    id: 'francella',
+                    img: 'personajes/francella.jpg', 
+                    audios: [{f:'sonidos/francella_01.mp3', t:'“¡A comeeerlaaa!”'}]
+                },
+                {
+                    id: 'riverito',
+                    img: 'personajes/riverito.jpg', 
+                    audios: [{f:'sonidos/riverito_01.mp3', t:'“¡A cruzar los dedos!”'}]
+                },
+                {
                     id: 'moria',
                     img: 'personajes/moria.jpg', 
-                    audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] // Frase corregida
+                    audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}]
                 },
                 {
                     id: 'fort',
@@ -287,6 +298,13 @@
         let audioActualIdx = 0;
         let pIdx = 0;
 
+        function sonarClick(callback) {
+            const clk = document.getElementById('repro-click');
+            clk.currentTime = 0;
+            clk.play();
+            if(callback === 'alert') alert('Próximamente');
+        }
+
         function entrarAlJuego() {
             const capaInicio = document.getElementById('pantalla-inicio');
             if(capaInicio) capaInicio.remove();
@@ -297,6 +315,14 @@
         }
 
         function abrirMazo(t) {
+            if(t === 'personajes') {
+                const audioMoria = document.getElementById('repro-rojo');
+                audioMoria.currentTime = 0;
+                audioMoria.play();
+            } else {
+                sonarClick();
+            }
+
             document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
             document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('mensaje-fin-videos').style.display = 'none';
@@ -309,12 +335,6 @@
             if (t === 'quien_dijo') {
                 seleccionarAudioMazoVerde();
             } else {
-                if(t === 'personajes') {
-                    const audioMoria = document.getElementById('repro-rojo');
-                    audioMoria.currentTime = 0;
-                    audioMoria.play();
-                }
-
                 actual = datos[t][Math.floor(Math.random() * datos[t].length)];
                 document.getElementById('visor').src = actual.img;
                 document.getElementById('visor').style.display = 'block';
@@ -356,6 +376,7 @@
         }
 
         function cerrar() {
+            sonarClick();
             document.body.style.background = "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat 95% center / cover fixed";
             document.getElementById('menu-principal').classList.remove('atenuado');
             document.getElementById('repro-frase').pause();
@@ -366,6 +387,7 @@
         }
 
         function cambiarPista(d) {
+            sonarClick();
             let nuevaPista = pIdx + d;
             if(nuevaPista >= 0 && nuevaPista < actual.pistas.length) {
                 pIdx = nuevaPista;
@@ -376,6 +398,7 @@
         }
 
         function abrirVideoAleatorio() {
+            sonarClick();
             document.body.style.background = "url('back2.jpg') center/cover no-repeat fixed";
             document.getElementById('menu-principal').classList.add('atenuado');
             const visorV = document.getElementById('visor-video');
@@ -407,6 +430,7 @@
         }
 
         function tirarDado() {
+            // El dado usa su propio sonido exclusivo
             const audioDado = document.getElementById('repro-dado');
             audioDado.currentTime = 0;
             audioDado.play();
