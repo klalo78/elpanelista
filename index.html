@@ -89,14 +89,8 @@
         }
 
         .texto-ultimo-momento {
-            font-family: 'Arial Black', sans-serif; 
-            font-size: 75px; /* Aumentado de 45px a 75px */
-            color: white;
-            text-transform: uppercase; 
-            text-shadow: 6px 6px 0px black; /* Sombra más pronunciada */
-            margin: 0; 
-            line-height: 0.9;
-            letter-spacing: -2px;
+            font-family: 'Arial Black', sans-serif; font-size: 75px; color: white;
+            text-transform: uppercase; text-shadow: 6px 6px 0px black; margin: 0; line-height: 0.9; letter-spacing: -2px;
         }
 
         .pregunta-placa {
@@ -207,6 +201,18 @@
         const datos = {
             personajes: [{ id: 'marley', img: 'personajes/marley.jpg', pistas: ["Su verdadero nombre es Alejandro.", "Empezó como columnista en un magazine.", "Viajó por todo el mundo.", "Tiene un hijo llamado Mirko."] }],
             quien_dijo: [
+                // Albiloni con dos variantes
+                { id: 'albiloni_1', img: 'personajes/albiloni.jpg', audios: [{f:'sonidos/albiloni_01.mp3', t:'“¡Perdón... pero tengo las bolas llenas!”'}] },
+                { id: 'albiloni_2', img: 'personajes/albiloni.jpg', audios: [{f:'sonidos/albiloni_02.mp3', t:'“Perdón... si alguno se ofendió porque después empiezan las ofensa”'}] },
+                
+                { id: 'dutra', img: 'personajes/dutra.jpg', audios: [{f:'sonidos/dutra_01.mp3', t:'“¡Toy tan sorpresa como todos ustedes!”'}] },
+                { id: 'farinia', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“¿Querían ficción? Yo les di ficción.”'}] },
+                { id: 'feiman', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_01.mp3', t:'“Y sos tan chicanero... pero mal.”'}] },
+                { id: 'flordelav', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“¡Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
+                { id: 'ivo', img: 'personajes/ivo.jpg', audios: [{f:'sonidos/ivo_01.mp3', t:'“Dos más dos son cuatro, la tierra es redonda, corta la bocha.”'}] },
+                { id: 'jacobo', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_01.mp3', t:'“Billetera... ¡mata galán!”'}] },
+                { id: 'listorti', img: 'personajes/listorti.jpg', audios: [{f:'sonidos/listorti_01.mp3', t:'“¡Soooopaaaaaa!”'}] },
+                { id: 'paleo', img: 'personajes/paleo.jpg', audios: [{f:'sonidos/paleo_01.mp3', t:'“Ay perdón porque escucho con... deleite.”'}] },
                 { id: 'charlotte', img: 'personajes/charlotte.jpg', audios: [{f:'sonidos/charlotte_01.mp3', t:'“¡A mí me gusta el shampein!”'}] },
                 { id: 'basile', img: 'personajes/basile.jpg', audios: [{f:'sonidos/basile_01.mp3', t:'“¡Qué boludo, mamita querida!”'}] },
                 { id: 'bambino', img: 'personajes/bambino.jpg', audios: [{f:'sonidos/bambino_01.mp3', t:'“¡Es una tormenta de facha!”'}] },
@@ -268,6 +274,7 @@
             let opcionesDisponibles = [];
             datos.quien_dijo.forEach(pers => {
                 pers.audios.forEach((audio, index) => {
+                    // Ahora guardamos pers.id + index para diferenciar cada frase
                     if (!audiosVistosMazoVerde[pers.id] || !audiosVistosMazoVerde[pers.id].includes(index)) {
                         opcionesDisponibles.push({ personaje: pers, audioIdx: index });
                     }
