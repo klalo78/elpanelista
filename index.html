@@ -279,4 +279,94 @@
                     }
                 });
             });
-            if (opcionesDisponibles.length === 0) { document.getElementById('mensaje-fin-videos').style.display = 'block
+            if (opcionesDisponibles.length === 0) { document.getElementById('mensaje-fin-videos').style.display = 'block'; } 
+            else {
+                const eleccion = opcionesDisponibles[Math.floor(Math.random() * opcionesDisponibles.length)];
+                actual = eleccion.personaje; audioActualIdx = eleccion.audioIdx;
+                if (!audiosVistosMazoVerde[actual.id]) audiosVistosMazoVerde[actual.id] = [];
+                audiosVistosMazoVerde[actual.id].push(audioActualIdx);
+                document.getElementById('visor').src = actual.img;
+                document.getElementById('visor').style.display = 'block';
+                document.getElementById('btn-audio').style.display = 'block';
+                document.getElementById('texto-frase').innerHTML = actual.audios[audioActualIdx].t;
+            }
+            document.getElementById('area-carta').style.display = 'flex';
+        }
+
+        function tirarDado() {
+            tirosRealizados++;
+            const audioDado = document.getElementById('repro-dado');
+            audioDado.currentTime = 0; audioDado.play();
+            let c = 0;
+            let i = setInterval(() => {
+                document.getElementById('boton-dado').innerText = Math.floor(Math.random()*6)+1;
+                if(c++ > 10) {
+                    clearInterval(i);
+                    if (!placaYaSalio && (Math.random() < 0.05 || tirosRealizados >= 20)) { activarPlacaRoja(); }
+                }
+            }, 80);
+        }
+
+        function activarPlacaRoja() {
+            placaYaSalio = true;
+            const audioPlaca = document.getElementById('repro-placa');
+            audioPlaca.currentTime = 0; audioPlaca.play();
+            document.getElementById('placa-roja').style.display = 'flex';
+        }
+
+        function mostrarRespuestaPlaca() {
+            document.getElementById('respuesta-placa').style.display = 'block';
+            document.getElementById('btn-ver-placa').style.display = 'none';
+        }
+
+        function cerrarPlaca() {
+            document.getElementById('placa-roja').style.display = 'none';
+            document.getElementById('respuesta-placa').style.display = 'none';
+            document.getElementById('btn-ver-placa').style.display = 'block';
+            document.getElementById('repro-placa').pause();
+        }
+
+        function cerrar() {
+            sonarClick();
+            document.getElementById('menu-principal').classList.remove('atenuado');
+            document.getElementById('repro-frase').pause();
+            const vp = document.getElementById('visor-video');
+            vp.pause(); vp.src = "";
+            document.getElementById('area-carta').style.display = 'none';
+        }
+
+        function cambiarPista(d) {
+            sonarClick();
+            let nuevaPista = pIdx + d;
+            if(nuevaPista >= 0 && nuevaPista < actual.pistas.length) {
+                pIdx = nuevaPista;
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+                document.getElementById('btn-pista-prev').style.display = (pIdx > 0) ? 'block' : 'none';
+            }
+        }
+
+        function abrirVideoAleatorio() {
+            sonarClick();
+            document.getElementById('menu-principal').classList.add('atenuado');
+            const visorV = document.getElementById('visor-video');
+            const msgFin = document.getElementById('mensaje-fin-videos');
+            document.getElementById('texto-frase').innerHTML = ""; 
+            document.getElementById('visor').style.display = 'none';
+            document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('btn-audio').style.display = 'none';
+            if(videosDisponibles.length === 0) { visorV.style.display = 'none'; msgFin.style.display = 'block'; } 
+            else {
+                msgFin.style.display = 'none';
+                const videoElegido = videosDisponibles.splice(Math.floor(Math.random() * videosDisponibles.length), 1)[0];
+                visorV.src = videoElegido; visorV.style.display = 'block'; visorV.play();
+            }
+            document.getElementById('area-carta').style.display = 'flex';
+        }
+
+        function sonar() {
+            const r = document.getElementById('repro-frase');
+            r.src = actual.audios[audioActualIdx].f; r.play();
+        }
+    </script>
+</body>
+</html>
