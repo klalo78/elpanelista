@@ -84,7 +84,7 @@
 
         .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
 
-        /* --- ESTILOS PLACA ROJA ACTUALIZADOS --- */
+        /* --- ESTILOS PLACA ROJA --- */
         #placa-roja {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #ff0000; z-index: 10000; flex-direction: column;
@@ -93,15 +93,9 @@
         }
 
         .texto-ultimo-momento {
-            font-family: 'Anton', sans-serif; /* Fuente ultra gruesa */
-            font-size: 90px; /* Más grande */
-            color: white;
-            text-transform: uppercase; 
-            text-shadow: 8px 8px 0px black;
-            margin: 0; 
-            line-height: 0.8;
-            letter-spacing: -3px;
-            /* Animación de parpadeo */
+            font-family: 'Anton', sans-serif; font-size: 90px; color: white;
+            text-transform: uppercase; text-shadow: 8px 8px 0px black;
+            margin: 0; line-height: 0.8; letter-spacing: -3px;
             animation: parpadeoCronica 0.5s infinite;
         }
 
@@ -111,59 +105,36 @@
         }
 
         .pregunta-placa {
-            font-family: 'Anton', sans-serif; /* Fuente gruesa */
-            font-size: 32px;
-            color: white;
-            margin-top: 50px;
-            padding: 0 15px;
-            text-shadow: 3px 3px 0px black;
-            text-transform: uppercase;
-            line-height: 1.1;
+            font-family: 'Anton', sans-serif; font-size: 32px; color: white;
+            margin-top: 50px; padding: 0 15px; text-shadow: 3px 3px 0px black;
+            text-transform: uppercase; line-height: 1.1;
         }
 
         #respuesta-placa {
-            font-family: 'Anton', sans-serif; /* Fuente gruesa */
-            font-size: 60px;
-            color: #cfff04; /* Amarillo brillante neón */
-            margin-top: 30px;
-            display: none;
-            text-shadow: 4px 4px 0px black;
+            font-family: 'Anton', sans-serif; font-size: 60px; color: #cfff04;
+            margin-top: 20px; display: none; text-shadow: 4px 4px 0px black;
             text-transform: uppercase;
         }
 
         .btn-ver-respuesta {
             font-family: 'Super Sunkissed', sans-serif;
-            background: #cfff04; /* Amarillo brillante neón */
-            color: black; /* Texto negro para contraste */
-            border: 3px solid white;
-            padding: 15px 30px;
-            font-size: 24px;
-            margin-top: 40px;
-            border-radius: 15px;
-            cursor: pointer;
+            background: #cfff04; color: black; border: 3px solid white;
+            padding: 15px 30px; font-size: 24px; margin-top: 40px;
+            border-radius: 15px; cursor: pointer;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             text-transform: uppercase;
         }
 
-        /* Botón Volver estilo unificado con la web */
         .btn-volver-placa-contenedor {
-            margin-top: auto;
-            margin-bottom: 40px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid white;
-            padding: 10px 20px;
-            border-radius: 20px;
+            margin-top: auto; margin-bottom: 40px; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+            background: rgba(0, 0, 0, 0.6); border: 2px solid white;
+            padding: 10px 20px; border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             animation: deslizarVertical 2s infinite ease-in-out;
         }
 
-        /* --- RESTO DE ESTILOS UNIFICADOS --- */
+        /* --- RESTO DE ESTILOS --- */
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
@@ -260,8 +231,18 @@
         const datos = {
             personajes: [{ id: 'marley', img: 'personajes/marley.jpg', pistas: ["Su verdadero nombre es Alejandro.", "Empezó como columnista en un magazine.", "Viajó por todo el mundo.", "Tiene un hijo llamado Mirko."] }],
             quien_dijo: [
+                // ALBINONI
                 { id: 'albinoni_1', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_01.mp3', t:'“¡Perdón... pero tengo las bolas llenas!”'}] },
                 { id: 'albinoni_2', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_02.mp3', t:'“Perdón... si alguno se ofendió porque después empiezan las ofensa”'}] },
+                
+                // MORIA CASÁN (Varias versiones)
+                { id: 'moria_1', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] },
+                { id: 'moria_2', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_02.mp3', t:'“¡25...25...!”'}] },
+                { id: 'moria_3', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_03.mp3', t:'“¡Saca, saca, saca a esta ridícula!”'}] },
+                { id: 'moria_4', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_04.mp3', t:'“Son dos doñas berretas de peluquería de barrio”'}] },
+                { id: 'moria_5', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_05.mp3', t:'“Entonces no mientas Silvina Escupidero”'}] },
+                { id: 'moria_6', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_06.mp3', t:'“Y tengo harem, mucho chongo como nunca”'}] },
+
                 { id: 'dutra', img: 'personajes/dutra.jpg', audios: [{f:'sonidos/dutra_01.mp3', t:'“¡Toy tan sorpresa como todos ustedes!”'}] },
                 { id: 'farinia', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“¿Querían ficción? Yo les di ficción.”'}] },
                 { id: 'feiman', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_01.mp3', t:'“Y sos tan chicanero... pero mal.”'}] },
@@ -275,7 +256,6 @@
                 { id: 'bambino', img: 'personajes/bambino.jpg', audios: [{f:'sonidos/bambino_01.mp3', t:'“¡Es una tormenta de facha!”'}] },
                 { id: 'francella', img: 'personajes/francella.jpg', audios: [{f:'sonidos/francella_01.mp3', t:'“¡A comeeerlaaa!”'}] },
                 { id: 'riverito', img: 'personajes/riverito.jpg', audios: [{f:'sonidos/riverito_01.mp3', t:'“¡A cruzar los dedos!”'}] },
-                { id: 'moria', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] },
                 { id: 'fort', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}] },
                 { id: 'barbieri', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}] },
                 { id: 'pachano', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“¡Tinguitingui tinguitingui!”'}] },
@@ -342,6 +322,7 @@
                 actual = eleccion.personaje; audioActualIdx = eleccion.audioIdx;
                 if (!audiosVistosMazoVerde[actual.id]) audiosVistosMazoVerde[actual.id] = [];
                 audiosVistosMazoVerde[actual.id].push(audioActualIdx);
+                
                 document.getElementById('visor').src = actual.img;
                 document.getElementById('visor').style.display = 'block';
                 document.getElementById('btn-audio').style.display = 'block';
