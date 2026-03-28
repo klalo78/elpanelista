@@ -63,106 +63,70 @@
         
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
-        .seccion-controles-abajo { 
-            display: flex; justify-content: center; align-items: center; gap: 65px; margin-top: 25px; 
+        /* --- ESTILOS RELOJ ANTIGUO --- */
+        #contenedor-timer {
+            display: none; width: 140px; height: 140px; border-radius: 50%; 
+            border: 6px double #333;
+            background: #fdf5e6; /* Color crema antiguo */
+            color: #222;
+            justify-content: center; align-items: center;
+            font-family: 'Anton', sans-serif; font-size: 75px; z-index: 6000;
+            margin: 0 auto 15px auto;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.5);
+            position: relative;
         }
 
+        .timer-peligro { 
+            background: #ffcccc !important;
+            color: #ff0000 !important;
+            border-color: #ff0000 !important;
+            animation: latidoRapido 0.5s infinite;
+        }
+
+        /* Efecto Temblor al terminar */
+        .timer-temblor { animation: temblar 0.1s infinite !important; }
+
+        @keyframes temblar {
+            0% { transform: translate(2px, 1px) rotate(0deg); }
+            20% { transform: translate(-1px, -2px) rotate(-1deg); }
+            40% { transform: translate(-3px, 0px) rotate(1deg); }
+            60% { transform: translate(3px, 2px) rotate(0deg); }
+            80% { transform: translate(1px, -1px) rotate(1deg); }
+            100% { transform: translate(-1px, 2px) rotate(-1deg); }
+        }
+
+        @keyframes latidoRapido { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+
+        /* --- RESTO DE ESTILOS --- */
+        .seccion-controles-abajo { display: flex; justify-content: center; align-items: center; gap: 65px; margin-top: 25px; }
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
         #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; margin: 0 auto; cursor: pointer;}
-        
-        .btn-especial { 
-            background: black; color: #facc15; border: 4px solid #facc15; 
-            width: 105px; height: 105px; border-radius: 20px; 
-            box-shadow: 0 0 15px rgba(250,204,21,0.5); 
-            cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; 
-        }
-
+        .btn-especial { background: black; color: #facc15; border: 4px solid #facc15; width: 105px; height: 105px; border-radius: 20px; box-shadow: 0 0 15px rgba(250,204,21,0.5); cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .star-icon { width: 80%; height: 80%; object-fit: contain; animation: girarEstrella 10s linear infinite; border-radius: 50%; }
-
-        @keyframes girarEstrella { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
         .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
 
-        /* --- PLACA ROJA --- */
-        #placa-roja {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #ff0000; z-index: 10000; flex-direction: column;
-            justify-content: flex-start; align-items: center; padding: 20px; box-sizing: border-box;
-            padding-top: 10vh;
-        }
-
-        .texto-ultimo-momento {
-            font-family: 'Anton', sans-serif; font-size: 90px; color: white;
-            text-transform: uppercase; text-shadow: 8px 8px 0px black;
-            margin: 0; line-height: 0.8; letter-spacing: -3px;
-            animation: zoomSuave 2s infinite ease-in-out;
-            display: inline-block;
-        }
-
+        #placa-roja { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #ff0000; z-index: 10000; flex-direction: column; justify-content: flex-start; align-items: center; padding: 20px; box-sizing: border-box; padding-top: 10vh; }
+        .texto-ultimo-momento { font-family: 'Anton', sans-serif; font-size: 90px; color: white; text-transform: uppercase; text-shadow: 8px 8px 0px black; margin: 0; line-height: 0.8; letter-spacing: -3px; animation: zoomSuave 2s infinite ease-in-out; display: inline-block; }
         @keyframes zoomSuave { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .pregunta-placa { font-family: 'Anton', sans-serif; font-size: 32px; color: white; margin-top: 50px; padding: 0 15px; text-shadow: 3px 3px 0px black; text-transform: uppercase; line-height: 1.1; }
+        #respuesta-placa { font-family: 'Anton', sans-serif; font-size: 60px; color: #cfff04; margin-top: 20px; display: none; text-shadow: 4px 4px 0px black; text-transform: uppercase; }
+        .btn-ver-respuesta { font-family: 'Super Sunkissed', sans-serif; background: #cfff04; color: black; border: 3px solid white; padding: 15px 30px; font-size: 24px; margin-top: 40px; border-radius: 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5); text-transform: uppercase; }
+        .btn-volver-placa-contenedor { margin-top: auto; margin-bottom: 40px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: rgba(0, 0, 0, 0.6); border: 2px solid white; padding: 10px 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); animation: deslizarVertical 2s infinite ease-in-out; }
 
-        .pregunta-placa {
-            font-family: 'Anton', sans-serif; font-size: 32px; color: white;
-            margin-top: 50px; padding: 0 15px; text-shadow: 3px 3px 0px black;
-            text-transform: uppercase; line-height: 1.1;
-        }
-
-        #respuesta-placa {
-            font-family: 'Anton', sans-serif; font-size: 60px; color: #cfff04;
-            margin-top: 20px; display: none; text-shadow: 4px 4px 0px black;
-            text-transform: uppercase;
-        }
-
-        .btn-ver-respuesta {
-            font-family: 'Super Sunkissed', sans-serif;
-            background: #cfff04; color: black; border: 3px solid white;
-            padding: 15px 30px; font-size: 24px; margin-top: 40px;
-            border-radius: 15px; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            text-transform: uppercase;
-        }
-
-        .btn-volver-placa-contenedor {
-            margin-top: auto; margin-bottom: 40px; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; gap: 5px; background: rgba(0, 0, 0, 0.6);
-            border: 2px solid white; padding: 10px 20px; border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); animation: deslizarVertical 2s infinite ease-in-out;
-        }
-
-        /* --- ESTILOS CUENTA REGRESIVA REUBICADA Y MÁS GRANDE --- */
-        #contenedor-timer {
-            display: none; width: 140px; height: 140px; border-radius: 50%; border: 8px solid white;
-            background: rgba(0,0,0,0.8); justify-content: center; align-items: center;
-            font-family: 'Anton', sans-serif; font-size: 70px; z-index: 6000;
-            margin: 5px auto; /* Menos margen arriba para pegarlo a los botones */
-        }
-        .timer-peligro { color: #ff0000; border-color: #ff0000 !important; animation: latido 0.5s infinite; }
-
-        /* --- ESTILOS MAZO AZUL (VF) --- */
-        .contenedor-vf { display: none; width: 90%; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .contenedor-vf { display: none; width: 90%; flex-direction: column; gap: 15px; margin-top: 10px; }
         .btn-vf { height: 70px !important; font-size: 24px; border: 3px solid white; transition: all 0.3s; }
         #resp-vf-texto { color: #facc15; font-size: 26px; margin-top: 15px; text-shadow: 2px 2px 4px black; min-height: 40px; font-weight: bold; }
 
-        /* --- RESTO DE ESTILOS --- */
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
         #visor-video { width: 92%; max-height: 69vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
         #mensaje-fin-videos { font-size: 28px; color: #facc15; text-shadow: 3px 3px 5px black; padding: 20px; line-height: 1.3; display: none; }
-        
         .volver-pie-contenedor { margin-top: auto; margin-bottom: 40px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: rgba(0, 0, 0, 0.6); border: 2px solid white; padding: 10px 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); animation: deslizarVertical 2s infinite ease-in-out; }
         .volver-pie-texto { font-size: 18px; color: white; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
         .flecha-volver-svg { width: 30px; height: 30px; fill: white; }
-        
         @keyframes deslizarVertical { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
-        
-        #txt-pista { color:#facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
-        .controles-pistas { display: flex; gap: 10px; width: 90%; }
-        .btn-pista { flex: 1; font-family: 'Super Sunkissed', sans-serif; height: 60px !important; border: 2px solid white; border-radius: 10px; color: white; font-size: 20px; cursor: pointer; }
-        .btn-prev { background: #e11d48; display: none; }
-        .btn-next { background: #2563eb; }
-        #texto-frase { margin-top: 10px; font-size: 32px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; }
+        #texto-frase { margin-top: 10px; font-size: 32px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; margin-bottom: 10px; }
         .btn-audio-carta { font-family: 'Super Sunkissed', sans-serif; background:#facc15; color:black; width:90%; height:70px !important; margin-top:15px; border: 2px solid white; border-radius: 10px; font-size: 22px; cursor: pointer; }
     </style>
 </head>
@@ -178,12 +142,9 @@
         <div class="pregunta-placa">¿QUI&Eacute;N FUE EL GANADOR DEL GRAN HERMANO CELEBRITY?</div>
         <div id="respuesta-placa">IANLUCA</div>
         <button id="btn-ver-placa" class="btn-ver-respuesta" onclick="mostrarRespuestaPlaca()">VER RESPUESTA</button>
-        
         <div class="btn-volver-placa-contenedor" onclick="cerrarPlaca()">
             <div class="volver-pie-texto">volver al menú</div>
-            <svg class="flecha-volver-svg" viewBox="0 0 24 24">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/>
-            </svg>
+            <svg class="flecha-volver-svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/></svg>
         </div>
     </div>
 
@@ -201,9 +162,7 @@
                 <div class="label-control">DADO</div>
             </div>
             <div onclick="abrirVideoAleatorio()" style="text-align: center;">
-                <button class="btn-especial">
-                    <img src="star.jpg" alt="estrella giratoria" class="star-icon">
-                </button>
+                <button class="btn-especial"><img src="star.jpg" alt="estrella giratoria" class="star-icon"></button>
                 <div class="label-control">PANELISTA</div>
             </div>
         </div>
@@ -218,26 +177,17 @@
         <div id="texto-frase"></div>
 
         <div id="mazo-vf" class="contenedor-vf">
+            <div id="contenedor-timer">10</div>
             <button id="btn-v" class="btn-vf btn-verde" onclick="chequearVF(true)">VERDADERO</button>
             <button id="btn-f" class="btn-vf btn-rojo" onclick="chequearVF(false)">FALSO</button>
             <div id="resp-vf-texto"></div>
-            <div id="contenedor-timer">10</div>
         </div>
 
-        <div id="pistas-bloque" style="display:none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center;">
-            <div id="txt-pista"></div>
-            <div class="controles-pistas">
-                <button id="btn-pista-prev" class="btn-pista btn-prev" onclick="cambiarPista(-1)">ANTERIOR</button>
-                <button class="btn-pista btn-next" onclick="cambiarPista(1)">SIGUIENTE</button>
-            </div>
-        </div>
         <button id="btn-audio" class="btn-audio-carta" style="display:none;" onclick="sonar()">🔊 ESCUCHAR</button>
 
         <div class="volver-pie-contenedor" onclick="cerrar()">
             <div class="volver-pie-texto">volver al menú</div>
-            <svg class="flecha-volver-svg" viewBox="0 0 24 24">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/>
-            </svg>
+            <svg class="flecha-volver-svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/></svg>
         </div>
     </div>
 
@@ -300,14 +250,13 @@
         };
         
         let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
-        let audiosVistosMazoVerde = {}; let actual = null; let audioActualIdx = 0; let pIdx = 0;
+        let audiosVistosMazoVerde = {}; let actual = null; let audioActualIdx = 0;
         let tirosRealizados = 0; let placaYaSalio = false; let respondidoVF = false;
         let timerSegundos = 10; let intervaloTimer = null;
 
-        function sonarClick(callback) {
+        function sonarClick() {
             const clk = document.getElementById('repro-click');
             clk.currentTime = 0; clk.play();
-            if(callback === 'alert') alert('Próximamente');
         }
 
         function entrarAlJuego() {
@@ -321,21 +270,17 @@
 
         function abrirMazo(t) {
             pararTimer();
+            sonarClick();
             if(t === 'personajes') {
                 document.getElementById('repro-rojo').currentTime = 0; 
                 document.getElementById('repro-rojo').play();
-            } else if (t === 'vf') {
-                document.getElementById('repro-bien').currentTime = 0;
-                document.getElementById('repro-bien').play();
-            } else { sonarClick(); }
-            
+            }
             document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('mensaje-fin-videos').style.display = 'none';
             document.getElementById('texto-frase').innerHTML = "";
             document.getElementById('visor-video').style.display = 'none';
             document.getElementById('visor').style.display = 'none';
             document.getElementById('btn-audio').style.display = 'none';
-            document.getElementById('pistas-bloque').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
 
             if (t === 'quien_dijo') { seleccionarAudioMazoVerde(); } 
@@ -344,10 +289,6 @@
                 actual = datos[t][Math.floor(Math.random() * datos[t].length)];
                 document.getElementById('visor').src = actual.img;
                 document.getElementById('visor').style.display = 'block';
-                pIdx = 0;
-                document.getElementById('pistas-bloque').style.display = 'flex';
-                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
-                document.getElementById('btn-pista-prev').style.display = 'none';
                 document.getElementById('area-carta').style.display = 'flex';
             }
         }
@@ -371,20 +312,17 @@
             const cajaTimer = document.getElementById('contenedor-timer');
             cajaTimer.innerText = timerSegundos;
             cajaTimer.style.display = 'flex';
-            cajaTimer.classList.remove('timer-peligro');
-            
+            cajaTimer.classList.remove('timer-peligro', 'timer-temblor');
             const audioTic = document.getElementById('repro-tictac');
-            audioTic.currentTime = 0;
-            audioTic.play();
+            audioTic.currentTime = 0; audioTic.play();
 
             intervaloTimer = setInterval(() => {
                 timerSegundos--;
                 cajaTimer.innerText = timerSegundos;
-                
                 if(timerSegundos <= 3) cajaTimer.classList.add('timer-peligro');
-                
                 if(timerSegundos <= 0) {
                     pararTimer();
+                    cajaTimer.classList.add('timer-temblor'); // Empieza a temblar al terminar
                     if(!respondidoVF) chequearVF('tiempo_agotado');
                 }
             }, 1000);
@@ -393,24 +331,23 @@
         function pararTimer() {
             clearInterval(intervaloTimer);
             document.getElementById('repro-tictac').pause();
-            document.getElementById('contenedor-timer').style.display = 'none';
+            const cajaTimer = document.getElementById('contenedor-timer');
+            cajaTimer.style.display = 'none';
+            cajaTimer.classList.remove('timer-temblor');
         }
 
         function chequearVF(eleccion) {
             if(respondidoVF) return;
             respondidoVF = true;
             pararTimer();
-            
             const esCorrecto = (eleccion === actual.r);
-            
             if(esCorrecto) {
-                document.getElementById('repro-bien').currentTime = 0;
-                document.getElementById('repro-bien').play();
+                document.getElementById('repro-bien').currentTime = 0; document.getElementById('repro-bien').play();
             } else {
-                document.getElementById('repro-mal').currentTime = 0;
-                document.getElementById('repro-mal').play();
+                document.getElementById('repro-mal').currentTime = 0; document.getElementById('repro-mal').play();
+                document.getElementById('contenedor-timer').style.display = 'flex';
+                document.getElementById('contenedor-timer').classList.add('timer-temblor'); // Tiembla si fallas
             }
-
             if(eleccion !== 'tiempo_agotado') {
                 document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3";
                 document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3";
@@ -423,7 +360,6 @@
                 document.getElementById('btn-f').style.opacity = "0.3";
                 document.getElementById('resp-vf-texto').innerHTML = "¡TIEMPO AGOTADO! ";
             }
-
             document.getElementById('resp-vf-texto').innerHTML += actual.detalle;
         }
 
@@ -442,7 +378,6 @@
                 actual = eleccion.personaje; audioActualIdx = eleccion.audioIdx;
                 if (!audiosVistosMazoVerde[actual.id]) audiosVistosMazoVerde[actual.id] = [];
                 audiosVistosMazoVerde[actual.id].push(audioActualIdx);
-                
                 document.getElementById('visor').src = actual.img;
                 document.getElementById('visor').style.display = 'block';
                 document.getElementById('btn-audio').style.display = 'block';
@@ -453,8 +388,7 @@
 
         function tirarDado() {
             tirosRealizados++;
-            document.getElementById('repro-dado').currentTime = 0; 
-            document.getElementById('repro-dado').play();
+            document.getElementById('repro-dado').currentTime = 0; document.getElementById('repro-dado').play();
             let c = 0;
             let i = setInterval(() => {
                 document.getElementById('boton-dado').innerText = Math.floor(Math.random()*6)+1;
@@ -467,8 +401,7 @@
 
         function activarPlacaRoja() {
             placaYaSalio = true;
-            document.getElementById('repro-placa').currentTime = 0; 
-            document.getElementById('repro-placa').play();
+            document.getElementById('repro-placa').currentTime = 0; document.getElementById('repro-placa').play();
             document.getElementById('placa-roja').style.display = 'flex';
         }
 
@@ -494,16 +427,6 @@
             document.getElementById('area-carta').style.display = 'none';
         }
 
-        function cambiarPista(d) {
-            sonarClick();
-            let nuevaPista = pIdx + d;
-            if(nuevaPista >= 0 && nuevaPista < actual.pistas.length) {
-                pIdx = nuevaPista;
-                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
-                document.getElementById('btn-pista-prev').style.display = (pIdx > 0) ? 'block' : 'none';
-            }
-        }
-
         function abrirVideoAleatorio() {
             sonarClick();
             document.getElementById('menu-principal').classList.add('atenuado');
@@ -511,7 +434,6 @@
             const msgFin = document.getElementById('mensaje-fin-videos');
             document.getElementById('texto-frase').innerHTML = ""; 
             document.getElementById('visor').style.display = 'none';
-            document.getElementById('pistas-bloque').style.display = 'none';
             document.getElementById('btn-audio').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             if(videosDisponibles.length === 0) { visorV.style.display = 'none'; msgFin.style.display = 'block'; } 
