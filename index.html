@@ -83,7 +83,7 @@
 
         .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
 
-        /* --- PLACA ROJA --- */
+        /* --- ESTILOS PLACA ROJA --- */
         #placa-roja {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #ff0000; z-index: 10000; flex-direction: column;
@@ -130,10 +130,19 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5); animation: deslizarVertical 2s infinite ease-in-out;
         }
 
+        /* --- ESTILOS CUENTA REGRESIVA --- */
+        #contenedor-timer {
+            display: none; position: absolute; top: 15px; right: 15px;
+            width: 70px; height: 70px; border-radius: 50%; border: 4px solid white;
+            background: rgba(0,0,0,0.8); justify-content: center; align-items: center;
+            font-family: 'Anton', sans-serif; font-size: 35px; z-index: 6000;
+        }
+        .timer-peligro { color: #ff0000; border-color: #ff0000 !important; animation: latido 0.5s infinite; }
+
         /* --- ESTILOS MAZO AZUL (VF) --- */
         .contenedor-vf { display: none; width: 90%; flex-direction: column; gap: 15px; margin-top: 20px; }
         .btn-vf { height: 70px !important; font-size: 24px; border: 3px solid white; transition: all 0.3s; }
-        #resp-vf-texto { color: #facc15; font-size: 26px; margin-top: 15px; text-shadow: 2px 2px 4px black; min-height: 40px; }
+        #resp-vf-texto { color: #facc15; font-size: 26px; margin-top: 15px; text-shadow: 2px 2px 4px black; min-height: 40px; font-weight: bold; }
 
         /* --- RESTO DE ESTILOS --- */
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
@@ -164,6 +173,8 @@
         <button class="btn-entrar" onclick="entrarAlJuego()">JUGAR</button>
     </div>
 
+    <div id="contenedor-timer">10</div>
+
     <div id="placa-roja">
         <p class="texto-ultimo-momento">ULTIMO MOMENTO</p>
         <div class="pregunta-placa">¿QUI&Eacute;N FUE EL GANADOR DEL GRAN HERMANO CELEBRITY?</div>
@@ -183,7 +194,7 @@
         <div class="tablero">
             <button class="btn-rojo" onclick="abrirMazo('personajes')">¿QUI&Eacute;NES SON?</button>
             <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO QUI&Eacute;N DIJO...</button>
-            <button class="btn-azul" onclick="abrirMazo('vf')">TRES...</button>
+            <button class="btn-azul" onclick="abrirMazo('vf')">VERDADERO O FALSO</button>
             <button class="btn-amarillo" onclick="sonarClick('alert')">CHISMES</button>
         </div>
         <div class="seccion-controles-abajo">
@@ -238,6 +249,7 @@
     <audio id="repro-placa" src="sonidos/placa.mp3"></audio>
     <audio id="repro-bien" src="sonidos/bien.mp3"></audio>
     <audio id="repro-mal" src="sonidos/mal.mp3"></audio>
+    <audio id="repro-tictac" src="sonidos/tictac.mp3" loop></audio>
 
     <script>
         const datos = {
@@ -291,6 +303,7 @@
         let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
         let audiosVistosMazoVerde = {}; let actual = null; let audioActualIdx = 0; let pIdx = 0;
         let tirosRealizados = 0; let placaYaSalio = false; let respondidoVF = false;
+        let timerSegundos = 10; let intervaloTimer = null;
 
         function sonarClick(callback) {
             const clk = document.getElementById('repro-click');
@@ -308,9 +321,14 @@
         }
 
         function abrirMazo(t) {
+            pararTimer();
             if(t === 'personajes') {
                 document.getElementById('repro-rojo').currentTime = 0; 
                 document.getElementById('repro-rojo').play();
+            } else if (t === 'vf') {
+                // Al presionar el botón azul, suena bien.mp3
+                document.getElementById('repro-bien').currentTime = 0;
+                document.getElementById('repro-bien').play();
             } else { sonarClick(); }
             
             document.getElementById('menu-principal').classList.add('atenuado');
@@ -321,6 +339,7 @@
             document.getElementById('btn-audio').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
+            document.getElementById('contenedor-timer').style.display = 'none';
 
             if (t === 'quien_dijo') { seleccionarAudioMazoVerde(); } 
             else if (t === 'vf') { abrirMazoAzul(); }
@@ -346,29 +365,69 @@
             document.getElementById('btn-v').style.background = "#16a34a";
             document.getElementById('btn-f').style.background = "#e11d48";
             respondidoVF = false;
+            iniciarTimer();
             document.getElementById('area-carta').style.display = 'flex';
+        }
+
+        function iniciarTimer() {
+            timerSegundos = 10;
+            const cajaTimer = document.getElementById('contenedor-timer');
+            cajaTimer.innerText = timerSegundos;
+            cajaTimer.style.display = 'flex';
+            cajaTimer.classList.remove('timer-peligro');
+            
+            const audioTic = document.getElementById('repro-tictac');
+            audioTic.currentTime = 0;
+            audioTic.play();
+
+            intervaloTimer = setInterval(() => {
+                timerSegundos--;
+                cajaTimer.innerText = timerSegundos;
+                
+                if(timerSegundos <= 3) cajaTimer.classList.add('timer-peligro');
+                
+                if(timerSegundos <= 0) {
+                    pararTimer();
+                    if(!respondidoVF) chequearVF('tiempo_agotado');
+                }
+            }, 1000);
+        }
+
+        function pararTimer() {
+            clearInterval(intervaloTimer);
+            document.getElementById('repro-tictac').pause();
+            document.getElementById('contenedor-timer').style.display = 'none';
         }
 
         function chequearVF(eleccion) {
             if(respondidoVF) return;
             respondidoVF = true;
+            pararTimer();
+            
             const esCorrecto = (eleccion === actual.r);
             
             if(esCorrecto) {
+                document.getElementById('repro-bien').currentTime = 0;
                 document.getElementById('repro-bien').play();
             } else {
+                document.getElementById('repro-mal').currentTime = 0;
                 document.getElementById('repro-mal').play();
             }
 
-            document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3";
-            document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3";
-            
-            if(!esCorrecto) {
-                if(eleccion === true) document.getElementById('btn-v').style.background = "gray";
-                else document.getElementById('btn-f').style.background = "gray";
+            if(eleccion !== 'tiempo_agotado') {
+                document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3";
+                document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3";
+                if(!esCorrecto) {
+                    if(eleccion === true) document.getElementById('btn-v').style.background = "gray";
+                    else document.getElementById('btn-f').style.background = "gray";
+                }
+            } else {
+                document.getElementById('btn-v').style.opacity = "0.3";
+                document.getElementById('btn-f').style.opacity = "0.3";
+                document.getElementById('resp-vf-texto').innerHTML = "¡TIEMPO AGOTADO! ";
             }
 
-            document.getElementById('resp-vf-texto').innerHTML = actual.detalle;
+            document.getElementById('resp-vf-texto').innerHTML += actual.detalle;
         }
 
         function seleccionarAudioMazoVerde() {
@@ -430,6 +489,7 @@
 
         function cerrar() {
             sonarClick();
+            pararTimer();
             document.getElementById('menu-principal').classList.remove('atenuado');
             document.getElementById('repro-frase').pause();
             const vp = document.getElementById('visor-video');
@@ -457,6 +517,7 @@
             document.getElementById('pistas-bloque').style.display = 'none';
             document.getElementById('btn-audio').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
+            document.getElementById('contenedor-timer').style.display = 'none';
             if(videosDisponibles.length === 0) { visorV.style.display = 'none'; msgFin.style.display = 'block'; } 
             else {
                 msgFin.style.display = 'none';
