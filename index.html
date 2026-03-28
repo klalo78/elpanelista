@@ -83,7 +83,7 @@
 
         .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
 
-        /* --- ESTILOS PLACA ROJA --- */
+        /* --- PLACA ROJA --- */
         #placa-roja {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #ff0000; z-index: 10000; flex-direction: column;
@@ -130,12 +130,12 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5); animation: deslizarVertical 2s infinite ease-in-out;
         }
 
-        /* --- ESTILOS CUENTA REGRESIVA --- */
+        /* --- ESTILOS CUENTA REGRESIVA REUBICADA --- */
         #contenedor-timer {
-            display: none; position: absolute; top: 15px; right: 15px;
-            width: 70px; height: 70px; border-radius: 50%; border: 4px solid white;
+            display: none; width: 70px; height: 70px; border-radius: 50%; border: 4px solid white;
             background: rgba(0,0,0,0.8); justify-content: center; align-items: center;
             font-family: 'Anton', sans-serif; font-size: 35px; z-index: 6000;
+            margin: 15px auto; /* Centrado en el flujo */
         }
         .timer-peligro { color: #ff0000; border-color: #ff0000 !important; animation: latido 0.5s infinite; }
 
@@ -172,8 +172,6 @@
         <img src="logo.png" class="logo-portada">
         <button class="btn-entrar" onclick="entrarAlJuego()">JUGAR</button>
     </div>
-
-    <div id="contenedor-timer">10</div>
 
     <div id="placa-roja">
         <p class="texto-ultimo-momento">ULTIMO MOMENTO</p>
@@ -223,6 +221,7 @@
             <button id="btn-v" class="btn-vf btn-verde" onclick="chequearVF(true)">VERDADERO</button>
             <button id="btn-f" class="btn-vf btn-rojo" onclick="chequearVF(false)">FALSO</button>
             <div id="resp-vf-texto"></div>
+            <div id="contenedor-timer">10</div>
         </div>
 
         <div id="pistas-bloque" style="display:none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center;">
@@ -326,7 +325,6 @@
                 document.getElementById('repro-rojo').currentTime = 0; 
                 document.getElementById('repro-rojo').play();
             } else if (t === 'vf') {
-                // Al presionar el botón azul, suena bien.mp3
                 document.getElementById('repro-bien').currentTime = 0;
                 document.getElementById('repro-bien').play();
             } else { sonarClick(); }
@@ -339,7 +337,6 @@
             document.getElementById('btn-audio').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
-            document.getElementById('contenedor-timer').style.display = 'none';
 
             if (t === 'quien_dijo') { seleccionarAudioMazoVerde(); } 
             else if (t === 'vf') { abrirMazoAzul(); }
@@ -517,7 +514,6 @@
             document.getElementById('pistas-bloque').style.display = 'none';
             document.getElementById('btn-audio').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
-            document.getElementById('contenedor-timer').style.display = 'none';
             if(videosDisponibles.length === 0) { visorV.style.display = 'none'; msgFin.style.display = 'block'; } 
             else {
                 msgFin.style.display = 'none';
