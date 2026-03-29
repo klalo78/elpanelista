@@ -19,80 +19,70 @@
             font-family: 'Super Sunkissed', sans-serif; 
             text-align: center; color: white; 
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('back.jpg') no-repeat;
-            background-size: cover;
-            background-position: 95% center; 
-            background-attachment: fixed;
-            transition: background 0.6s ease-in-out;
-            font-size: 18px;
+            background-size: cover; background-position: 95% center; background-attachment: fixed;
         }
 
-        /* --- PANTALLA DE INICIO --- */
+        /* --- PANTALLA DE INICIO (SUBIDA Y CHICA) --- */
         #pantalla-inicio {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #1a1a1a url('back.jpg') no-repeat center/cover;
             display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
             z-index: 9999; padding-top: 3vh;
         }
-        .logo-portada { max-width: 220px; width: 65%; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(250,204,21,0.5)); animation: latido 2s infinite; }
-        @keyframes latido { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 5px 20px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black; }
+        .logo-portada { max-width: 220px; width: 65%; margin-bottom: 10px; animation: latido 2s infinite; }
+        @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 5px 20px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; }
 
         /* --- MENU PRINCIPAL --- */
         #menu-principal { display: none; padding: 20px; transition: opacity 0.5s ease; }
         #menu-principal.atenuado { opacity: 0.15; }
-        .header-logo { max-width: 260px; width: 75%; margin: 40px auto 20px auto; display: block; animation: latido 2s infinite; }
+        .header-logo { max-width: 260px; width: 75%; margin: 40px auto 20px auto; display: block; }
         .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto 20px auto; }
-        button { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; padding: 5px; line-height: 1.1; }
+        button { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
         /* --- CONTROLES ABAJO --- */
         .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 65px; margin-top: 25px; }
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
-        #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; margin: 0 auto; cursor: pointer;}
-        .btn-especial { background: black; color: #facc15; border: 4px solid #facc15; width: 105px; height: 105px; border-radius: 20px; cursor: pointer; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .star-icon { width: 80%; border-radius: 50%; animation: girarEstrella 10s linear infinite; }
-        @keyframes girarEstrella { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
+        #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;}
+        .btn-especial { background: black; border: 4px solid #facc15; width: 105px; height: 105px; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .star-icon { width: 80%; border-radius: 50%; animation: girar 10s linear infinite; }
+        @keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-shadow: 2px 2px 4px black; }
 
-        /* --- PANTALLA CARTA (FONDO BACK2 BIEN VISIBLE) --- */
+        /* --- PANTALLA CARTA (FONDO back2 BIEN VISIBLE) --- */
         .pantalla-carta { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('back2.jpg') no-repeat center/cover fixed;
             z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; 
         }
-        .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
-        #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; }
+        #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; }
         #visor-video { width: 92%; max-height: 60vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
-        #texto-frase { margin-top: 10px; font-size: 28px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; margin-bottom: 10px; font-weight: bold; }
+        #texto-frase { margin-top: 10px; font-size: 28px; text-shadow: 2px 2px 5px black; padding: 0 15px; font-weight: bold; }
 
-        /* --- PISTAS --- */
+        /* PISTAS */
         #pistas-bloque { display: none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center; }
         #txt-pista { color: #facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; }
         .controles-pistas { display: flex; gap: 15px; width: 90%; justify-content: center; }
-        .btn-pista { font-family: 'Super Sunkissed', sans-serif; height: 65px !important; border: 2px solid white; border-radius: 12px; color: white; font-size: 22px; padding: 0 20px; min-width: 140px; cursor: pointer; }
+        .btn-pista { font-family: 'Super Sunkissed', sans-serif; height: 65px !important; border: 2px solid white; border-radius: 12px; color: white; font-size: 22px; padding: 0 20px; min-width: 140px; }
 
-        /* --- BOTÓN VOLVER (BIEN ARRIBA) --- */
+        /* BOTÓN VOLVER (SIN FLECHA Y ARRIBA) */
         .volver-pie-contenedor { 
-            margin-top: auto; 
-            margin-bottom: 12vh; 
-            cursor: pointer; 
-            display: flex; flex-direction: column; align-items: center; 
-            background: rgba(0, 0, 0, 0.7); border: 2px solid white; 
-            padding: 8px 30px; border-radius: 25px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
-            animation: deslizarVertical 2s infinite ease-in-out; 
+            margin-top: auto; margin-bottom: 12vh; cursor: pointer; 
+            background: rgba(0, 0, 0, 0.7); border: 2px solid white; padding: 8px 40px; border-radius: 25px; 
+            animation: deslizar 2s infinite ease-in-out; 
         }
-        .volver-pie-texto { font-size: 20px; color: white; text-transform: uppercase; font-weight: bold; letter-spacing: 2px; }
-        @keyframes deslizarVertical { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+        .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
+        @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 
         /* VF Y RELOJ */
-        #contenedor-timer { display: none; width: 140px; height: 140px; border-radius: 50%; border: 6px double #333; background: #fdf5e6; color: #222; justify-content: center; align-items: center; font-family: 'Anton', sans-serif; font-size: 75px; z-index: 6000; margin: 0 auto 15px auto; }
-        .timer-peligro { background: #ffcccc !important; color: red !important; border-color: red !important; }
+        #contenedor-timer { display: none; width: 140px; height: 140px; border-radius: 50%; border: 6px double #333; background: #fdf5e6; color: #222; justify-content: center; align-items: center; font-family: 'Anton', sans-serif; font-size: 75px; margin: 0 auto 15px auto; }
         .timer-temblor { animation: temblar 0.1s infinite !important; }
-        @keyframes temblar { 0% { transform: translate(2px, 1px) rotate(1deg); } 50% { transform: translate(-2px, -1px) rotate(-1deg); } 100% { transform: translate(2px, 1px) rotate(1deg); } }
+        @keyframes temblar { 0% { transform: translate(2px, 1px) rotate(1deg); } 50% { transform: translate(-2px, -1px) rotate(-1deg); } }
     </style>
 </head>
-<body id="cuerpo">
+<body>
 
     <div id="pantalla-inicio">
         <img src="logo.png" class="logo-portada">
@@ -108,29 +98,23 @@
             <button class="btn-amarillo" onclick="sonarClick()">CHISMES</button>
         </div>
         <div class="seccion-controles-abajo">
-            <div style="text-align: center;">
-                <div class="seccion-dado"><div id="boton-dado" onclick="tirarDado()">🎲</div></div>
-                <div class="label-control">DADO</div>
-            </div>
-            <div onclick="abrirVideoAleatorio()" style="text-align: center;">
-                <button class="btn-especial"><img src="star.jpg" class="star-icon"></button>
-                <div class="label-control">PANELISTA</div>
-            </div>
+            <div style="text-align: center;"><div class="seccion-dado"><div id="boton-dado" onclick="tirarDado()">🎲</div></div><div class="label-control">DADO</div></div>
+            <div onclick="abrirVideoAleatorio()" style="text-align: center;"><button class="btn-especial"><img src="star.jpg" class="star-icon"></button><div class="label-control">PANELISTA</div></div>
         </div>
     </div>
 
     <div id="area-carta" class="pantalla-carta">
         <img src="logo.png" class="logo-mazo">
-        <div id="mensaje-fin-videos" style="display:none; font-size:28px; color:gold;">YA NO HAY MÁS...</div>
+        <div id="mensaje-fin-videos" style="display:none; font-size:28px; color:gold;">YA NO HAY MÁS PANELISTAS...</div>
         <img id="visor" style="display:none;">
         <video id="visor-video" controls style="display:none;"></video>
         <div id="texto-frase"></div>
 
         <div id="mazo-vf" style="display:none; width:90%; flex-direction:column; gap:15px;">
             <div id="contenedor-timer">10</div>
-            <button id="btn-v" style="height:70px; background:#16a34a; border:3px solid white; color:white; font-family:'Super Sunkissed'; font-size:24px; border-radius:15px;" onclick="chequearVF(true)">VERDADERO</button>
-            <button id="btn-f" style="height:70px; background:#e11d48; border:3px solid white; color:white; font-family:'Super Sunkissed'; font-size:24px; border-radius:15px;" onclick="chequearVF(false)">FALSO</button>
-            <div id="resp-vf-texto" style="color:#facc15; font-size:24px; margin-top:15px; font-weight:bold;"></div>
+            <button id="btn-v" style="height:70px; background:#16a34a; border:3px solid white; border-radius:15px; font-size:24px; color:white;" onclick="chequearVF(true)">VERDADERO</button>
+            <button id="btn-f" style="height:70px; background:#e11d48; border:3px solid white; border-radius:15px; font-size:24px; color:white;" onclick="chequearVF(false)">FALSO</button>
+            <div id="resp-vf-texto" style="color:#facc15; font-size:24px; margin-top:10px; font-weight:bold;"></div>
         </div>
 
         <div id="pistas-bloque">
@@ -158,26 +142,23 @@
 
     <script>
         const datos = {
-            personajes: [
-                { id: 'marley', img: 'personajes/marley.jpg', pistas: ["Su verdadero nombre es Alejandro.", "Empezó como columnista en un magazine.", "Viajó por todo el mundo.", "Tiene un hijo llamado Mirko."] }
-            ],
+            personajes: [{ id: 'marley', img: 'personajes/marley.jpg', pistas: ["Su verdadero nombre es Alejandro.", "Empezó como columnista en un magazine.", "Viajó por todo el mundo.", "Tiene un hijo llamado Mirko."] }],
             quien_dijo: [
                 { id: 'mirtha_1', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_01.mp3', t:'“Esa técnica de mierda...”'}] },
                 { id: 'moria_1', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] },
-                { id: 'fort_1', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}] }
+                { id: 'fort_1', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}] },
+                { id: 'giordano_1', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_01.mp3', t:'“¡Qué noche Teté!”'}] },
+                { id: 'albinoni_1', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_01.mp3', t:'“¡Tengo las bolas llenas!”'}] }
             ],
             vf: [
-                { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
+                { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Fue en Ranelagh.' },
                 { t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Se llamaba Jazmín.' },
                 { t: 'En el primer almuerzo de Mirtha estuvo Daniel Tinayre', r: true, detalle: 'Debutó el 3 de junio de 1968.' }
             ]
         };
         
-        let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4'];
-        let audiosVistosMazoVerde = []; 
+        let mazoVerde = []; let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4'];
         let actual = null; let pIdx = 0; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
-
-        function sonarClick() { document.getElementById('repro-click').play(); }
 
         function entrarAlJuego() {
             const docElm = document.documentElement;
@@ -199,10 +180,7 @@
             document.getElementById('texto-frase').innerHTML = "";
 
             if (t === 'personajes') {
-                // Audio de Moria al abrir el mazo rojo
-                document.getElementById('repro-rojo').currentTime = 0;
                 document.getElementById('repro-rojo').play();
-                
                 actual = datos.personajes[Math.floor(Math.random() * datos.personajes.length)];
                 document.getElementById('visor').src = actual.img;
                 document.getElementById('visor').style.display = 'block';
@@ -213,22 +191,36 @@
                 actual = datos.vf[Math.floor(Math.random() * datos.vf.length)];
                 document.getElementById('texto-frase').innerHTML = actual.t;
                 document.getElementById('mazo-vf').style.display = 'flex';
-                document.getElementById('resp-vf-texto').innerHTML = "";
                 respondidoVF = false; iniciarTimer();
             } else if (t === 'quien_dijo') {
-                seleccionarFraseVerde();
+                if (mazoVerde.length === 0) mazoVerde = [...datos.quien_dijo].sort(() => Math.random() - 0.5);
+                actual = mazoVerde.pop();
+                document.getElementById('visor').src = actual.img;
+                document.getElementById('visor').style.display = 'block';
+                document.getElementById('btn-audio').style.display = 'block';
+                document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
             }
         }
 
-        function seleccionarFraseVerde() {
-            let disponibles = datos.quien_dijo.filter(f => !audiosVistosMazoVerde.includes(f.id));
-            if (disponibles.length === 0) { audiosVistosMazoVerde = []; disponibles = datos.quien_dijo; }
-            actual = disponibles[Math.floor(Math.random() * disponibles.length)];
-            audiosVistosMazoVerde.push(actual.id);
-            document.getElementById('visor').src = actual.img;
-            document.getElementById('visor').style.display = 'block';
-            document.getElementById('btn-audio').style.display = 'block';
-            document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
+        function abrirVideoAleatorio() {
+            sonarClick();
+            document.getElementById('menu-principal').classList.add('atenuado');
+            document.getElementById('area-carta').style.display = 'flex';
+            document.getElementById('visor').style.display = 'none';
+            document.getElementById('mazo-vf').style.display = 'none';
+            document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('btn-audio').style.display = 'none';
+            document.getElementById('texto-frase').innerHTML = "";
+
+            const v = document.getElementById('visor-video');
+            if(videosDisponibles.length === 0) {
+                document.getElementById('mensaje-fin-videos').style.display = 'block';
+                v.style.display = 'none';
+            } else {
+                document.getElementById('mensaje-fin-videos').style.display = 'none';
+                const videoElegido = videosDisponibles.splice(Math.floor(Math.random() * videosDisponibles.length), 1)[0];
+                v.src = videoElegido; v.style.display = 'block'; v.play();
+            }
         }
 
         function actualizarBotonesPistas() {
@@ -238,22 +230,16 @@
             btnNext.style.display = (pIdx < actual.pistas.length - 1) ? 'block' : 'none';
         }
 
-        function cambiarPista(d) { 
-            pIdx += d; 
-            document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx]; 
-            actualizarBotonesPistas(); 
-            document.getElementById('repro-click').play(); 
-        }
+        function cambiarPista(d) { pIdx += d; document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx]; actualizarBotonesPistas(); sonarClick(); }
 
         function iniciarTimer() {
             timerSegundos = 10;
             const cajaTimer = document.getElementById('contenedor-timer');
             cajaTimer.innerText = timerSegundos; cajaTimer.style.display = 'flex';
-            cajaTimer.classList.remove('timer-peligro', 'timer-temblor');
+            cajaTimer.classList.remove('timer-temblor');
             document.getElementById('repro-tictac').play();
             intervaloTimer = setInterval(() => {
                 timerSegundos--; cajaTimer.innerText = timerSegundos;
-                if(timerSegundos <= 3) cajaTimer.classList.add('timer-peligro');
                 if(timerSegundos <= 0) { pararTimer(); cajaTimer.classList.add('timer-temblor'); if(!respondidoVF) chequearVF('tiempo'); }
             }, 1000);
         }
@@ -276,8 +262,13 @@
             }, 80);
         }
 
-        function cerrar() { pararTimer(); document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; document.getElementById('visor-video').pause(); }
-        function abrirVideoAleatorio() { sonarClick(); document.getElementById('area-carta').style.display = 'flex'; }
+        function cerrar() { 
+            pararTimer(); 
+            document.getElementById('menu-principal').classList.remove('atenuado'); 
+            document.getElementById('area-carta').style.display = 'none'; 
+            document.getElementById('visor-video').pause();
+        }
+        function sonarClick() { document.getElementById('repro-click').play(); }
         function sonar() { document.getElementById('repro-frase').src = actual.audios[0].f; document.getElementById('repro-frase').play(); }
     </script>
 </body>
