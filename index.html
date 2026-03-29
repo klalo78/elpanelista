@@ -26,16 +26,17 @@
             font-size: 18px;
         }
 
-        /* --- PANTALLA DE INICIO (MÁS ALTA) --- */
+        /* --- PANTALLA DE INICIO (MÁS ARRIBA) --- */
         #pantalla-inicio {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #1a1a1a url('back.jpg') no-repeat center/cover;
             display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
-            z-index: 9999; padding-top: 12vh; /* Subí el contenido */
+            z-index: 9999; 
+            padding-top: 5vh; /* SUBIDO: Antes 12vh */
         }
-        .logo-portada { max-width: 220px; width: 65%; margin-bottom: 25px; filter: drop-shadow(0 0 10px rgba(250,204,21,0.5)); animation: latido 2s infinite; }
+        .logo-portada { max-width: 220px; width: 65%; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(250,204,21,0.5)); animation: latido 2s infinite; }
         @keyframes latido { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 12px 35px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black; }
+        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 10px 30px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black; }
 
         /* --- MENU PRINCIPAL --- */
         #menu-principal { display: none; padding: 20px; transition: opacity 0.5s ease; }
@@ -54,10 +55,10 @@
         @keyframes girarEstrella { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
 
-        /* --- PANTALLA CARTA (FONDO BACK2 REFORZADO) --- */
+        /* --- PANTALLA CARTA (FONDO BACK2 BIEN VISIBLE) --- */
         .pantalla-carta { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('back2.jpg') no-repeat center/cover fixed;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('back2.jpg') no-repeat center/cover fixed;
             z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; 
         }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
@@ -95,6 +96,7 @@
         /* --- BOTON VOLVER --- */
         .volver-pie-contenedor { margin-top: auto; margin-bottom: 40px; cursor: pointer; display: flex; flex-direction: column; align-items: center; background: rgba(0, 0, 0, 0.6); border: 2px solid white; padding: 10px 20px; border-radius: 20px; animation: deslizarVertical 2s infinite ease-in-out; }
         .volver-pie-texto { font-size: 18px; color: white; text-transform: uppercase; font-weight: bold; }
+        @keyframes deslizarVertical { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
     </style>
 </head>
 <body id="cuerpo">
@@ -166,8 +168,6 @@
             personajes: [{ id: 'marley', img: 'personajes/marley.jpg', pistas: ["Su verdadero nombre es Alejandro.", "Empezó como columnista en un magazine.", "Viajó por todo el mundo.", "Tiene un hijo llamado Mirko."] }],
             quien_dijo: [
                 { id: 'mirtha_1', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_01.mp3', t:'“Esa técnica de mierda, ese tipo que me arruinó un año de trabajo”'}] },
-                { id: 'mirtha_2', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_02.mp3', t:'“Demasiado esfuerzo hago, carajo, mierda”'}] },
-                { id: 'monti_1', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_01.mp3', t:'“¡Ladrones... Sátrapas... Sinvergüenzas!”'}] },
                 { id: 'moria_1', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] },
                 { id: 'fort_1', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}] }
             ],
@@ -222,10 +222,7 @@
 
         function seleccionarFraseVerde() {
             let disponibles = datos.quien_dijo.filter(f => !audiosVistosMazoVerde.includes(f.id));
-            if (disponibles.length === 0) {
-                document.getElementById('mensaje-fin-videos').style.display = 'block';
-                return;
-            }
+            if (disponibles.length === 0) { audiosVistosMazoVerde = []; disponibles = datos.quien_dijo; }
             actual = disponibles[Math.floor(Math.random() * disponibles.length)];
             audiosVistosMazoVerde.push(actual.id);
             document.getElementById('visor').src = actual.img;
@@ -244,9 +241,8 @@
             document.getElementById('btn-audio').style.display = 'none';
             document.getElementById('texto-frase').innerHTML = "";
             const v = document.getElementById('visor-video');
-            if(videosDisponibles.length === 0) {
-                document.getElementById('mensaje-fin-videos').style.display = 'block';
-            } else {
+            if(videosDisponibles.length === 0) { document.getElementById('mensaje-fin-videos').style.display = 'block'; } 
+            else {
                 const videoElegido = videosDisponibles.splice(Math.floor(Math.random() * videosDisponibles.length), 1)[0];
                 v.src = videoElegido; v.style.display = 'block'; v.play();
             }
@@ -284,18 +280,11 @@
             }, 80);
         }
 
-        function cerrar() { 
-            pararTimer(); 
-            document.getElementById('menu-principal').classList.remove('atenuado'); 
-            document.getElementById('area-carta').style.display = 'none'; 
-            document.getElementById('visor-video').pause();
-        }
-
+        function cerrar() { pararTimer(); document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; document.getElementById('visor-video').pause(); }
         function actualizarBotonesPistas() {
             document.getElementById('btn-pista-prev').style.visibility = (pIdx > 0) ? 'visible' : 'hidden';
             document.getElementById('btn-pista-next').style.visibility = (pIdx < actual.pistas.length - 1) ? 'visible' : 'hidden';
         }
-
         function cambiarPista(d) { pIdx += d; document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx]; actualizarBotonesPistas(); sonarClick(); }
         function sonar() { document.getElementById('repro-frase').src = actual.audios[0].f; document.getElementById('repro-frase').play(); }
     </script>
