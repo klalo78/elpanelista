@@ -13,7 +13,7 @@
             src: url('Super Sunkissed.ttf');
         }
 
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; background-color: #000; }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; background-color: #000; overflow: hidden; }
         
         body { 
             font-family: 'Super Sunkissed', sans-serif; 
@@ -27,101 +27,72 @@
             font-size: 18px;
         }
 
+        /* --- PANTALLA DE INICIO --- */
         #pantalla-inicio {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #1a1a1a url('back.jpg') no-repeat;
-            background-size: cover;
-            background-position: 95% center;
-            display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
-            z-index: 9999; padding-top: 8vh; 
+            background: #1a1a1a url('back.jpg') no-repeat center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 9999;
         }
-
         .logo-portada { max-width: 220px; width: 65%; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(250,204,21,0.5)); animation: latido 2s infinite; }
         @keyframes latido { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        
-        .btn-entrar { 
-            font-family: 'Super Sunkissed', sans-serif;
-            background: rgba(225,29,72,0.9); color: white; border: 2px solid white; 
-            padding: 6px 25px; font-size: 28px; cursor: pointer; 
-            margin-top: -25px; 
-            box-shadow: 0 5px 15px black; border-radius: 50px; text-transform: uppercase;
-            position: relative; z-index: 10;
-        }
+        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 10px 30px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black; }
 
-        #menu-principal { display: none; padding: 20px; position: relative; z-index: 10; transition: opacity 0.5s ease; }
+        /* --- MENU PRINCIPAL --- */
+        #menu-principal { display: none; padding: 20px; transition: opacity 0.5s ease; }
         #menu-principal.atenuado { opacity: 0.15; }
-
         .header-logo { max-width: 260px; width: 75%; margin: 45px auto 20px auto; display: block; animation: latido 2s infinite; }
         .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto 20px auto; }
-        
-        button { 
-            font-family: 'Super Sunkissed', sans-serif; 
-            height: 90px; border-radius: 12px; border: 2px solid white; 
-            color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; 
-            padding: 5px; line-height: 1.1;
-        }
-        
+        button { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; padding: 5px; line-height: 1.1; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
         /* --- RELOJ ANTIGUO --- */
         #contenedor-timer {
             display: none; width: 140px; height: 140px; border-radius: 50%; 
-            border: 6px double #333;
-            background: #fdf5e6;
-            color: #222;
+            border: 6px double #333; background: #fdf5e6; color: #222;
             justify-content: center; align-items: center;
             font-family: 'Anton', sans-serif; font-size: 75px; z-index: 6000;
             margin: 0 auto 15px auto;
             box-shadow: inset 0 0 15px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.5);
-            position: relative;
         }
         .timer-peligro { background: #ffcccc !important; color: #ff0000 !important; border-color: #ff0000 !important; animation: latidoRapido 0.5s infinite; }
         .timer-temblor { animation: temblar 0.1s infinite !important; }
-
-        @keyframes temblar {
-            0% { transform: translate(2px, 1px) rotate(0deg); }
-            20% { transform: translate(-1px, -2px) rotate(-1deg); }
-            40% { transform: translate(-3px, 0px) rotate(1deg); }
-            60% { transform: translate(3px, 2px) rotate(0deg); }
-            80% { transform: translate(1px, -1px) rotate(1deg); }
-            100% { transform: translate(-1px, 2px) rotate(-1deg); }
-        }
-        @keyframes latidoRapido { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+        @keyframes temblar { 0% { transform: translate(2px, 1px) rotate(0deg); } 50% { transform: translate(-2px, -1px) rotate(-1deg); } 100% { transform: translate(2px, 1px) rotate(0deg); } }
 
         /* --- PISTAS --- */
         #pistas-bloque { display: none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center; }
         #txt-pista { color: #facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
         .controles-pistas { display: flex; gap: 10px; width: 90%; }
-        .btn-pista { flex: 1; font-family: 'Super Sunkissed', sans-serif; height: 60px !important; border: 2px solid white; border-radius: 10px; color: white; font-size: 20px; cursor: pointer; }
+        .btn-pista { flex: 1; height: 60px !important; border: 2px solid white; border-radius: 10px; color: white; font-size: 20px; }
 
+        /* --- CONTROLES ABAJO --- */
         .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 65px; margin-top: 25px; }
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
-        #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; margin: 0 auto; cursor: pointer;}
-        .btn-especial { background: black; color: #facc15; border: 4px solid #facc15; width: 105px; height: 105px; border-radius: 20px; box-shadow: 0 0 15px rgba(250,204,21,0.5); cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .star-icon { width: 80%; height: 80%; object-fit: contain; animation: girarEstrella 10s linear infinite; border-radius: 50%; }
+        #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;}
+        .btn-especial { background: black; color: #facc15; border: 4px solid #facc15; width: 105px; height: 105px; border-radius: 20px; cursor: pointer; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .star-icon { width: 80%; border-radius: 50%; animation: girarEstrella 10s linear infinite; }
+        @keyframes girarEstrella { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
 
-        #placa-roja { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #ff0000; z-index: 10000; flex-direction: column; justify-content: flex-start; align-items: center; padding: 20px; box-sizing: border-box; padding-top: 10vh; }
-        .texto-ultimo-momento { font-family: 'Anton', sans-serif; font-size: 90px; color: white; text-transform: uppercase; text-shadow: 8px 8px 0px black; margin: 0; line-height: 0.8; letter-spacing: -3px; animation: zoomSuave 2s infinite ease-in-out; display: inline-block; }
-        @keyframes zoomSuave { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        
-        /* BOTON VOLVER */
-        .volver-pie-contenedor { margin-top: auto; margin-bottom: 40px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: rgba(0, 0, 0, 0.6); border: 2px solid white; padding: 10px 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); animation: deslizarVertical 2s infinite ease-in-out; }
-        .volver-pie-texto { font-size: 18px; color: white; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
-        .flecha-volver-svg { width: 30px; height: 30px; fill: white; }
-        @keyframes deslizarVertical { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
-
-        .contenedor-vf { display: none; width: 90%; flex-direction: column; gap: 15px; margin-top: 10px; }
-        .btn-vf { height: 70px !important; font-size: 24px; border: 3px solid white; transition: all 0.3s; }
-        #resp-vf-texto { color: #facc15; font-size: 26px; margin-top: 15px; text-shadow: 2px 2px 4px black; min-height: 40px; font-weight: bold; }
-
-        /* FONDO OSCURO PARA CARTAS RESTAURADO */
-        .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
+        /* --- PANTALLA CARTA (FONDO CON IMAGEN Y OPACIDAD) --- */
+        .pantalla-carta { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.88)), url('back.jpg') no-repeat center/cover fixed;
+            z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; 
+        }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        #visor-video { width: 92%; max-height: 69vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
-        #texto-frase { margin-top: 10px; font-size: 32px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; margin-bottom: 10px; }
-        .btn-audio-carta { font-family: 'Super Sunkissed', sans-serif; background:#facc15; color:black; width:90%; height:70px !important; margin-top:15px; border: 2px solid white; border-radius: 10px; font-size: 22px; cursor: pointer; }
+        #visor-video { width: 92%; max-height: 60vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
+        
+        #texto-frase { margin-top: 10px; font-size: 30px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; margin-bottom: 10px; }
+        
+        /* BOTON VOLVER */
+        .volver-pie-contenedor { margin-top: auto; margin-bottom: 40px; cursor: pointer; display: flex; flex-direction: column; align-items: center; background: rgba(0, 0, 0, 0.6); border: 2px solid white; padding: 10px 20px; border-radius: 20px; animation: deslizarVertical 2s infinite ease-in-out; }
+        .volver-pie-texto { font-size: 18px; color: white; text-transform: uppercase; font-weight: bold; }
+        @keyframes deslizarVertical { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+        .contenedor-vf { display: none; width: 90%; flex-direction: column; gap: 15px; }
+        .btn-vf { height: 70px !important; font-size: 24px; border: 3px solid white; }
     </style>
 </head>
 <body id="cuerpo">
@@ -129,17 +100,6 @@
     <div id="pantalla-inicio">
         <img src="logo.png" class="logo-portada">
         <button class="btn-entrar" onclick="entrarAlJuego()">JUGAR</button>
-    </div>
-
-    <div id="placa-roja">
-        <p class="texto-ultimo-momento">ULTIMO MOMENTO</p>
-        <div id="pregunta-placa" style="font-family:'Anton'; font-size:32px; color:white; margin-top:50px; text-shadow: 3px 3px 0px black;">¿QUI&Eacute;N FUE EL GANADOR DEL GRAN HERMANO CELEBRITY?</div>
-        <div id="respuesta-placa" style="font-family:'Anton'; font-size:60px; color:#cfff04; margin-top:20px; display:none; text-shadow:4px 4px 0px black;">IANLUCA</div>
-        <button id="btn-ver-placa" class="btn-ver-respuesta" onclick="document.getElementById('respuesta-placa').style.display='block'; this.style.display='none'">VER RESPUESTA</button>
-        <div class="volver-pie-contenedor" onclick="cerrarPlaca()">
-            <div class="volver-pie-texto">volver al menú</div>
-            <svg class="flecha-volver-svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/></svg>
-        </div>
     </div>
 
     <div id="menu-principal">
@@ -156,7 +116,7 @@
                 <div class="label-control">DADO</div>
             </div>
             <div onclick="abrirVideoAleatorio()" style="text-align: center;">
-                <button class="btn-especial"><img src="star.jpg" alt="estrella" class="star-icon"></button>
+                <button class="btn-especial"><img src="star.jpg" class="star-icon"></button>
                 <div class="label-control">PANELISTA</div>
             </div>
         </div>
@@ -164,15 +124,16 @@
 
     <div id="area-carta" class="pantalla-carta">
         <img src="logo.png" class="logo-mazo">
-        <div id="texto-frase"></div>
+        <div id="mensaje-fin-videos" style="display:none; font-size:28px; color:gold;">YA NO HAY MÁS PANELISTAS...</div>
         <img id="visor" style="display:none;">
         <video id="visor-video" controls style="display:none;"></video>
+        <div id="texto-frase"></div>
 
         <div id="mazo-vf" class="contenedor-vf">
             <div id="contenedor-timer">10</div>
             <button id="btn-v" class="btn-vf btn-verde" onclick="chequearVF(true)">VERDADERO</button>
             <button id="btn-f" class="btn-vf btn-rojo" onclick="chequearVF(false)">FALSO</button>
-            <div id="resp-vf-texto"></div>
+            <div id="resp-vf-texto" style="color:#facc15; font-size:24px; margin-top:15px; font-weight:bold;"></div>
         </div>
 
         <div id="pistas-bloque">
@@ -183,19 +144,17 @@
             </div>
         </div>
 
-        <button id="btn-audio" class="btn-audio-carta" style="display:none;" onclick="sonar()">🔊 ESCUCHAR</button>
+        <button id="btn-audio" class="btn-audio-carta" style="display:none;" onclick="sonar()">🔊 ESCUCHAR AUDIO</button>
 
         <div class="volver-pie-contenedor" onclick="cerrar()">
             <div class="volver-pie-texto">volver al menú</div>
-            <svg class="flecha-volver-svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/></svg>
+            <svg style="width:30px; height:30px; fill:white;" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/></svg>
         </div>
     </div>
 
     <audio id="repro-frase"></audio>
     <audio id="repro-dado" src="sonidos/dado.mp3"></audio>
-    <audio id="repro-rojo" src="sonidos/moria_01.mp3"></audio>
     <audio id="repro-click" src="sonidos/click.mp3"></audio>
-    <audio id="repro-placa" src="sonidos/placa.mp3"></audio>
     <audio id="repro-bien" src="sonidos/bien.mp3"></audio>
     <audio id="repro-mal" src="sonidos/mal.mp3"></audio>
     <audio id="repro-tictac" src="sonidos/tictac.mp3" loop></audio>
@@ -207,11 +166,13 @@
             vf: [
                 { t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Su verdadero nombre era Jazmín.' },
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que la abdujeron en Ranelagh.' },
-                { t: 'En el primer almuerzo de Mirtha, un invitado fue Daniel Tinayre', r: true, detalle: 'Efectivamente, debutó el 3 de junio de 1968.' }
+                { t: 'En el primer almuerzo de Mirtha, un invitado fue Daniel Tinayre', r: true, detalle: 'Debutó el 3 de junio de 1968.' }
             ]
         };
         
-        let actual = null; let pIdx = 0; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
+        let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
+        let actual = null; let pIdx = 0; let respondidoVF = false;
+        let timerSegundos = 10; let intervaloTimer = null;
 
         function sonarClick() { document.getElementById('repro-click').play(); }
 
@@ -227,8 +188,10 @@
             document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('area-carta').style.display = 'flex';
             document.getElementById('visor').style.display = 'none';
+            document.getElementById('visor-video').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('mensaje-fin-videos').style.display = 'none';
             document.getElementById('btn-audio').style.display = 'none';
             document.getElementById('texto-frase').innerHTML = "";
 
@@ -236,7 +199,6 @@
                 actual = datos.vf[Math.floor(Math.random() * datos.vf.length)];
                 document.getElementById('texto-frase').innerHTML = actual.t;
                 document.getElementById('mazo-vf').style.display = 'flex';
-                document.getElementById('resp-vf-texto').innerHTML = "";
                 respondidoVF = false; iniciarTimer();
             } else if (t === 'personajes') {
                 actual = datos.personajes[Math.floor(Math.random() * datos.personajes.length)];
@@ -251,6 +213,24 @@
                 document.getElementById('visor').style.display = 'block';
                 document.getElementById('btn-audio').style.display = 'block';
                 document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
+            }
+        }
+
+        function abrirVideoAleatorio() {
+            sonarClick();
+            document.getElementById('menu-principal').classList.add('atenuado');
+            document.getElementById('area-carta').style.display = 'flex';
+            document.getElementById('visor').style.display = 'none';
+            document.getElementById('mazo-vf').style.display = 'none';
+            document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('texto-frase').innerHTML = "";
+
+            const v = document.getElementById('visor-video');
+            if(videosDisponibles.length === 0) {
+                document.getElementById('mensaje-fin-videos').style.display = 'block';
+            } else {
+                const videoElegido = videosDisponibles.splice(Math.floor(Math.random() * videosDisponibles.length), 1)[0];
+                v.src = videoElegido; v.style.display = 'block'; v.play();
             }
         }
 
@@ -273,7 +253,7 @@
             if(respondidoVF) return; respondidoVF = true; pararTimer();
             const esCorrecto = (eleccion === actual.r);
             if(esCorrecto) document.getElementById('repro-bien').play(); else document.getElementById('repro-mal').play();
-            document.getElementById('resp-vf-texto').innerHTML = (eleccion === 'tiempo' ? "¡TIEMPO AGOTADO! " : "") + actual.detalle;
+            document.getElementById('resp-vf-texto').innerHTML = actual.detalle;
             document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3";
             document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3";
         }
@@ -282,23 +262,23 @@
             document.getElementById('repro-dado').play();
             let c = 0; let i = setInterval(() => {
                 document.getElementById('boton-dado').innerText = Math.floor(Math.random()*6)+1;
-                if(c++ > 10) { clearInterval(i); if(Math.random() < 0.05) activarPlacaRoja(); }
+                if(c++ > 10) clearInterval(i);
             }, 80);
         }
 
-        function activarPlacaRoja() {
-            document.getElementById('repro-placa').play();
-            document.getElementById('placa-roja').style.display = 'flex';
+        function cerrar() { 
+            pararTimer(); 
+            document.getElementById('menu-principal').classList.remove('atenuado'); 
+            document.getElementById('area-carta').style.display = 'none'; 
+            document.getElementById('visor-video').pause();
         }
 
-        function cerrarPlaca() { document.getElementById('placa-roja').style.display = 'none'; document.getElementById('repro-placa').pause(); }
-        function cerrar() { pararTimer(); document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; }
         function actualizarBotonesPistas() {
             document.getElementById('btn-pista-prev').style.visibility = (pIdx > 0) ? 'visible' : 'hidden';
             document.getElementById('btn-pista-next').style.visibility = (pIdx < actual.pistas.length - 1) ? 'visible' : 'hidden';
         }
+
         function cambiarPista(d) { pIdx += d; document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx]; actualizarBotonesPistas(); sonarClick(); }
-        function abrirVideoAleatorio() { sonarClick(); alert("Abriendo video..."); }
         function sonar() { document.getElementById('repro-frase').src = actual.audios[0].f; document.getElementById('repro-frase').play(); }
     </script>
 </body>
