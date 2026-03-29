@@ -26,7 +26,7 @@
         button { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
-        /* --- CONTROLES ABAJO --- */
+        /* --- CONTROLES --- */
         .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 65px; margin-top: 25px; }
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
         #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;}
@@ -35,19 +35,19 @@
         @keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-shadow: 2px 2px 4px black; }
 
-        /* --- PANTALLA CARTA (back2) --- */
+        /* --- PANTALLA CARTA --- */
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('back2.jpg') no-repeat center/cover fixed; z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; }
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
         #visor-video { width: 92%; max-height: 60vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
         #texto-frase { margin-top: 15px; font-size: 28px; text-shadow: 2px 2px 5px black; padding: 0 15px; font-weight: bold; line-height: 1.1; }
 
-        /* --- PLACA ROJA CRÓNICA --- */
+        /* --- PLACA CRÓNICA --- */
         #pantalla-cronica { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f00; z-index: 10000; flex-direction: column; justify-content: center; align-items: center; color: white; border: 15px solid white; box-sizing: border-box; cursor: pointer; }
         .texto-cronica { font-family: 'Anton', sans-serif; font-size: 80px; text-transform: uppercase; line-height: 1; text-shadow: 5px 5px 0px black; border: 5px solid white; padding: 20px; }
-        .sub-cronica { font-size: 40px; background: #fff; color: #f00; padding: 10px 40px; margin-top: 20px; font-weight: bold; font-family: 'Anton', sans-serif; }
+        .sub-cronica { font-size: 40px; background: #fff; color: #f00; padding: 10px 40px; margin-top: 20px; font-weight: bold; }
 
-        /* BOTONES VOLVER */
+        /* BOTÓN VOLVER */
         .volver-pie-contenedor { margin-top: auto; margin-bottom: 12vh; cursor: pointer; background: rgba(0, 0, 0, 0.7); border: 2px solid white; padding: 8px 45px; border-radius: 25px; animation: deslizar 2s infinite ease-in-out; }
         .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
         @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
@@ -65,8 +65,8 @@
 
     <div id="pantalla-cronica" onclick="cerrarCronica()">
         <div class="texto-cronica">Último momento</div>
-        <div class="sub-cronica">INFORMACIÓN EXCLUSIVA</div>
-        <div style="margin-top:40px; font-size:22px; font-weight:bold;">TOCÁ PARA CONTINUAR EL ESCÁNDALO</div>
+        <div class="sub-cronica">TIRO NÚMERO 20</div>
+        <div style="margin-top:40px; font-size:18px;">TOCÁ PARA CONTINUAR EL ESCÁNDALO</div>
     </div>
 
     <div id="menu-principal">
@@ -123,57 +123,58 @@
 
     <script>
         const datos = {
-            personajes: [{ id: 'marley', img: 'personajes/marley.jpg', pistas: ["Su verdadero nombre es Alejandro.", "Empezó como columnista en un magazine.", "Viajó por todo el mundo.", "Tiene un hijo llamado Mirko."] }],
+            personajes: [
+                { id: 'marley', img: 'personajes/marley.jpg', pistas: ["Su verdadero nombre es Alejandro.", "Empezó como columnista en un magazine.", "Viajó por todo el mundo.", "Tiene un hijo llamado Mirko."] }
+            ],
             quien_dijo: [
-                { id: 'm1', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_01.mp3', t:'“Esa técnica de mierda, ese tipo que me arruinó un año de trabajo”'}] },
-                { id: 'm2', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_02.mp3', t:'“Demasiado esfuerzo hago, carajo, mierda”'}] },
-                { id: 'm3', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_03.mp3', t:'“Como te ven te tratan, si te ven mal te maltratan y si te ven bien te contratan”'}] },
-                { id: 'm4', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_04.mp3', t:'“Yo no necesito de vos para tener rating Silvana Suarez”'}] },
-                { id: 'm5', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_05.mp3', t:'“¡Así NO!”'}] },
-                { id: 'm6', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_06.mp3', t:'“¿Quién te operó?... La carita, ¿quién te hizo la carita?”'}] },
-                { id: 'mon1', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_01.mp3', t:'“¡Ladrones... Sátrapas... Sinvergüenzas!”'}] },
-                { id: 'mon2', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_02.mp3', t:'“Passarella... ¡Renunciá!”'}] },
-                { id: 'alb1', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_01.mp3', t:'“¡Perdón... pero tengo las bolas llenas!”'}] },
-                { id: 'alb2', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_02.mp3', t:'“Perdón... si alguno se ofendió porque después empiezan las ofensa”'}] },
-                { id: 'gio1', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_01.mp3', t:'“¡Qué noche Teté!”'}] },
-                { id: 'gio2', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_02.mp3', t:'“¡No me peguen!... ¡No me peguen soy Giordano!”'}] },
-                { id: 'gio3', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_03.mp3', t:'“Qué mala leche vos eh”'}] },
-                { id: 'mor1', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] },
-                { id: 'mor2', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_02.mp3', t:'“¡25...25...!”'}] },
-                { id: 'mor3', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_03.mp3', t:'“¡Saca, saca, saca a esta ridícula!”'}] },
-                { id: 'mor4', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_04.mp3', t:'“Son dos doñas berretas de peluquería de barrio”'}] },
-                { id: 'mor5', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_05.mp3', t:'“Entonces no mientas Silvina Escupidero”'}] },
-                { id: 'mor6', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_06.mp3', t:'“Y tengo harem, mucho chongo como nunca”'}] },
-                { id: 'fo1', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}] },
-                { id: 'fo2', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_02.mp3', t:'“¡Maiameeee!”'}] },
-                { id: 'fo3', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_03.mp3', t:'“Basta chicos”'}] },
-                { id: 'fo4', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_04.mp3', t:'“Por favor... yo no manejo rating, yo manejo Roll Royce”'}] },
-                { id: 'du1', img: 'personajes/dutra.jpg', audios: [{f:'sonidos/dutra_01.mp3', t:'“¡Toy tan sorpresa como todos ustedes!”'}] },
-                { id: 'far1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“¿Querían ficción? Yo les di ficción.”'}] },
-                { id: 'fei1', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_01.mp3', t:'“Y sos tan chicanero... pero mal.”'}] },
-                { id: 'flo1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“¡Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
-                { id: 'ivo1', img: 'personajes/ivo.jpg', audios: [{f:'sonidos/ivo_01.mp3', t:'“Dos más dos son cuatro, la tierra es redonda, corta la bocha.”'}] },
-                { id: 'jac1', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_01.mp3', t:'“Billetera... ¡mata galán!”'}] },
-                { id: 'lis1', img: 'personajes/listorti.jpg', audios: [{f:'sonidos/listorti_01.mp3', t:'“¡Soooopaaaaaa!”'}] },
-                { id: 'pal1', img: 'personajes/paleo.jpg', audios: [{f:'sonidos/paleo_01.mp3', t:'“Ay perdón porque escucho con... deleite.”'}] },
-                { id: 'cha1', img: 'personajes/charlotte.jpg', audios: [{f:'sonidos/charlotte_01.mp3', t:'“¡A mí me gusta el shampein!”'}] },
-                { id: 'bas1', img: 'personajes/basile.jpg', audios: [{f:'sonidos/basile_01.mp3', t:'“¡Qué boludo, mamita querida!”'}] },
-                { id: 'bam1', img: 'personajes/bambino.jpg', audios: [{f:'sonidos/bambino_01.mp3', t:'“¡Es una tormenta de facha!”'}] },
-                { id: 'fra1', img: 'personajes/francella.jpg', audios: [{f:'sonidos/francella_01.mp3', t:'“¡A comeeerlaaa!”'}] },
-                { id: 'riv1', img: 'personajes/riverito.jpg', audios: [{f:'sonidos/riverito_01.mp3', t:'“¡A cruzar los dedos!”'}] },
-                { id: 'bar1', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}] },
-                { id: 'pac1', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“¡Tinguitingui tinguitingui!”'}] },
-                { id: 'fan1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}] }
+                { id: 'mir_1', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_01.mp3', t:'“Esa técnica de mierda, ese tipo que me arruinó un año de trabajo”'}] },
+                { id: 'mir_2', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_02.mp3', t:'“Demasiado esfuerzo hago, carajo, mierda”'}] },
+                { id: 'mir_3', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_03.mp3', t:'“Como te ven te tratan, si te ven mal te maltratan y si te ven bien te contratan”'}] },
+                { id: 'mir_4', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_04.mp3', t:'“Yo no necesito de vos para tener rating Silvana Suarez”'}] },
+                { id: 'mir_5', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_05.mp3', t:'“¡Así NO!”'}] },
+                { id: 'mir_6', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_06.mp3', t:'“¿Quién te operó?... La carita, ¿quién te hizo la carita?”'}] },
+                { id: 'mon_1', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_01.mp3', t:'“¡Ladrones... Sátrapas... Sinvergüenzas!”'}] },
+                { id: 'mon_2', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_02.mp3', t:'“Passarella... ¡Renunciá!”'}] },
+                { id: 'alb_1', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_01.mp3', t:'“¡Perdón... pero tengo las bolas llenas!”'}] },
+                { id: 'alb_2', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_02.mp3', t:'“Perdón... si alguno se ofendió porque después empiezan las ofensa”'}] },
+                { id: 'gio_1', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_01.mp3', t:'“¡Qué noche Teté!”'}] },
+                { id: 'gio_2', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_02.mp3', t:'“¡No me peguen!... ¡No me peguen soy Giordano!”'}] },
+                { id: 'gio_3', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_03.mp3', t:'“Qué mala leche vos eh”'}] },
+                { id: 'mor_1', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] },
+                { id: 'mor_2', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_02.mp3', t:'“¡25...25...!”'}] },
+                { id: 'mor_3', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_03.mp3', t:'“¡Saca, saca, saca a esta ridícula!”'}] },
+                { id: 'mor_4', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_04.mp3', t:'“Son dos doñas berretas de peluquería de barrio”'}] },
+                { id: 'mor_5', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_05.mp3', t:'“Entonces no mientas Silvina Escupidero”'}] },
+                { id: 'mor_6', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_06.mp3', t:'“Y tengo harem, mucho chongo como nunca”'}] },
+                { id: 'for_1', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}] },
+                { id: 'for_2', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_02.mp3', t:'“¡Maiameeee!”'}] },
+                { id: 'for_3', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_03.mp3', t:'“Basta chicos”'}] },
+                { id: 'for_4', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_04.mp3', t:'“Por favor... yo no manejo rating, yo manejo Roll Royce”'}] },
+                { id: 'dut_1', img: 'personajes/dutra.jpg', audios: [{f:'sonidos/dutra_01.mp3', t:'“¡Toy tan sorpresa como todos ustedes!”'}] },
+                { id: 'far_1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“¿Querían ficción? Yo les di ficción.”'}] },
+                { id: 'fei_1', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_01.mp3', t:'“Y sos tan chicanero... pero mal.”'}] },
+                { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“¡Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
+                { id: 'ivo_1', img: 'personajes/ivo.jpg', audios: [{f:'sonidos/ivo_01.mp3', t:'“Dos más dos son cuatro, la tierra es redonda, corta la bocha.”'}] },
+                { id: 'jac_1', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_01.mp3', t:'“Billetera... ¡mata galán!”'}] },
+                { id: 'lis_1', img: 'personajes/listorti.jpg', audios: [{f:'sonidos/listorti_01.mp3', t:'“¡Soooopaaaaaa!”'}] },
+                { id: 'pal_1', img: 'personajes/paleo.jpg', audios: [{f:'sonidos/paleo_01.mp3', t:'“Ay perdón porque escucho con... deleite.”'}] },
+                { id: 'cha_1', img: 'personajes/charlotte.jpg', audios: [{f:'sonidos/charlotte_01.mp3', t:'“¡A mí me gusta el shampein!”'}] },
+                { id: 'bas_1', img: 'personajes/basile.jpg', audios: [{f:'sonidos/basile_01.mp3', t:'“¡Qué boludo, mamita querida!”'}] },
+                { id: 'bam_1', img: 'personajes/bambino.jpg', audios: [{f:'sonidos/bambino_01.mp3', t:'“¡Es una tormenta de facha!”'}] },
+                { id: 'fra_1', img: 'personajes/francella.jpg', audios: [{f:'sonidos/francella_01.mp3', t:'“¡A comeeerlaaa!”'}] },
+                { id: 'riv_1', img: 'personajes/riverito.jpg', audios: [{f:'sonidos/riverito_01.mp3', t:'“¡A cruzar los dedos!”'}] },
+                { id: 'bar_1', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}] },
+                { id: 'pac_1', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“¡Tinguitingui tinguitingui!”'}] },
+                { id: 'fan_1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}] }
             ],
             vf: [
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
                 { t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Se llamaba Jazmín.' },
-                { t: 'En el primer almuerzo de Mirtha estuvo Daniel Tinayre', r: true, detalle: 'Debutó el 3 de junio de 1968.' }
+                { t: 'Mirtha debutó con Daniel Tinayre invitado', r: true, detalle: 'Fue el 3 de junio de 1968.' }
             ]
         };
 
         let contadorTiros = 0; let mazoVerde = []; let mazoAzul = [];
-        let tiroEvento = Math.floor(Math.random() * 20) + 1; // TIRO ALEATORIO
         let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
         let actual = null; let pIdx = 0; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
         let proximaAccion = null;
@@ -188,7 +189,7 @@
 
         function abrirMazo(t) {
             contadorTiros++;
-            if (contadorTiros === tiroEvento) { 
+            if (contadorTiros === 20) { 
                 proximaAccion = () => abrirLogicaMazo(t);
                 document.getElementById('pantalla-cronica').style.display = 'flex';
                 document.getElementById('repro-cronica').play();
@@ -235,7 +236,7 @@
 
         function abrirVideoAleatorio() {
             contadorTiros++;
-            if (contadorTiros === tiroEvento) { 
+            if (contadorTiros === 20) { 
                 proximaAccion = () => abrirLogicaVideo();
                 document.getElementById('pantalla-cronica').style.display = 'flex';
                 document.getElementById('repro-cronica').play();
@@ -265,9 +266,6 @@
             document.getElementById('pantalla-cronica').style.display = 'none';
             document.getElementById('repro-cronica').pause();
             document.getElementById('repro-cronica').currentTime = 0;
-            // PREPARAR EL PRÓXIMO TIRO ALEATORIO (CICLO DE 20)
-            if(contadorTiros >= 20) { contadorTiros = 0; }
-            tiroEvento = Math.floor(Math.random() * 20) + 1 + contadorTiros;
             if(proximaAccion) proximaAccion();
         }
 
