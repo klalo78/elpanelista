@@ -71,7 +71,6 @@
             font-family: 'Anton', sans-serif; font-size: 70px; z-index: 6000;
             margin: 0 auto 15px auto;
             box-shadow: inset 0 0 15px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.5);
-            position: relative;
         }
         .timer-peligro { background: #ffcccc !important; color: #ff0000 !important; border-color: #ff0000 !important; animation: latidoRapido 0.5s infinite; }
         .timer-temblor { animation: temblar 0.1s infinite !important; }
@@ -86,25 +85,42 @@
         }
         @keyframes latidoRapido { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
-        /* --- ESTILOS PISTAS --- */
+        /* --- CONTROLES INFERIORES --- */
+        .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 50px; margin-top: 30px; }
+        .item-control { display: flex; flex-direction: column; align-items: center; }
+        .caja-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 10px; margin-bottom: 5px; }
+        #boton-dado { background: white; color: black; width: 80px; height: 80px; border-radius: 12px; font-size: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+        .btn-panelista { background: black; border: 3px solid #facc15; width: 100px; height: 100px; border-radius: 20px; cursor: pointer; margin-bottom: 5px; overflow: hidden; display: flex; justify-content: center; align-items: center;}
+        .label-control { color: #facc15; font-weight: bold; font-size: 18px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
+
+        /* --- PISTAS --- */
         #pistas-bloque { display: none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center; }
         #txt-pista { color:#facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
         .controles-pistas { display: flex; gap: 10px; width: 90%; }
         .btn-pista { flex: 1; font-family: 'Super Sunkissed', sans-serif; height: 60px !important; border: 2px solid white; border-radius: 10px; color: white; font-size: 20px; cursor: pointer; }
-        .btn-prev { background: #e11d48; }
-        .btn-next { background: #2563eb; }
 
-        /* --- RESTO --- */
-        .contenedor-vf { display: none; width: 90%; flex-direction: column; gap: 15px; margin-top: 10px; }
-        .btn-vf { height: 70px !important; font-size: 24px; border: 3px solid white; transition: 0.3s; }
-        #resp-vf-texto { color: #facc15; font-size: 24px; margin-top: 15px; text-shadow: 2px 2px 4px black; font-weight: bold; padding: 0 10px; }
-        .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
-        .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
-        #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; }
-        #visor-video { width: 92%; max-height: 69vh; border: 4px solid white; border-radius: 15px; background: black; }
-        .volver-pie-contenedor { margin-top: auto; margin-bottom: 40px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: rgba(0, 0, 0, 0.6); border: 2px solid white; padding: 10px 20px; border-radius: 20px; }
-        .volver-pie-texto { font-size: 18px; color: white; text-transform: uppercase; font-weight: bold; }
+        /* --- BOTÓN VOLVER RESTAURADO --- */
+        .volver-pie-contenedor { 
+            margin-top: auto; 
+            margin-bottom: 40px; 
+            cursor: pointer; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 5px; 
+            background: rgba(0, 0, 0, 0.6); 
+            border: 2px solid white; 
+            padding: 10px 20px; 
+            border-radius: 20px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+            animation: deslizarVertical 2s infinite ease-in-out; 
+        }
+        .volver-pie-texto { font-size: 18px; color: white; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
         .flecha-volver-svg { width: 30px; height: 30px; fill: white; }
+        @keyframes deslizarVertical { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+        .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         #texto-frase { margin-top: 10px; font-size: 30px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; margin-bottom: 10px; font-weight: bold;}
     </style>
 </head>
@@ -115,16 +131,6 @@
         <button class="btn-entrar" onclick="entrarAlJuego()">JUGAR</button>
     </div>
 
-    <div id="placa-roja" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#ff0000; z-index:10000; flex-direction:column; align-items:center; padding-top:10vh;">
-        <p style="font-family:'Anton'; font-size:80px; color:white; text-shadow:6px 6px 0px black; margin:0;">ULTIMO MOMENTO</p>
-        <div id="pregunta-placa" style="font-family:'Anton'; font-size:30px; color:white; margin-top:40px; text-align:center; padding:0 20px;"></div>
-        <div id="respuesta-placa" style="font-family:'Anton'; font-size:55px; color:#cfff04; margin-top:20px; display:none; text-shadow:4px 4px 0px black;"></div>
-        <button id="btn-ver-placa" class="btn-entrar" style="margin-top:40px; background:#cfff04; color:black;" onclick="document.getElementById('respuesta-placa').style.display='block'; this.style.display='none'">VER RESPUESTA</button>
-        <div class="volver-pie-contenedor" style="margin-top:auto; margin-bottom:40px;" onclick="cerrarPlaca()">
-            <div class="volver-pie-texto">CERRAR</div>
-        </div>
-    </div>
-
     <div id="menu-principal">
         <img src="logo.png" class="header-logo">
         <div class="tablero">
@@ -133,14 +139,15 @@
             <button class="btn-azul" onclick="abrirMazo('vf')">VERDADERO O FALSO</button>
             <button class="btn-amarillo" onclick="sonarClick()">CHISMES</button>
         </div>
+        
         <div class="seccion-controles-abajo">
-            <div style="text-align:center;">
-                <div style="background:rgba(0,0,0,0.6); border:2px dashed #ca8a04; border-radius:15px; padding:10px;"><div id="boton-dado" style="background:white; color:black; width:80px; height:80px; border-radius:12px; font-size:40px; display:flex; justify-content:center; align-items:center; cursor:pointer;" onclick="tirarDado()">🎲</div></div>
-                <div style="color:#facc15; margin-top:5px; font-weight:bold;">DADO</div>
+            <div class="item-control">
+                <div class="caja-dado"><div id="boton-dado" onclick="tirarDado()">🎲</div></div>
+                <div class="label-control">DADO</div>
             </div>
-            <div onclick="abrirVideoAleatorio()" style="text-align:center;">
-                <button style="background:black; border:3px solid #facc15; width:100px; height:100px; border-radius:20px; cursor:pointer;"><img src="star.jpg" style="width:80%; border-radius:50%;"></button>
-                <div style="color:#facc15; margin-top:5px; font-weight:bold;">PANELISTA</div>
+            <div class="item-control" onclick="abrirVideoAleatorio()">
+                <button class="btn-panelista"><img src="star.jpg" style="width:80%; border-radius:50%;"></button>
+                <div class="label-control">PANELISTA</div>
             </div>
         </div>
     </div>
@@ -151,79 +158,70 @@
         <img id="visor" style="display:none;">
         <video id="visor-video" controls style="display:none;"></video>
 
-        <div id="mazo-vf" class="contenedor-vf">
+        <div id="mazo-vf" style="display:none; width:90%; flex-direction:column; gap:15px; margin-top:10px;">
             <div id="contenedor-timer">10</div>
-            <button id="btn-v" class="btn-vf btn-verde" onclick="chequearVF(true)">VERDADERO</button>
-            <button id="btn-f" class="btn-vf btn-rojo" onclick="chequearVF(false)">FALSO</button>
-            <div id="resp-vf-texto"></div>
+            <button id="btn-v" style="height:70px;" class="btn-verde" onclick="chequearVF(true)">VERDADERO</button>
+            <button id="btn-f" style="height:70px;" class="btn-rojo" onclick="chequearVF(false)">FALSO</button>
+            <div id="resp-vf-texto" style="color:#facc15; font-size:24px; margin-top:15px; font-weight:bold;"></div>
         </div>
 
         <div id="pistas-bloque">
             <div id="txt-pista"></div>
             <div class="controles-pistas">
-                <button id="btn-pista-prev" class="btn-pista btn-prev" onclick="cambiarPista(-1)">ANTERIOR</button>
-                <button id="btn-pista-next" class="btn-pista btn-next" onclick="cambiarPista(1)">SIGUIENTE</button>
+                <button id="btn-pista-prev" class="btn-pista" style="background:#e11d48;" onclick="cambiarPista(-1)">ANTERIOR</button>
+                <button id="btn-pista-next" class="btn-pista" style="background:#2563eb;" onclick="cambiarPista(1)">SIGUIENTE</button>
             </div>
         </div>
 
-        <button id="btn-audio" class="btn-audio-carta" style="display:none;" onclick="sonar()">🔊 ESCUCHAR AUDIO</button>
-
         <div class="volver-pie-contenedor" onclick="cerrar()">
-            <div class="volver-pie-texto">VOLVER</div>
+            <div class="volver-pie-texto">volver al menú</div>
+            <svg class="flecha-volver-svg" viewBox="0 0 24 24">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/>
+            </svg>
         </div>
     </div>
 
-    <audio id="repro-frase"></audio>
     <audio id="repro-dado" src="sonidos/dado.mp3"></audio>
-    <audio id="repro-rojo" src="sonidos/moria_01.mp3"></audio>
     <audio id="repro-click" src="sonidos/click.mp3"></audio>
-    <audio id="repro-placa" src="sonidos/placa.mp3"></audio>
     <audio id="repro-bien" src="sonidos/bien.mp3"></audio>
     <audio id="repro-mal" src="sonidos/mal.mp3"></audio>
     <audio id="repro-tictac" src="sonidos/tictac.mp3" loop></audio>
 
     <script>
         const datos = {
-            personajes: [
-                { id: 'marley', img: 'personajes/marley.jpg', pistas: ["Su verdadero nombre es Alejandro.", "Empezó como columnista en un magazine.", "Viajó por todo el mundo.", "Tiene un hijo llamado Mirko."] }
-            ],
-            quien_dijo: [
-                { id: 'moria_1', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] }
-            ],
+            personajes: [{ id: 'marley', img: 'personajes/marley.jpg', pistas: ["Alejandro", "Magazine", "Mirko"] }],
             vf: [
-                { id: 'susanabruno', t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Su verdadero nombre era Jazmín.' },
-                { id: 'tauro_ovni', t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'La periodista aseguró que una nave espacial la abdujo dejándola inconsciente en Ranelagh (Berazategui).' },
-                { id: 'mirtha_debut', t: 'En el primer almuerzo de Mirtha, uno de sus invitados fue Daniel Tinayre (su esposo)', r: true, detalle: 'Efectivamente, el 3 de junio de 1968 salió al aire el primer almuerzo y él estuvo presente.' }
+                { id: 'tauro_ovni', t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Fue en Ranelagh.' },
+                { id: 'mirtha_debut', t: 'En el primer almuerzo de Mirtha, uno de sus invitados fue Daniel Tinayre', r: true, detalle: 'Debutó el 3 de junio de 1968.' }
             ]
         };
         
-        let videosDisponibles = ['panelistas/pane01.mp4'];
         let actual = null; let pIdx = 0; let respondidoVF = false;
         let timerSegundos = 10; let intervaloTimer = null;
 
         function sonarClick() { document.getElementById('repro-click').play(); }
 
         function entrarAlJuego() {
-            document.getElementById('pantalla-inicio').remove();
+            const docElm = document.documentElement;
+            if (docElm.requestFullscreen) { docElm.requestFullscreen(); }
+            else if (docElm.webkitRequestFullscreen) { docElm.webkitRequestFullscreen(); } 
+
+            document.getElementById('pantalla-inicio').style.display = 'none';
             document.getElementById('menu-principal').style.display = 'block';
         }
 
         function abrirMazo(t) {
             pararTimer(); sonarClick();
             document.getElementById('menu-principal').classList.add('atenuado');
-            document.getElementById('visor-video').style.display = 'none';
             document.getElementById('visor').style.display = 'none';
-            document.getElementById('btn-audio').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
-            document.getElementById('texto-frase').innerHTML = "";
 
             if (t === 'vf') {
                 actual = datos.vf[Math.floor(Math.random() * datos.vf.length)];
                 document.getElementById('texto-frase').innerHTML = actual.t;
                 document.getElementById('mazo-vf').style.display = 'flex';
                 document.getElementById('resp-vf-texto').innerHTML = "";
-                document.getElementById('btn-v').style.opacity = "1"; document.getElementById('btn-f').style.opacity = "1";
                 respondidoVF = false; iniciarTimer();
             } else if (t === 'personajes') {
                 actual = datos.personajes[Math.floor(Math.random() * datos.personajes.length)];
@@ -245,10 +243,7 @@
             intervaloTimer = setInterval(() => {
                 timerSegundos--; cajaTimer.innerText = timerSegundos;
                 if(timerSegundos <= 3) cajaTimer.classList.add('timer-peligro');
-                if(timerSegundos <= 0) {
-                    pararTimer(); cajaTimer.classList.add('timer-temblor');
-                    if(!respondidoVF) chequearVF('tiempo');
-                }
+                if(timerSegundos <= 0) { pararTimer(); cajaTimer.classList.add('timer-temblor'); if(!respondidoVF) chequearVF('tiempo'); }
             }, 1000);
         }
 
@@ -257,24 +252,8 @@
         function chequearVF(eleccion) {
             if(respondidoVF) return; respondidoVF = true; pararTimer();
             const esCorrecto = (eleccion === actual.r);
-            if(esCorrecto) document.getElementById('repro-bien').play();
-            else {
-                document.getElementById('repro-mal').play();
-                document.getElementById('contenedor-timer').classList.add('timer-temblor');
-            }
-            document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3";
-            document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3";
+            if(esCorrecto) document.getElementById('repro-bien').play(); else document.getElementById('repro-mal').play();
             document.getElementById('resp-vf-texto').innerHTML = (eleccion === 'tiempo' ? "¡TIEMPO AGOTADO! " : "") + actual.detalle;
-        }
-
-        function cambiarPista(d) {
-            pIdx += d; document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
-            actualizarBotonesPistas(); sonarClick();
-        }
-
-        function actualizarBotonesPistas() {
-            document.getElementById('btn-pista-prev').style.visibility = (pIdx > 0) ? 'visible' : 'hidden';
-            document.getElementById('btn-pista-next').style.visibility = (pIdx < actual.pistas.length - 1) ? 'visible' : 'hidden';
         }
 
         function tirarDado() {
@@ -285,19 +264,13 @@
             }, 80);
         }
 
-        function cerrar() {
-            pararTimer(); document.getElementById('menu-principal').classList.remove('atenuado');
-            document.getElementById('area-carta').style.display = 'none';
+        function cerrar() { pararTimer(); document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; }
+        function actualizarBotonesPistas() {
+            document.getElementById('btn-pista-prev').style.visibility = (pIdx > 0) ? 'visible' : 'hidden';
+            document.getElementById('btn-pista-next').style.visibility = (pIdx < actual.pistas.length - 1) ? 'visible' : 'hidden';
         }
-
-        function cerrarPlaca() { document.getElementById('placa-roja').style.display = 'none'; document.getElementById('repro-placa').pause(); }
-
-        function abrirVideoAleatorio() {
-            sonarClick(); document.getElementById('menu-principal').classList.add('atenuado');
-            const v = document.getElementById('visor-video');
-            v.src = videosDisponibles[0]; v.style.display = 'block'; v.play();
-            document.getElementById('area-carta').style.display = 'flex';
-        }
+        function cambiarPista(d) { pIdx += d; document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx]; actualizarBotonesPistas(); sonarClick(); }
+        function abrirVideoAleatorio() { sonarClick(); document.getElementById('area-carta').style.display = 'flex'; }
     </script>
 </body>
 </html>
