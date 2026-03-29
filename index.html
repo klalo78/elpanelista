@@ -88,7 +88,7 @@
         }
         @keyframes latidoRapido { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
-        /* --- PISTAS (RESTAURADO) --- */
+        /* --- PISTAS --- */
         #pistas-bloque { display: none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center; }
         #txt-pista { color: #facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
         .controles-pistas { display: flex; gap: 10px; width: 90%; }
@@ -104,11 +104,8 @@
         #placa-roja { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #ff0000; z-index: 10000; flex-direction: column; justify-content: flex-start; align-items: center; padding: 20px; box-sizing: border-box; padding-top: 10vh; }
         .texto-ultimo-momento { font-family: 'Anton', sans-serif; font-size: 90px; color: white; text-transform: uppercase; text-shadow: 8px 8px 0px black; margin: 0; line-height: 0.8; letter-spacing: -3px; animation: zoomSuave 2s infinite ease-in-out; display: inline-block; }
         @keyframes zoomSuave { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .pregunta-placa { font-family: 'Anton', sans-serif; font-size: 32px; color: white; margin-top: 50px; padding: 0 15px; text-shadow: 3px 3px 0px black; text-transform: uppercase; line-height: 1.1; }
-        #respuesta-placa { font-family: 'Anton', sans-serif; font-size: 60px; color: #cfff04; margin-top: 20px; display: none; text-shadow: 4px 4px 0px black; text-transform: uppercase; }
-        .btn-ver-respuesta { font-family: 'Super Sunkissed', sans-serif; background: #cfff04; color: black; border: 3px solid white; padding: 15px 30px; font-size: 24px; margin-top: 40px; border-radius: 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5); text-transform: uppercase; }
         
-        /* BOTON VOLVER (RESTAURADO) */
+        /* BOTON VOLVER */
         .volver-pie-contenedor { margin-top: auto; margin-bottom: 40px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: rgba(0, 0, 0, 0.6); border: 2px solid white; padding: 10px 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); animation: deslizarVertical 2s infinite ease-in-out; }
         .volver-pie-texto { font-size: 18px; color: white; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
         .flecha-volver-svg { width: 30px; height: 30px; fill: white; }
@@ -118,11 +115,11 @@
         .btn-vf { height: 70px !important; font-size: 24px; border: 3px solid white; transition: all 0.3s; }
         #resp-vf-texto { color: #facc15; font-size: 26px; margin-top: 15px; text-shadow: 2px 2px 4px black; min-height: 40px; font-weight: bold; }
 
-        .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
+        /* FONDO OSCURO PARA CARTAS RESTAURADO */
+        .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
         #visor-video { width: 92%; max-height: 69vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
-        #mensaje-fin-videos { font-size: 28px; color: #facc15; text-shadow: 3px 3px 5px black; padding: 20px; line-height: 1.3; display: none; }
         #texto-frase { margin-top: 10px; font-size: 32px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; margin-bottom: 10px; }
         .btn-audio-carta { font-family: 'Super Sunkissed', sans-serif; background:#facc15; color:black; width:90%; height:70px !important; margin-top:15px; border: 2px solid white; border-radius: 10px; font-size: 22px; cursor: pointer; }
     </style>
@@ -136,9 +133,9 @@
 
     <div id="placa-roja">
         <p class="texto-ultimo-momento">ULTIMO MOMENTO</p>
-        <div id="pregunta-placa" class="pregunta-placa">¿QUI&Eacute;N FUE EL GANADOR DEL GRAN HERMANO CELEBRITY?</div>
-        <div id="respuesta-placa">IANLUCA</div>
-        <button id="btn-ver-placa" class="btn-ver-respuesta" onclick="mostrarRespuestaPlaca()">VER RESPUESTA</button>
+        <div id="pregunta-placa" style="font-family:'Anton'; font-size:32px; color:white; margin-top:50px; text-shadow: 3px 3px 0px black;">¿QUI&Eacute;N FUE EL GANADOR DEL GRAN HERMANO CELEBRITY?</div>
+        <div id="respuesta-placa" style="font-family:'Anton'; font-size:60px; color:#cfff04; margin-top:20px; display:none; text-shadow:4px 4px 0px black;">IANLUCA</div>
+        <button id="btn-ver-placa" class="btn-ver-respuesta" onclick="document.getElementById('respuesta-placa').style.display='block'; this.style.display='none'">VER RESPUESTA</button>
         <div class="volver-pie-contenedor" onclick="cerrarPlaca()">
             <div class="volver-pie-texto">volver al menú</div>
             <svg class="flecha-volver-svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/></svg>
@@ -167,10 +164,9 @@
 
     <div id="area-carta" class="pantalla-carta">
         <img src="logo.png" class="logo-mazo">
-        <div id="mensaje-fin-videos">YA NO HAY MÁS CARTAS...</div>
+        <div id="texto-frase"></div>
         <img id="visor" style="display:none;">
         <video id="visor-video" controls style="display:none;"></video>
-        <div id="texto-frase"></div>
 
         <div id="mazo-vf" class="contenedor-vf">
             <div id="contenedor-timer">10</div>
@@ -210,13 +206,12 @@
             quien_dijo: [{ id: 'moria_1', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] }],
             vf: [
                 { t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Su verdadero nombre era Jazmín.' },
-                { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'La periodista aseguró que una nave espacial la abdujo en Ranelagh.' },
+                { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que la abdujeron en Ranelagh.' },
                 { t: 'En el primer almuerzo de Mirtha, un invitado fue Daniel Tinayre', r: true, detalle: 'Efectivamente, debutó el 3 de junio de 1968.' }
             ]
         };
         
-        let actual = null; let pIdx = 0; let respondidoVF = false;
-        let timerSegundos = 10; let intervaloTimer = null;
+        let actual = null; let pIdx = 0; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
 
         function sonarClick() { document.getElementById('repro-click').play(); }
 
@@ -241,6 +236,7 @@
                 actual = datos.vf[Math.floor(Math.random() * datos.vf.length)];
                 document.getElementById('texto-frase').innerHTML = actual.t;
                 document.getElementById('mazo-vf').style.display = 'flex';
+                document.getElementById('resp-vf-texto').innerHTML = "";
                 respondidoVF = false; iniciarTimer();
             } else if (t === 'personajes') {
                 actual = datos.personajes[Math.floor(Math.random() * datos.personajes.length)];
@@ -277,7 +273,7 @@
             if(respondidoVF) return; respondidoVF = true; pararTimer();
             const esCorrecto = (eleccion === actual.r);
             if(esCorrecto) document.getElementById('repro-bien').play(); else document.getElementById('repro-mal').play();
-            document.getElementById('resp-vf-texto').innerHTML = actual.detalle;
+            document.getElementById('resp-vf-texto').innerHTML = (eleccion === 'tiempo' ? "¡TIEMPO AGOTADO! " : "") + actual.detalle;
             document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3";
             document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3";
         }
@@ -292,15 +288,11 @@
 
         function activarPlacaRoja() {
             document.getElementById('repro-placa').play();
-            document.getElementById('pregunta-placa').innerHTML = "¿Quién ganó el primer GH?";
-            document.getElementById('respuesta-placa').innerHTML = "MARCELO CORAZZA";
             document.getElementById('placa-roja').style.display = 'flex';
         }
 
-        function mostrarRespuestaPlaca() { document.getElementById('respuesta-placa').style.display = 'block'; }
         function cerrarPlaca() { document.getElementById('placa-roja').style.display = 'none'; document.getElementById('repro-placa').pause(); }
         function cerrar() { pararTimer(); document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; }
-        
         function actualizarBotonesPistas() {
             document.getElementById('btn-pista-prev').style.visibility = (pIdx > 0) ? 'visible' : 'hidden';
             document.getElementById('btn-pista-next').style.visibility = (pIdx < actual.pistas.length - 1) ? 'visible' : 'hidden';
