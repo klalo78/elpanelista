@@ -13,7 +13,7 @@
             src: url('Super Sunkissed.ttf');
         }
 
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; background-color: #000; }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; background-color: #000; overflow: hidden; }
         
         body { 
             font-family: 'Super Sunkissed', sans-serif; 
@@ -22,106 +22,82 @@
             background-size: cover;
             background-position: 95% center; 
             background-attachment: fixed;
-            overflow: hidden;
-            transition: background 0.6s ease-in-out;
-            font-size: 18px;
         }
 
+        /* PANTALLA DE INICIO */
         #pantalla-inicio {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #1a1a1a url('back.jpg') no-repeat;
-            background-size: cover;
-            background-position: 95% center;
-            display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
-            z-index: 9999; padding-top: 8vh; 
+            background: #1a1a1a url('back.jpg') no-repeat center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 9999;
         }
 
-        .logo-portada { max-width: 220px; width: 65%; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(250,204,21,0.5)); animation: latido 2s infinite; }
-        @keyframes latido { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .logo-portada { max-width: 250px; width: 70%; margin-bottom: 20px; filter: drop-shadow(0 0 10px gold); animation: latido 2s infinite; }
         
+        @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
         .btn-entrar { 
             font-family: 'Super Sunkissed', sans-serif;
-            background: rgba(225,29,72,0.9); color: white; border: 2px solid white; 
-            padding: 6px 25px; font-size: 28px; cursor: pointer; 
-            margin-top: -25px; 
-            box-shadow: 0 5px 15px black; border-radius: 50px; text-transform: uppercase;
-            position: relative; z-index: 10;
+            background: #e11d48; color: white; border: 2px solid white; 
+            padding: 10px 30px; font-size: 30px; cursor: pointer; 
+            border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black;
         }
 
-        #menu-principal { display: none; padding: 20px; position: relative; z-index: 10; transition: opacity 0.5s ease; }
-        #menu-principal.atenuado { opacity: 0.15; }
-
-        .header-logo { max-width: 260px; width: 75%; margin: 45px auto 20px auto; display: block; animation: latido 2s infinite; }
-        .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto 20px auto; }
+        /* MENU PRINCIPAL */
+        #menu-principal { display: none; padding: 20px; transition: opacity 0.5s; }
+        #menu-principal.atenuado { opacity: 0.15; pointer-events: none; }
+        .header-logo { max-width: 200px; width: 50%; margin: 20px auto; display: block; }
+        .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto; }
         
-        button { 
-            font-family: 'Super Sunkissed', sans-serif; 
-            height: 90px; border-radius: 12px; border: 2px solid white; 
-            color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; 
-            padding: 5px; line-height: 1.1;
-        }
-        
+        /* BOTONES MAZOS */
+        .btn-mazo { height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
-        /* --- RELOJ ANTIGUO --- */
-        #contenedor-timer {
-            display: none; width: 130px; height: 130px; border-radius: 50%; 
-            border: 6px double #333; background: #fdf5e6; color: #222;
-            justify-content: center; align-items: center;
-            font-family: 'Anton', sans-serif; font-size: 70px; z-index: 6000;
-            margin: 0 auto 15px auto;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.5);
+        /* AREA DE CARTA / JUEGO */
+        .pantalla-carta { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); z-index: 5000; 
+            flex-direction: column; align-items: center; padding-top: 10px; 
         }
-        .timer-peligro { background: #ffcccc !important; color: #ff0000 !important; border-color: #ff0000 !important; animation: latidoRapido 0.5s infinite; }
+
+        .logo-mazo-chico { max-width: 120px; width: 30%; margin-bottom: 10px; }
+        #visor { max-width: 90%; max-height: 40vh; border: 3px solid white; border-radius: 10px; display: none; margin-bottom: 10px; }
+        
+        #texto-frase { font-size: 26px; padding: 0 15px; margin: 10px 0; text-shadow: 2px 2px 4px black; min-height: 40px; }
+
+        /* VF Y RELOJ */
+        #mazo-vf { display: none; width: 90%; flex-direction: column; gap: 10px; }
+        #contenedor-timer { 
+            width: 120px; height: 120px; border-radius: 50%; border: 6px double #333; 
+            background: #fdf5e6; color: #222; font-family: 'Anton'; font-size: 60px; 
+            display: flex; justify-content: center; align-items: center; margin: 10px auto;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        }
+        .timer-peligro { background: #ffcccc !important; color: red !important; border-color: red !important; animation: latido 0.5s infinite; }
         .timer-temblor { animation: temblar 0.1s infinite !important; }
 
         @keyframes temblar {
-            0% { transform: translate(2px, 1px) rotate(0deg); }
-            20% { transform: translate(-1px, -2px) rotate(-1deg); }
-            40% { transform: translate(-3px, 0px) rotate(1deg); }
-            60% { transform: translate(3px, 2px) rotate(0deg); }
-            80% { transform: translate(1px, -1px) rotate(1deg); }
-            100% { transform: translate(-1px, 2px) rotate(-1deg); }
+            0%, 100% { transform: translate(0,0); } 25% { transform: translate(2px, 2px); } 75% { transform: translate(-2px, -2px); }
         }
-        @keyframes latidoRapido { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
-        /* --- CONTROLES INFERIORES --- */
-        .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 50px; margin-top: 30px; }
-        .item-control { display: flex; flex-direction: column; align-items: center; }
-        .caja-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 10px; margin-bottom: 5px; }
-        #boton-dado { background: white; color: black; width: 80px; height: 80px; border-radius: 12px; font-size: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; }
-        .btn-panelista { background: black; border: 3px solid #facc15; width: 100px; height: 100px; border-radius: 20px; cursor: pointer; margin-bottom: 5px; overflow: hidden; display: flex; justify-content: center; align-items: center;}
-        .label-control { color: #facc15; font-weight: bold; font-size: 18px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
+        /* PISTAS */
+        #pistas-bloque { display: none; width: 90%; flex-direction: column; align-items: center; }
+        #txt-pista { color: #facc15; font-size: 24px; margin-bottom: 15px; min-height: 60px; }
+        .controles-pistas { display: flex; gap: 10px; width: 100%; }
 
-        /* --- PISTAS --- */
-        #pistas-bloque { display: none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center; }
-        #txt-pista { color:#facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
-        .controles-pistas { display: flex; gap: 10px; width: 90%; }
-        .btn-pista { flex: 1; font-family: 'Super Sunkissed', sans-serif; height: 60px !important; border: 2px solid white; border-radius: 10px; color: white; font-size: 20px; cursor: pointer; }
-
-        /* --- BOTÓN VOLVER RESTAURADO --- */
+        /* BOTON VOLVER */
         .volver-pie-contenedor { 
-            margin-top: auto; 
-            margin-bottom: 40px; 
-            cursor: pointer; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 5px; 
-            background: rgba(0, 0, 0, 0.6); 
-            border: 2px solid white; 
-            padding: 10px 20px; 
-            border-radius: 20px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
-            animation: deslizarVertical 2s infinite ease-in-out; 
+            margin-top: auto; margin-bottom: 30px; cursor: pointer; 
+            background: rgba(0,0,0,0.6); border: 2px solid white; padding: 8px 20px; border-radius: 20px;
+            animation: deslizarVertical 2s infinite ease-in-out;
         }
-        .volver-pie-texto { font-size: 18px; color: white; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
-        .flecha-volver-svg { width: 30px; height: 30px; fill: white; }
-        @keyframes deslizarVertical { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+        @keyframes deslizarVertical { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 
-        .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
-        #texto-frase { margin-top: 10px; font-size: 30px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; margin-bottom: 10px; font-weight: bold;}
+        /* CONTROLES DADO/ESTRELLA */
+        .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 40px; margin-top: 20px; }
+        .caja-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 8px; margin-bottom: 5px; }
+        #boton-dado { background: white; color: black; width: 70px; height: 70px; border-radius: 12px; font-size: 35px; display: flex; justify-content: center; align-items: center; }
+        .btn-panelista { background: black; border: 3px solid #facc15; width: 90px; height: 90px; border-radius: 20px; overflow: hidden; }
     </style>
 </head>
 <body>
@@ -134,50 +110,49 @@
     <div id="menu-principal">
         <img src="logo.png" class="header-logo">
         <div class="tablero">
-            <button class="btn-rojo" onclick="abrirMazo('personajes')">¿QUI&Eacute;NES SON?</button>
-            <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO...</button>
-            <button class="btn-azul" onclick="abrirMazo('vf')">VERDADERO O FALSO</button>
-            <button class="btn-amarillo" onclick="sonarClick()">CHISMES</button>
+            <button class="btn-mazo btn-rojo" onclick="abrirMazo('personajes')">¿QUI&Eacute;NES SON?</button>
+            <button class="btn-mazo btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO...</button>
+            <button class="btn-mazo btn-azul" onclick="abrirMazo('vf')">VERDADERO O FALSO</button>
+            <button class="btn-mazo btn-amarillo" onclick="sonarClick()">CHISMES</button>
         </div>
         
         <div class="seccion-controles-abajo">
-            <div class="item-control">
+            <div style="display:flex; flex-direction:column; align-items:center;">
                 <div class="caja-dado"><div id="boton-dado" onclick="tirarDado()">🎲</div></div>
-                <div class="label-control">DADO</div>
+                <div style="color:#facc15; font-weight:bold; font-size:14px;">DADO</div>
             </div>
-            <div class="item-control" onclick="abrirVideoAleatorio()">
-                <button class="btn-panelista"><img src="star.jpg" style="width:80%; border-radius:50%;"></button>
-                <div class="label-control">PANELISTA</div>
+            <div style="display:flex; flex-direction:column; align-items:center;">
+                <button class="btn-panelista" onclick="abrirVideoAleatorio()"><img src="star.jpg" style="width:100%;"></button>
+                <div style="color:#facc15; font-weight:bold; font-size:14px;">PANELISTA</div>
             </div>
         </div>
     </div>
 
     <div id="area-carta" class="pantalla-carta">
-        <img src="logo.png" class="logo-mazo">
+        <img src="logo.png" class="logo-mazo-chico">
+        
         <div id="texto-frase"></div>
-        <img id="visor" style="display:none;">
-        <video id="visor-video" controls style="display:none;"></video>
+        
+        <img id="visor">
 
-        <div id="mazo-vf" style="display:none; width:90%; flex-direction:column; gap:15px; margin-top:10px;">
+        <div id="mazo-vf">
             <div id="contenedor-timer">10</div>
-            <button id="btn-v" style="height:70px;" class="btn-verde" onclick="chequearVF(true)">VERDADERO</button>
-            <button id="btn-f" style="height:70px;" class="btn-rojo" onclick="chequearVF(false)">FALSO</button>
-            <div id="resp-vf-texto" style="color:#facc15; font-size:24px; margin-top:15px; font-weight:bold;"></div>
+            <button id="btn-v" class="btn-mazo btn-verde" style="height:60px;" onclick="chequearVF(true)">VERDADERO</button>
+            <button id="btn-f" class="btn-mazo btn-rojo" style="height:60px;" onclick="chequearVF(false)">FALSO</button>
+            <div id="resp-vf-texto" style="color:#facc15; font-size:20px; margin-top:10px; font-weight:bold;"></div>
         </div>
 
         <div id="pistas-bloque">
             <div id="txt-pista"></div>
             <div class="controles-pistas">
-                <button id="btn-pista-prev" class="btn-pista" style="background:#e11d48;" onclick="cambiarPista(-1)">ANTERIOR</button>
-                <button id="btn-pista-next" class="btn-pista" style="background:#2563eb;" onclick="cambiarPista(1)">SIGUIENTE</button>
+                <button id="btn-pista-prev" class="btn-mazo" style="background:#e11d48; flex:1;" onclick="cambiarPista(-1)">ANTERIOR</button>
+                <button id="btn-pista-next" class="btn-mazo" style="background:#2563eb; flex:1;" onclick="cambiarPista(1)">SIGUIENTE</button>
             </div>
         </div>
 
         <div class="volver-pie-contenedor" onclick="cerrar()">
-            <div class="volver-pie-texto">volver al menú</div>
-            <svg class="flecha-volver-svg" viewBox="0 0 24 24">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/>
-            </svg>
+            <div style="font-size:16px; font-weight:bold; text-transform:uppercase;">volver al menú</div>
+            <svg style="width:20px; height:20px; fill:white;" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" transform="rotate(-90 12 12)"/></svg>
         </div>
     </div>
 
@@ -189,10 +164,11 @@
 
     <script>
         const datos = {
-            personajes: [{ id: 'marley', img: 'personajes/marley.jpg', pistas: ["Alejandro", "Magazine", "Mirko"] }],
+            personajes: [{ id: 'marley', img: 'personajes/marley.jpg', pistas: ["Nombre Alejandro", "Magazine", "Padre de Mirko"] }],
             vf: [
                 { id: 'tauro_ovni', t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Fue en Ranelagh.' },
-                { id: 'mirtha_debut', t: 'En el primer almuerzo de Mirtha, uno de sus invitados fue Daniel Tinayre', r: true, detalle: 'Debutó el 3 de junio de 1968.' }
+                { id: 'mirtha_debut', t: 'En el primer almuerzo de Mirtha, uno de sus invitados fue Daniel Tinayre', r: true, detalle: 'Debutó el 3 de junio de 1968.' },
+                { id: 'susanabruno', t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Se llamaba Jazmín.' }
             ]
         };
         
@@ -203,8 +179,8 @@
 
         function entrarAlJuego() {
             const docElm = document.documentElement;
-            if (docElm.requestFullscreen) { docElm.requestFullscreen(); }
-            else if (docElm.webkitRequestFullscreen) { docElm.webkitRequestFullscreen(); } 
+            if (docElm.requestFullscreen) docElm.requestFullscreen();
+            else if (docElm.webkitRequestFullscreen) docElm.webkitRequestFullscreen();
 
             document.getElementById('pantalla-inicio').style.display = 'none';
             document.getElementById('menu-principal').style.display = 'block';
@@ -213,9 +189,13 @@
         function abrirMazo(t) {
             pararTimer(); sonarClick();
             document.getElementById('menu-principal').classList.add('atenuado');
+            document.getElementById('area-carta').style.display = 'flex';
+            
+            // Limpiar todo antes de mostrar
             document.getElementById('visor').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('texto-frase').innerHTML = "";
 
             if (t === 'vf') {
                 actual = datos.vf[Math.floor(Math.random() * datos.vf.length)];
@@ -227,23 +207,27 @@
                 actual = datos.personajes[Math.floor(Math.random() * datos.personajes.length)];
                 document.getElementById('visor').src = actual.img;
                 document.getElementById('visor').style.display = 'block';
-                pIdx = 0; document.getElementById('pistas-bloque').style.display = 'flex';
+                pIdx = 0; 
+                document.getElementById('pistas-bloque').style.display = 'flex';
                 document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
                 actualizarBotonesPistas();
             }
-            document.getElementById('area-carta').style.display = 'flex';
         }
 
         function iniciarTimer() {
             timerSegundos = 10;
             const cajaTimer = document.getElementById('contenedor-timer');
-            cajaTimer.innerText = timerSegundos; cajaTimer.style.display = 'flex';
+            cajaTimer.innerText = timerSegundos;
             cajaTimer.classList.remove('timer-peligro', 'timer-temblor');
             document.getElementById('repro-tictac').play();
             intervaloTimer = setInterval(() => {
                 timerSegundos--; cajaTimer.innerText = timerSegundos;
                 if(timerSegundos <= 3) cajaTimer.classList.add('timer-peligro');
-                if(timerSegundos <= 0) { pararTimer(); cajaTimer.classList.add('timer-temblor'); if(!respondidoVF) chequearVF('tiempo'); }
+                if(timerSegundos <= 0) { 
+                    pararTimer(); 
+                    cajaTimer.classList.add('timer-temblor'); 
+                    if(!respondidoVF) chequearVF('tiempo'); 
+                }
             }, 1000);
         }
 
@@ -253,7 +237,7 @@
             if(respondidoVF) return; respondidoVF = true; pararTimer();
             const esCorrecto = (eleccion === actual.r);
             if(esCorrecto) document.getElementById('repro-bien').play(); else document.getElementById('repro-mal').play();
-            document.getElementById('resp-vf-texto').innerHTML = (eleccion === 'tiempo' ? "¡TIEMPO AGOTADO! " : "") + actual.detalle;
+            document.getElementById('resp-vf-texto').innerHTML = actual.detalle;
         }
 
         function tirarDado() {
@@ -264,13 +248,20 @@
             }, 80);
         }
 
-        function cerrar() { pararTimer(); document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; }
+        function cerrar() { 
+            pararTimer(); 
+            document.getElementById('menu-principal').classList.remove('atenuado'); 
+            document.getElementById('area-carta').style.display = 'none'; 
+        }
+
         function actualizarBotonesPistas() {
             document.getElementById('btn-pista-prev').style.visibility = (pIdx > 0) ? 'visible' : 'hidden';
             document.getElementById('btn-pista-next').style.visibility = (pIdx < actual.pistas.length - 1) ? 'visible' : 'hidden';
         }
+
         function cambiarPista(d) { pIdx += d; document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx]; actualizarBotonesPistas(); sonarClick(); }
-        function abrirVideoAleatorio() { sonarClick(); document.getElementById('area-carta').style.display = 'flex'; }
+        
+        function abrirVideoAleatorio() { sonarClick(); alert("Abriendo video..."); }
     </script>
 </body>
 </html>
