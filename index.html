@@ -22,7 +22,6 @@
             background-size: cover;
             background-position: 95% center; 
             background-attachment: fixed;
-            overflow: hidden;
             transition: background 0.6s ease-in-out;
             font-size: 18px;
         }
@@ -34,36 +33,17 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 9999;
         }
-        .logo-portada { max-width: 220px; width: 65%; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(250,204,21,0.5)); animation: latido 2s infinite; }
+        .logo-portada { max-width: 220px; width: 65%; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(250,204,21,0.5)); animation: latido 2s infinite; }
         @keyframes latido { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 10px 30px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black; }
+        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 12px 35px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black; }
 
         /* --- MENU PRINCIPAL --- */
         #menu-principal { display: none; padding: 20px; transition: opacity 0.5s ease; }
         #menu-principal.atenuado { opacity: 0.15; }
-        .header-logo { max-width: 260px; width: 75%; margin: 45px auto 20px auto; display: block; animation: latido 2s infinite; }
+        .header-logo { max-width: 260px; width: 75%; margin: 40px auto 20px auto; display: block; animation: latido 2s infinite; }
         .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto 20px auto; }
         button { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; padding: 5px; line-height: 1.1; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
-
-        /* --- RELOJ ANTIGUO --- */
-        #contenedor-timer {
-            display: none; width: 140px; height: 140px; border-radius: 50%; 
-            border: 6px double #333; background: #fdf5e6; color: #222;
-            justify-content: center; align-items: center;
-            font-family: 'Anton', sans-serif; font-size: 75px; z-index: 6000;
-            margin: 0 auto 15px auto;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.5);
-        }
-        .timer-peligro { background: #ffcccc !important; color: #ff0000 !important; border-color: #ff0000 !important; animation: latidoRapido 0.5s infinite; }
-        .timer-temblor { animation: temblar 0.1s infinite !important; }
-        @keyframes temblar { 0% { transform: translate(2px, 1px) rotate(0deg); } 50% { transform: translate(-2px, -1px) rotate(-1deg); } 100% { transform: translate(2px, 1px) rotate(0deg); } }
-
-        /* --- PISTAS --- */
-        #pistas-bloque { display: none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center; }
-        #txt-pista { color: #facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; line-height: 1.2; }
-        .controles-pistas { display: flex; gap: 10px; width: 90%; }
-        .btn-pista { flex: 1; height: 60px !important; border: 2px solid white; border-radius: 10px; color: white; font-size: 20px; }
 
         /* --- CONTROLES ABAJO --- */
         .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 65px; margin-top: 25px; }
@@ -74,25 +54,48 @@
         @keyframes girarEstrella { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-transform: uppercase; text-shadow: 2px 2px 4px black; }
 
-        /* --- PANTALLA CARTA (FONDO CON IMAGEN Y OPACIDAD) --- */
+        /* --- PANTALLA CARTA (FONDO BACK2 MUY OSCURO) --- */
         .pantalla-carta { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.88)), url('back.jpg') no-repeat center/cover fixed;
+            background: linear-gradient(rgba(0,0,0,0.95), rgba(0,0,0,0.95)), url('back2.jpg') no-repeat center/cover fixed;
             z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; 
         }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; filter: drop-shadow(0 0 8px black); }
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
         #visor-video { width: 92%; max-height: 60vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
-        
-        #texto-frase { margin-top: 10px; font-size: 30px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; margin-bottom: 10px; }
-        
-        /* BOTON VOLVER */
-        .volver-pie-contenedor { margin-top: auto; margin-bottom: 40px; cursor: pointer; display: flex; flex-direction: column; align-items: center; background: rgba(0, 0, 0, 0.6); border: 2px solid white; padding: 10px 20px; border-radius: 20px; animation: deslizarVertical 2s infinite ease-in-out; }
-        .volver-pie-texto { font-size: 18px; color: white; text-transform: uppercase; font-weight: bold; }
-        @keyframes deslizarVertical { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+        #texto-frase { margin-top: 10px; font-size: 30px; text-shadow: 2px 2px 5px black; padding: 0 15px; line-height: 1.1; color: white; margin-bottom: 10px; font-weight: bold; }
 
-        .contenedor-vf { display: none; width: 90%; flex-direction: column; gap: 15px; }
-        .btn-vf { height: 70px !important; font-size: 24px; border: 3px solid white; }
+        /* --- BOTONES MAZO VERDE (AUDIO) --- */
+        .btn-audio-carta { 
+            display: none; font-family: 'Super Sunkissed', sans-serif; 
+            background: #facc15; color: black; width: 90%; height: 75px !important; 
+            margin-top: 20px; border: 3px solid white; border-radius: 15px; 
+            font-size: 24px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            text-transform: uppercase;
+        }
+
+        /* --- RELOJ Y VF --- */
+        #contenedor-timer {
+            display: none; width: 140px; height: 140px; border-radius: 50%; 
+            border: 6px double #333; background: #fdf5e6; color: #222;
+            justify-content: center; align-items: center;
+            font-family: 'Anton', sans-serif; font-size: 75px; z-index: 6000;
+            margin: 0 auto 15px auto;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .timer-peligro { background: #ffcccc !important; color: #ff0000 !important; border-color: #ff0000 !important; animation: latidoRapido 0.5s infinite; }
+        .timer-temblor { animation: temblar 0.1s infinite !important; }
+
+        /* --- PISTAS --- */
+        #pistas-bloque { display: none; width: 90%; margin-top: 15px; flex-direction: column; align-items: center; }
+        #txt-pista { color: #facc15; font-size: 28px; margin-bottom: 20px; min-height: 60px; text-shadow: 2px 2px 5px black; padding: 0 20px; }
+        .controles-pistas { display: flex; gap: 10px; width: 90%; }
+        .btn-pista { flex: 1; height: 65px !important; border: 2px solid white; border-radius: 12px; color: white; font-size: 20px; }
+
+        /* --- BOTON VOLVER --- */
+        .volver-pie-contenedor { margin-top: auto; margin-bottom: 40px; cursor: pointer; display: flex; flex-direction: column; align-items: center; background: rgba(0, 0, 0, 0.6); border: 2px solid white; padding: 10px 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); animation: deslizarVertical 2s infinite ease-in-out; }
+        .volver-pie-texto { font-size: 18px; color: white; text-transform: uppercase; font-weight: bold; }
+        .flecha-volver-svg { width: 30px; height: 30px; fill: white; }
     </style>
 </head>
 <body id="cuerpo">
@@ -129,10 +132,10 @@
         <video id="visor-video" controls style="display:none;"></video>
         <div id="texto-frase"></div>
 
-        <div id="mazo-vf" class="contenedor-vf">
+        <div id="mazo-vf" style="display:none; width:90%; flex-direction:column; gap:15px;">
             <div id="contenedor-timer">10</div>
-            <button id="btn-v" class="btn-vf btn-verde" onclick="chequearVF(true)">VERDADERO</button>
-            <button id="btn-f" class="btn-vf btn-rojo" onclick="chequearVF(false)">FALSO</button>
+            <button id="btn-v" style="height:70px; background:#16a34a; border:3px solid white; color:white; font-family:'Super Sunkissed'; font-size:24px; border-radius:15px;" onclick="chequearVF(true)">VERDADERO</button>
+            <button id="btn-f" style="height:70px; background:#e11d48; border:3px solid white; color:white; font-family:'Super Sunkissed'; font-size:24px; border-radius:15px;" onclick="chequearVF(false)">FALSO</button>
             <div id="resp-vf-texto" style="color:#facc15; font-size:24px; margin-top:15px; font-weight:bold;"></div>
         </div>
 
@@ -144,7 +147,7 @@
             </div>
         </div>
 
-        <button id="btn-audio" class="btn-audio-carta" style="display:none;" onclick="sonar()">🔊 ESCUCHAR AUDIO</button>
+        <button id="btn-audio" class="btn-audio-carta" onclick="sonar()">🔊 ESCUCHAR AUDIO</button>
 
         <div class="volver-pie-contenedor" onclick="cerrar()">
             <div class="volver-pie-texto">volver al menú</div>
@@ -171,8 +174,7 @@
         };
         
         let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
-        let actual = null; let pIdx = 0; let respondidoVF = false;
-        let timerSegundos = 10; let intervaloTimer = null;
+        let actual = null; let pIdx = 0; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
 
         function sonarClick() { document.getElementById('repro-click').play(); }
 
@@ -191,14 +193,15 @@
             document.getElementById('visor-video').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
-            document.getElementById('mensaje-fin-videos').style.display = 'none';
             document.getElementById('btn-audio').style.display = 'none';
+            document.getElementById('mensaje-fin-videos').style.display = 'none';
             document.getElementById('texto-frase').innerHTML = "";
 
             if (t === 'vf') {
                 actual = datos.vf[Math.floor(Math.random() * datos.vf.length)];
                 document.getElementById('texto-frase').innerHTML = actual.t;
                 document.getElementById('mazo-vf').style.display = 'flex';
+                document.getElementById('resp-vf-texto').innerHTML = "";
                 respondidoVF = false; iniciarTimer();
             } else if (t === 'personajes') {
                 actual = datos.personajes[Math.floor(Math.random() * datos.personajes.length)];
@@ -211,7 +214,7 @@
                 actual = datos.quien_dijo[0];
                 document.getElementById('visor').src = actual.img;
                 document.getElementById('visor').style.display = 'block';
-                document.getElementById('btn-audio').style.display = 'block';
+                document.getElementById('btn-audio').style.display = 'block'; // Mostrar botón de audio
                 document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
             }
         }
@@ -223,6 +226,7 @@
             document.getElementById('visor').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('btn-audio').style.display = 'none'; // Asegurar que no aparezca el audio
             document.getElementById('texto-frase').innerHTML = "";
 
             const v = document.getElementById('visor-video');
