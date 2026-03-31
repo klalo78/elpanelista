@@ -206,4 +206,102 @@
                 { id: 'cha_1', img: 'personajes/charlotte.jpg', audios: [{f:'sonidos/charlotte_01.mp3', t:'“¡A mí me gusta el shampein!”'}] },
                 { id: 'bas_1', img: 'personajes/basile.jpg', audios: [{f:'sonidos/basile_01.mp3', t:'“¡Qué boludo, mamita querida!”'}] },
                 { id: 'bam_1', img: 'personajes/bambino.jpg', audios: [{f:'sonidos/bambino_01.mp3', t:'“¡Es una tormenta de facha!”'}] },
-                { id: 'fra_1', img: 'personajes/francella.jpg', audios: [{f:'sonidos/francella_01
+                { id: 'fra_1', img: 'personajes/francella.jpg', audios: [{f:'sonidos/francella_01.mp3', t:'“¡A comeeerlaaa!”'}] },
+                { id: 'riv_1', img: 'personajes/riverito.jpg', audios: [{f:'sonidos/riverito_01.mp3', t:'“¡A cruzar los dedos!”'}] },
+                { id: 'bar_1', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}] },
+                { id: 'pac_1', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“¡Tinguitingui tinguitingui!”'}] },
+                { id: 'fan_1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}] }
+            ],
+            vf: [
+                { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
+                { t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Se llamaba Jazmín.' },
+                { t: 'En el primer almuerzo de Mirtha estuvo Daniel Tinayre', r: true, detalle: 'Debutó el 3 de junio de 1968.' }
+            ],
+            famositos: [
+                { id: 'rago', img: 'polaroid/ragopolaroid.jpg', r: 'PABLO RAGO' }
+            ],
+            placasEspeciales: [
+                { id: 'placa01', pregunta: '¿Quién fue el ganador de MasterChef Celebrity?', respuesta: 'IAN LUCA' }
+            ]
+        };
+
+        let contadorDados = 0; let tiroEventoPlaca = Math.floor(Math.random() * 15) + 1;
+        let mazoVerde = []; let mazoAzul = []; let mazoAmarillo = [];
+        let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
+        let actual = null; let actualPlaca = null; let pIdx = 0; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
+        let proximaAccion = null; let activeDeckType = null; 
+
+        function entrarAlJuego() {
+            const docElm = document.documentElement;
+            if (docElm.requestFullscreen) { docElm.requestFullscreen(); } 
+            else if (docElm.webkitRequestFullscreen) { docElm.webkitRequestFullscreen(); }
+            document.getElementById('pantalla-inicio').style.display = 'none';
+            document.getElementById('menu-principal').style.display = 'block';
+        }
+
+        function abrirMazo(t) {
+            pararTimer(); sonarClick(); activeDeckType = t;
+            document.getElementById('menu-principal').classList.add('atenuado');
+            document.getElementById('area-carta').style.display = 'flex';
+            const v = document.getElementById('visor');
+            v.style.display = 'none'; v.className = ""; 
+            document.getElementById('visor-video').style.display = 'none';
+            document.getElementById('mazo-vf').style.display = 'none';
+            document.getElementById('bloque-famositos').style.display = 'none';
+            document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('btn-audio').style.display = 'none';
+            document.getElementById('contenedor-timer').style.display = 'none';
+            document.getElementById('texto-frase').style.display = 'block';
+            document.getElementById('texto-frase').innerHTML = "";
+
+            if (t === 'personajes') {
+                document.getElementById('repro-rojo').play();
+                actual = datos.personajes[0];
+                v.src = actual.img; v.classList.add('img-redondeada'); v.style.display = 'block';
+                pIdx = 0; document.getElementById('pistas-bloque').style.display = 'flex';
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+                actualizarBotonesPistas();
+            } else if (t === 'vf') {
+                document.getElementById('resp-vf-texto').innerHTML = ""; 
+                document.getElementById('btn-v').style.opacity = "1"; document.getElementById('btn-f').style.opacity = "1";
+                if (mazoAzul.length === 0) mazoAzul = [...datos.vf].sort(() => Math.random() - 0.5);
+                actual = mazoAzul.pop();
+                document.getElementById('texto-frase').innerHTML = actual.t;
+                document.getElementById('mazo-vf').style.display = 'flex';
+                respondidoVF = false; iniciarTimer();
+            } else if (t === 'quien_dijo') {
+                if (mazoVerde.length === 0) mazoVerde = [...datos.quien_dijo].sort(() => Math.random() - 0.5);
+                actual = mazoVerde.pop();
+                v.src = actual.img; v.classList.add('img-redondeada'); v.style.display = 'block';
+                document.getElementById('btn-audio').style.display = 'block';
+                document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
+            } else if (t === 'famositos') {
+                if (mazoAmarillo.length === 0) mazoAmarillo = [...datos.famositos].sort(() => Math.random() - 0.5);
+                actual = mazoAmarillo.pop();
+                v.src = actual.img; v.className = "famosito-card"; v.style.display = 'block';
+                document.getElementById('bloque-famositos').style.display = 'flex';
+                document.getElementById('btn-revelar-famosito').style.display = 'block';
+                document.getElementById('txt-resp-famosito').style.display = 'none';
+                document.getElementById('texto-frase').innerHTML = "¿QUI&Eacute;N ES ESTE FAMOSITO?";
+                iniciarTimer();
+            }
+        }
+
+        function revelarFamosito() { pararTimer(); sonarClick(); document.getElementById('btn-revelar-famosito').style.display = 'none'; document.getElementById('txt-resp-famosito').innerHTML = actual.r; document.getElementById('txt-resp-famosito').style.display = 'block'; }
+        function tirarDado() { contadorDados++; if (contadorDados === tiroEventoPlaca) { lanzarPlacaEspecial(); contadorDados = 0; tiroEventoPlaca = Math.floor(Math.random() * 15) + 1; } else { ejecutarAnimacionDado(); } }
+        function lanzarPlacaEspecial() { actualPlaca = datos.placasEspeciales[0]; document.getElementById('texto-pregunta-placa').innerHTML = actualPlaca.pregunta; document.getElementById('texto-respuesta-placa').innerHTML = actualPlaca.respuesta; document.getElementById('texto-respuesta-placa').style.display = 'none'; document.getElementById('btn-revelar-placa').style.display = 'block'; document.getElementById('btn-volver-placa').style.display = 'none'; document.getElementById('pantalla-cronica').style.display = 'flex'; document.getElementById('repro-placa').play(); }
+        function revelarRespuestaPlaca() { sonarClick(); document.getElementById('btn-revelar-placa').style.display = 'none'; document.getElementById('texto-respuesta-placa').style.display = 'block'; document.getElementById('btn-volver-placa').style.display = 'flex'; }
+        function ejecutarAnimacionDado() { const s = document.getElementById('repro-dado'); s.currentTime = 0; s.play(); let c = 0; let i = setInterval(() => { document.getElementById('boton-dado').innerText = Math.floor(Math.random()*6)+1; if(c++ > 10) clearInterval(i); }, 80); }
+        function cerrarCronica() { document.getElementById('pantalla-cronica').style.display = 'none'; document.getElementById('repro-placa').pause(); document.getElementById('repro-placa').currentTime = 0; ejecutarAnimacionDado(); }
+        function abrirVideoAleatorio() { sonarClick(); document.getElementById('menu-principal').classList.add('atenuado'); document.getElementById('area-carta').style.display = 'flex'; document.getElementById('visor').style.display = 'none'; document.getElementById('mazo-vf').style.display = 'none'; document.getElementById('pistas-bloque').style.display = 'none'; document.getElementById('btn-audio').style.display = 'none'; document.getElementById('bloque-famositos').style.display = 'none'; document.getElementById('texto-frase').style.display = 'none'; const v = document.getElementById('visor-video'); if(videosDisponibles.length === 0) { document.getElementById('mensaje-fin-videos').style.display = 'block'; v.style.display = 'none'; } else { document.getElementById('mensaje-fin-videos').style.display = 'none'; const ve = videosDisponibles.splice(Math.floor(Math.random()*videosDisponibles.length), 1)[0]; v.src = ve; v.style.display = 'block'; v.play(); } }
+        function actualizarBotonesPistas() { const btnPrev = document.getElementById('btn-pista-prev'); const btnNext = document.getElementById('btn-pista-next'); btnPrev.style.display = (pIdx > 0) ? 'block' : 'none'; btnNext.style.display = (pIdx < actual.pistas.length - 1) ? 'block' : 'none'; }
+        function cambiarPista(d) { pIdx += d; document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx]; actualizarBotonesPistas(); sonarClick(); }
+        function iniciarTimer() { timerSegundos = 10; const cajaTimer = document.getElementById('contenedor-timer'); cajaTimer.innerText = timerSegundos; cajaTimer.style.display = 'flex'; cajaTimer.classList.remove('final'); document.getElementById('repro-tictac').play(); intervaloTimer = setInterval(() => { timerSegundos--; cajaTimer.innerText = timerSegundos; if (timerSegundos <= 3) { cajaTimer.classList.add('final'); } if(timerSegundos <= 0) { pararTimer(); if (activeDeckType === 'famositos') { document.getElementById('repro-mal').play(); } } }, 1000); }
+        function pararTimer() { clearInterval(intervaloTimer); document.getElementById('repro-tictac').pause(); }
+        function chequearVF(eleccion) { if(respondidoVF) return; respondidoVF = true; pararTimer(); if(eleccion === actual.r) document.getElementById('repro-bien').play(); else document.getElementById('repro-mal').play(); const res = actual.r ? '<span style="color:#16a34a; font-size:32px; display:block; margin-bottom:5px;">VERDADERO</span>' : '<span style="color:#e11d48; font-size:32px; display:block; margin-bottom:5px;">FALSO</span>'; document.getElementById('resp-vf-texto').innerHTML = res + actual.detail; document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3"; document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3"; }
+        function cerrar() { pararTimer(); activeDeckType = null; document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; document.getElementById('visor-video').pause(); }
+        function sonarClick() { document.getElementById('repro-click').play(); }
+        function sonar() { document.getElementById('repro-frase').src = actual.audios[0].f; document.getElementById('repro-frase').play(); }
+    </script>
+</body>
+</html>
