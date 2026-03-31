@@ -42,13 +42,13 @@
         /* VISOR GENERAL */
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
         
-        /* ESTILO ESPECÍFICO FAMOSITOS (MODIFICADO: SIN BORDE) */
+        /* ESTILO FAMOSITOS (SIN BORDE BLANCO) */
         .img-famosito { 
             width: 75% !important; 
             aspect-ratio: 1/1 !important; 
             object-fit: contain !important; 
             border-radius: 0 !important; 
-            border: none !important; /* SE QUITÓ EL FILETE BLANCO */
+            border: none !important; 
             transform: rotate(-3deg); 
             box-shadow: 0 15px 35px black !important;
         }
@@ -69,7 +69,7 @@
         .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
         @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 
-        /* TIMER REDONDO PERFECTO */
+        /* TIMER REDONDO */
         #contenedor-timer { 
             display: none; 
             width: 100px; 
@@ -174,7 +174,7 @@
                 { id: 'mir_4', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_04.mp3', t:'“Yo no necesito de vos para tener rating Silvana Suarez”'}] },
                 { id: 'mir_5', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_05.mp3', t:'“¡Así NO!”'}] },
                 { id: 'mir_6', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_06.mp3', t:'“¿Quién te operó?... La carita, ¿quién te hizo la carita?”'}] },
-                { id: 'mon_1', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_01.mp3', t:'“Ladrones... Sátrapas... Sinvergüenzas!”'}] },
+                { id: 'mon_1', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_01.mp3', t:'“¡Ladrones... Sátrapas... Sinvergüenzas!”'}] },
                 { id: 'mon_2', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_02.mp3', t:'“Passarella... ¡Renunciá!”'}] },
                 { id: 'alb_1', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_01.mp3', t:'“¡Perdón... pero tengo las bolas llenas!”'}] },
                 { id: 'alb_2', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_02.mp3', t:'“Perdón... si alguno se ofendió porque después empiezan las ofensa”'}] },
@@ -194,19 +194,19 @@
                 { id: 'dut_1', img: 'personajes/dutra.jpg', audios: [{f:'sonidos/dutra_01.mp3', t:'“¡Toy tan sorpresa como todos ustedes!”'}] },
                 { id: 'far_1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“¿Querían ficción? Yo les di ficción.”'}] },
                 { id: 'fei_1', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_01.mp3', t:'“Y sos tan chicanero... pero mal.”'}] },
-                { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
+                { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“¡Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
                 { id: 'ivo_1', img: 'personajes/ivo.jpg', audios: [{f:'sonidos/ivo_01.mp3', t:'“Dos más dos son cuatro, la tierra es redonda, corta la bocha.”'}] },
                 { id: 'jac_1', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_01.mp3', t:'“Billetera... mata galán!”'}] },
-                { id: 'lis_1', img: 'personajes/listorti.jpg', audios: [{f:'sonidos/listorti_01.mp3', t:'“Soooopaaaaaa!”'}] },
+                { id: 'lis_1', img: 'personajes/listorti.jpg', audios: [{f:'sonidos/listorti_01.mp3', t:'“¡Soooopaaaaaa!”'}] },
                 { id: 'pal_1', img: 'personajes/paleo.jpg', audios: [{f:'sonidos/paleo_01.mp3', t:'“Ay perdón porque escucho con... deleite.”'}] },
                 { id: 'cha_1', img: 'personajes/charlotte.jpg', audios: [{f:'sonidos/charlotte_01.mp3', t:'“A mí me gusta el shampein!”'}] },
                 { id: 'bas_1', img: 'personajes/basile.jpg', audios: [{f:'sonidos/basile_01.mp3', t:'“Qué boludo, mamita querida!”'}] },
                 { id: 'bam_1', img: 'personajes/bambino.jpg', audios: [{f:'sonidos/bambino_01.mp3', t:'“Es una tormenta de facha!”'}] },
                 { id: 'fra_1', img: 'personajes/francella.jpg', audios: [{f:'sonidos/francella_01.mp3', t:'“A comeeerlaaa!”'}] },
-                { id: 'riv_1', img: 'personajes/riverito.jpg', audios: [{f:'sonidos/riverito_01.mp3', t:'“A cruzar los dedos!”'}] },
+                { id: 'riv_1', img: 'personajes/riverito.jpg', audios: [{f:'sonidos/riverito_01.mp3', t:'“¡A cruzar los dedos!”'}] },
                 { id: 'bar_1', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}] },
                 { id: 'pac_1', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“Tinguitingui tinguitingui!”'}] },
-                { id: 'fan_1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“Para un poco Mose Paraaaa!!”'}] }
+                { id: 'fan_1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}] }
             ],
             vf: [
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
@@ -237,7 +237,7 @@
 
         function abrirMazo(t) {
             pararTimer(); sonarClick(); activeDeckType = t;
-            document.getElementById('menu-principal').classList.add('attenuado');
+            document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('area-carta').style.display = 'flex';
             const v = document.getElementById('visor');
             v.style.display = 'none'; v.className = "";
@@ -289,7 +289,29 @@
         function revelarRespuestaPlaca() { sonarClick(); document.getElementById('btn-revelar-placa').style.display = 'none'; document.getElementById('texto-respuesta-placa').style.display = 'block'; document.getElementById('btn-volver-placa').style.display = 'flex'; }
         function ejecutarAnimacionDado() { const s = document.getElementById('repro-dado'); s.currentTime = 0; s.play(); let c = 0; let i = setInterval(() => { document.getElementById('boton-dado').innerText = Math.floor(Math.random()*6)+1; if(c++ > 10) clearInterval(i); }, 80); }
         function cerrarCronica() { document.getElementById('pantalla-cronica').style.display = 'none'; document.getElementById('repro-placa').pause(); document.getElementById('repro-placa').currentTime = 0; ejecutarAnimacionDado(); }
-        function abrirVideoAleatorio() { sonarClick(); document.getElementById('menu-principal').classList.add('atenuado'); document.getElementById('area-carta').style.display = 'flex'; document.getElementById('visor').style.display = 'none'; document.getElementById('mazo-vf').style.display = 'none'; document.getElementById('pistas-bloque').style.display = 'none'; document.getElementById('btn-audio').style.display = 'none'; document.getElementById('bloque-famositos').style.display = 'none'; document.getElementById('texto-frase').style.display = 'none'; const v = document.getElementById('visor-video'); if(videosDisponibles.length === 0) { document.getElementById('mensaje-fin-videos').style.display = 'block'; v.style.display = 'none'; } else { document.getElementById('mensaje-fin-videos').style.display = 'none'; const ve = videosDisponibles.splice(Math.floor(Math.random()*videosDisponibles.length), 1)[0]; v.src = ve; v.style.display = 'block'; v.play(); } }
+
+        function abrirVideoAleatorio() {
+            sonarClick();
+            document.getElementById('menu-principal').classList.add('atenuado');
+            document.getElementById('area-carta').style.display = 'flex';
+            document.getElementById('visor').style.display = 'none';
+            document.getElementById('mazo-vf').style.display = 'none';
+            document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('btn-audio').style.display = 'none';
+            document.getElementById('bloque-famositos').style.display = 'none';
+            document.getElementById('texto-frase').style.display = 'none';
+            document.getElementById('contenedor-timer').style.display = 'none'; // SE QUITÓ EL CONTADOR AQUÍ
+            const v = document.getElementById('visor-video');
+            if(videosDisponibles.length === 0) {
+                document.getElementById('mensaje-fin-videos').style.display = 'block';
+                v.style.display = 'none';
+            } else {
+                document.getElementById('mensaje-fin-videos').style.display = 'none';
+                const ve = videosDisponibles.splice(Math.floor(Math.random()*videosDisponibles.length), 1)[0];
+                v.src = ve; v.style.display = 'block'; v.play();
+            }
+        }
+
         function actualizarBotonesPistas() { const btnPrev = document.getElementById('btn-pista-prev'); const btnNext = document.getElementById('btn-pista-next'); btnPrev.style.display = (pIdx > 0) ? 'block' : 'none'; btnNext.style.display = (pIdx < actual.pistas.length - 1) ? 'block' : 'none'; }
         function cambiarPista(d) { pIdx += d; document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx]; actualizarBotonesPistas(); sonarClick(); }
         function iniciarTimer() { timerSegundos = 10; const cajaTimer = document.getElementById('contenedor-timer'); cajaTimer.innerText = timerSegundos; cajaTimer.style.display = 'flex'; cajaTimer.classList.remove('final'); document.getElementById('repro-tictac').play(); intervaloTimer = setInterval(() => { timerSegundos--; cajaTimer.innerText = timerSegundos; if (timerSegundos <= 3) { cajaTimer.classList.add('final'); } if(timerSegundos <= 0) { pararTimer(); if (activeDeckType === 'famositos') { document.getElementById('repro-mal').play(); } if (activeDeckType === 'vf' && !respondidoVF) chequearVF('tiempo'); } }, 1000); }
