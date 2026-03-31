@@ -39,6 +39,11 @@
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('back2.jpg') no-repeat center/cover fixed; z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; }
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
+        
+        /* ESTILO POLAROID */
+        .polaroid-frame { background: white; padding: 15px 15px 60px 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.7); transform: rotate(-2deg); border: 1px solid #ddd; max-width: 85%; }
+        .polaroid-frame img { width: 100%; max-height: 40vh; object-fit: cover; display: block; border: 1px solid #eee; }
+
         #visor-video { width: 92%; max-height: 60vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
         #texto-frase { margin-top: 15px; font-size: 28px; text-shadow: 2px 2px 5px black; padding: 0 15px; font-weight: bold; line-height: 1.1; }
 
@@ -50,7 +55,7 @@
         .respuesta-placa { font-size: 50px; background: white; color: #f00; padding: 10px 30px; margin-top: 20px; font-weight: bold; display: none; border-radius: 10px; }
         .btn-revelar-placa { font-family: 'Super Sunkissed'; background: #000; color: #fff; border: 3px solid #fff; padding: 10px 30px; font-size: 22px; margin-top: 25px; cursor: pointer; border-radius: 50px; }
 
-        /* BOTÓN VOLVER */
+        /* BOTONES VOLVER */
         .volver-pie-contenedor { margin-top: auto; margin-bottom: 12vh; cursor: pointer; background: rgba(0, 0, 0, 0.7); border: 2px solid white; padding: 8px 45px; border-radius: 25px; animation: deslizar 2s infinite ease-in-out; }
         .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
         @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
@@ -71,7 +76,6 @@
         <div id="texto-pregunta-placa" class="pregunta-placa"></div>
         <div id="texto-respuesta-placa" class="respuesta-placa"></div>
         <button id="btn-revelar-placa" class="btn-revelar-placa" onclick="revelarRespuestaPlaca()">VER RESPUESTA</button>
-        
         <div id="btn-volver-placa" class="volver-pie-contenedor" style="display:none; margin-top: 30px;" onclick="cerrarCronica()">
             <div class="volver-pie-texto">VOLVER</div>
         </div>
@@ -83,7 +87,7 @@
             <button class="btn-rojo" onclick="abrirMazo('personajes')">¿QUI&Eacute;NES SON?</button>
             <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO...</button>
             <button class="btn-azul" onclick="abrirMazo('vf')">VERDADERO O FALSO</button>
-            <button class="btn-amarillo" onclick="sonarClick()">CHISMES</button>
+            <button class="btn-amarillo" onclick="abrirMazo('famositos')">FAMOSITOS</button>
         </div>
         <div class="seccion-controles-abajo">
             <div style="text-align: center;"><div class="seccion-dado"><div id="boton-dado" onclick="tirarDado()">🎲</div></div><div class="label-control">DADO</div></div>
@@ -93,13 +97,26 @@
 
     <div id="area-carta" class="pantalla-carta">
         <img src="logo.png" class="logo-mazo">
+        <div id="contenedor-timer">10</div>
+        
         <div id="mensaje-fin-videos" style="display:none; font-size:28px; color:gold;">YA NO HAY MÁS...</div>
+        
         <img id="visor" style="display:none;">
+
+        <div id="contenedor-polaroid" class="polaroid-frame" style="display:none;">
+            <img id="img-polaroid" src="">
+        </div>
+
         <video id="visor-video" controls style="display:none; width:92%; border-radius:15px;"></video>
+        
         <div id="texto-frase"></div>
 
+        <div id="bloque-famositos" style="display:none; flex-direction:column; align-items:center; width:90%; margin-top:15px;">
+            <button id="btn-revelar-famosito" style="background:#ca8a04; border:3px solid white; height:65px; width:100%; font-size:22px; color:white; border-radius:15px;" onclick="revelarFamosito()">VER RESPUESTA</button>
+            <div id="txt-resp-famosito" style="margin-top:15px; font-size:32px; color:#facc15; font-weight:bold; display:none; text-shadow: 2px 2px 4px black;"></div>
+        </div>
+
         <div id="mazo-vf" style="display:none; width:90%; flex-direction:column; gap:15px;">
-            <div id="contenedor-timer">10</div>
             <button id="btn-v" style="height:70px; background:#16a34a; border:3px solid white; border-radius:15px; font-size:24px; color:white;" onclick="chequearVF(true)">VERDADERO</button>
             <button id="btn-f" style="height:70px; background:#e11d48; border:3px solid white; border-radius:15px; font-size:24px; color:white;" onclick="chequearVF(false)">FALSO</button>
             <div id="resp-vf-texto" style="color:#facc15; font-size:24px; margin-top:10px; font-weight:bold;"></div>
@@ -123,7 +140,8 @@
     <audio id="repro-frase"></audio>
     <audio id="repro-dado" src="sonidos/dado.mp3"></audio>
     <audio id="repro-rojo" src="sonidos/moria_01.mp3"></audio>
-    <audio id="repro-placa" src="sonidos/placa.mp3"></audio> <audio id="repro-click" src="sonidos/click.mp3"></audio>
+    <audio id="repro-placa" src="sonidos/placa.mp3"></audio>
+    <audio id="repro-click" src="sonidos/click.mp3"></audio>
     <audio id="repro-bien" src="sonidos/bien.mp3"></audio>
     <audio id="repro-mal" src="sonidos/mal.mp3"></audio>
     <audio id="repro-tictac" src="sonidos/tictac.mp3" loop></audio>
@@ -177,16 +195,20 @@
                 { t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Se llamaba Jazmín.' },
                 { t: 'Mirtha debutó con Daniel Tinayre invitado', r: true, detalle: 'Fue el 3 de junio de 1968.' }
             ],
+            famositos: [
+                { id: 'rago', img: 'polaroid/ragopolaroid.jpg', r: 'PABLO RAGO' }
+            ],
             placasEspeciales: [
                 { id: 'placa01', pregunta: '¿Quién fue el ganador de MasterChef Celebrity?', respuesta: 'IAN LUCA' }
             ]
         };
 
         let contadorDados = 0; 
-        let tiroEventoPlaca = Math.floor(Math.random() * 15) + 1; // TIRO RANDOM ANTES DEL 15
-        let mazoVerde = []; let mazoAzul = [];
+        let tiroEventoPlaca = Math.floor(Math.random() * 15) + 1;
+        let mazoVerde = []; let mazoAzul = []; let mazoAmarillo = [];
         let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
         let actual = null; let actualPlaca = null; let pIdx = 0; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
+        let proximaAccion = null;
 
         function entrarAlJuego() {
             const docElm = document.documentElement;
@@ -201,10 +223,13 @@
             document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('area-carta').style.display = 'flex';
             document.getElementById('visor').style.display = 'none';
+            document.getElementById('contenedor-polaroid').style.display = 'none';
             document.getElementById('visor-video').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
+            document.getElementById('bloque-famositos').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
             document.getElementById('btn-audio').style.display = 'none';
+            document.getElementById('contenedor-timer').style.display = 'none';
             document.getElementById('texto-frase').style.display = 'block';
             document.getElementById('texto-frase').innerHTML = "";
 
@@ -231,29 +256,42 @@
                 document.getElementById('visor').style.display = 'block';
                 document.getElementById('btn-audio').style.display = 'block';
                 document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
+            } else if (t === 'famositos') {
+                if (mazoAmarillo.length === 0) mazoAmarillo = [...datos.famositos].sort(() => Math.random() - 0.5);
+                actual = mazoAmarillo.pop();
+                document.getElementById('img-polaroid').src = actual.img;
+                document.getElementById('contenedor-polaroid').style.display = 'block';
+                document.getElementById('bloque-famositos').style.display = 'flex';
+                document.getElementById('btn-revelar-famosito').style.display = 'block';
+                document.getElementById('txt-resp-famosito').style.display = 'none';
+                document.getElementById('texto-frase').innerHTML = "¿QUI&Eacute;N ES ESTE FAMOSITO?";
+                iniciarTimer();
             }
+        }
+
+        function revelarFamosito() {
+            pararTimer(); sonarClick();
+            document.getElementById('btn-revelar-famosito').style.display = 'none';
+            document.getElementById('txt-resp-famosito').innerHTML = actual.r;
+            document.getElementById('txt-resp-famosito').style.display = 'block';
         }
 
         function tirarDado() {
             contadorDados++;
             if (contadorDados === tiroEventoPlaca) {
                 lanzarPlacaEspecial();
-                // Preparar próximo evento aleatorio (después de otros 1 a 15 tiros)
                 contadorDados = 0;
                 tiroEventoPlaca = Math.floor(Math.random() * 15) + 1;
-            } else {
-                ejecutarAnimacionDado();
-            }
+            } else { ejecutarAnimacionDado(); }
         }
 
         function lanzarPlacaEspecial() {
-            actualPlaca = datos.placasEspeciales[0]; // Usamos placa01
+            actualPlaca = datos.placasEspeciales[0];
             document.getElementById('texto-pregunta-placa').innerHTML = actualPlaca.pregunta;
             document.getElementById('texto-respuesta-placa').innerHTML = actualPlaca.respuesta;
             document.getElementById('texto-respuesta-placa').style.display = 'none';
             document.getElementById('btn-revelar-placa').style.display = 'block';
             document.getElementById('btn-volver-placa').style.display = 'none';
-            
             document.getElementById('pantalla-cronica').style.display = 'flex';
             document.getElementById('repro-placa').play();
         }
@@ -278,16 +316,18 @@
             document.getElementById('pantalla-cronica').style.display = 'none';
             document.getElementById('repro-placa').pause();
             document.getElementById('repro-placa').currentTime = 0;
-            ejecutarAnimacionDado(); // Tira el dado después de cerrar
+            ejecutarAnimacionDado();
         }
 
         function abrirVideoAleatorio() {
             sonarClick(); document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('area-carta').style.display = 'flex';
             document.getElementById('visor').style.display = 'none';
+            document.getElementById('contenedor-polaroid').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
             document.getElementById('btn-audio').style.display = 'none';
+            document.getElementById('bloque-famositos').style.display = 'none';
             document.getElementById('texto-frase').style.display = 'none';
             const v = document.getElementById('visor-video');
             if(videosDisponibles.length === 0) {
@@ -316,7 +356,7 @@
             document.getElementById('repro-tictac').play();
             intervaloTimer = setInterval(() => {
                 timerSegundos--; cajaTimer.innerText = timerSegundos;
-                if(timerSegundos <= 0) { pararTimer(); if(!respondidoVF) chequearVF('tiempo'); }
+                if(timerSegundos <= 0) { pararTimer(); }
             }, 1000);
         }
 
