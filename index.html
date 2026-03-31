@@ -26,7 +26,7 @@
         button { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
-        /* --- CONTROLES --- */
+        /* --- CONTROLES ABAJO --- */
         .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 65px; margin-top: 25px; }
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
         #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;}
@@ -35,15 +35,12 @@
         @keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .label-control { font-size: 22px; font-weight: bold; color: #facc15; margin-top: 10px; text-shadow: 2px 2px 4px black; }
 
-        /* --- PANTALLA CARTA --- */
+        /* --- PANTALLA CARTA (MODIFICADA) --- */
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('back2.jpg') no-repeat center/cover fixed; z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; }
-        #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
         
-        /* ESTILO POLAROID */
-        .polaroid-frame { background: white; padding: 15px 15px 60px 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.7); transform: rotate(-2deg); border: 1px solid #ddd; max-width: 85%; }
-        .polaroid-frame img { width: 100%; max-height: 40vh; object-fit: cover; display: block; border: 1px solid #eee; }
-
+        /* VISOR IMAGEN MÁS GRANDE */
+        #visor { max-width: 98%; max-height: 52vh; border: 4px solid white; border-radius: 15px; box-shadow: 0 15px 35px black; display: none; }
         #visor-video { width: 92%; max-height: 60vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
         #texto-frase { margin-top: 15px; font-size: 28px; text-shadow: 2px 2px 5px black; padding: 0 15px; font-weight: bold; line-height: 1.1; }
 
@@ -101,11 +98,7 @@
         
         <div id="mensaje-fin-videos" style="display:none; font-size:28px; color:gold;">YA NO HAY MÁS...</div>
         
-        <img id="visor" style="display:none;">
-
-        <div id="contenedor-polaroid" class="polaroid-frame" style="display:none;">
-            <img id="img-polaroid" src="">
-        </div>
+        <img id="visor">
 
         <video id="visor-video" controls style="display:none; width:92%; border-radius:15px;"></video>
         
@@ -174,7 +167,7 @@
                 { id: 'for_3', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_03.mp3', t:'“Basta chicos”'}] },
                 { id: 'for_4', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_04.mp3', t:'“Por favor... yo no manejo rating, yo manejo Roll Royce”'}] },
                 { id: 'dut_1', img: 'personajes/dutra.jpg', audios: [{f:'sonidos/dutra_01.mp3', t:'“¡Toy tan sorpresa como todos ustedes!”'}] },
-                { id: 'far_1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“¿Querían ficción? Yo les di ficción.”'}] },
+                { id: 'far_1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“Querían ficción? Yo les di ficción.”'}] },
                 { id: 'fei_1', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_01.mp3', t:'“Y sos tan chicanero... pero mal.”'}] },
                 { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“¡Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
                 { id: 'ivo_1', img: 'personajes/ivo.jpg', audios: [{f:'sonidos/ivo_01.mp3', t:'“Dos más dos son cuatro, la tierra es redonda, corta la bocha.”'}] },
@@ -183,7 +176,7 @@
                 { id: 'pal_1', img: 'personajes/paleo.jpg', audios: [{f:'sonidos/paleo_01.mp3', t:'“Ay perdón porque escucho con... deleite.”'}] },
                 { id: 'cha_1', img: 'personajes/charlotte.jpg', audios: [{f:'sonidos/charlotte_01.mp3', t:'“¡A mí me gusta el shampein!”'}] },
                 { id: 'bas_1', img: 'personajes/basile.jpg', audios: [{f:'sonidos/basile_01.mp3', t:'“¡Qué boludo, mamita querida!”'}] },
-                { id: 'bam_1', img: 'personajes/bambino.jpg', audios: [{f:'sonidos/bambino_01.mp3', t:'“¡Es una tormenta de facha!”'}] },
+                { id: 'bam_1', img: 'personajes/bambino.jpg', audios: [{f:'sonidos/bambino_01.mp3', t:'“Es una tormenta de facha!”'}] },
                 { id: 'fra_1', img: 'personajes/francella.jpg', audios: [{f:'sonidos/francella_01.mp3', t:'“¡A comeeerlaaa!”'}] },
                 { id: 'riv_1', img: 'personajes/riverito.jpg', audios: [{f:'sonidos/riverito_01.mp3', t:'“¡A cruzar los dedos!”'}] },
                 { id: 'bar_1', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}] },
@@ -223,7 +216,6 @@
             document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('area-carta').style.display = 'flex';
             document.getElementById('visor').style.display = 'none';
-            document.getElementById('contenedor-polaroid').style.display = 'none';
             document.getElementById('visor-video').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('bloque-famositos').style.display = 'none';
@@ -259,8 +251,8 @@
             } else if (t === 'famositos') {
                 if (mazoAmarillo.length === 0) mazoAmarillo = [...datos.famositos].sort(() => Math.random() - 0.5);
                 actual = mazoAmarillo.pop();
-                document.getElementById('img-polaroid').src = actual.img;
-                document.getElementById('contenedor-polaroid').style.display = 'block';
+                document.getElementById('visor').src = actual.img;
+                document.getElementById('visor').style.display = 'block';
                 document.getElementById('bloque-famositos').style.display = 'flex';
                 document.getElementById('btn-revelar-famosito').style.display = 'block';
                 document.getElementById('txt-resp-famosito').style.display = 'none';
@@ -323,7 +315,6 @@
             sonarClick(); document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('area-carta').style.display = 'flex';
             document.getElementById('visor').style.display = 'none';
-            document.getElementById('contenedor-polaroid').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
             document.getElementById('btn-audio').style.display = 'none';
@@ -366,7 +357,7 @@
             if(respondidoVF) return; respondidoVF = true; pararTimer();
             if(eleccion === actual.r) document.getElementById('repro-bien').play(); else document.getElementById('repro-mal').play();
             const res = actual.r ? '<span style="color:#16a34a; font-size:32px; display:block; margin-bottom:5px;">VERDADERO</span>' : '<span style="color:#e11d48; font-size:32px; display:block; margin-bottom:5px;">FALSO</span>';
-            document.getElementById('resp-vf-texto').innerHTML = res + actual.detalle;
+            document.getElementById('resp-vf-texto').innerHTML = res + actual.detail;
             document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3";
             document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3";
         }
