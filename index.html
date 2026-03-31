@@ -41,6 +41,10 @@
         
         /* VISOR IMAGEN MÁS GRANDE */
         #visor { max-width: 98%; max-height: 52vh; border: 4px solid white; border-radius: 15px; box-shadow: 0 15px 35px black; display: none; }
+        
+        /* ESTILO FAMOSITO (GIGANTE, CUADRADA, ROTADA) */
+        .famosito-card { max-width: 90%; width: 90%; aspect-ratio: 1/1; object-fit: cover; border: 6px solid white; border-radius: 15px; box-shadow: 0 20px 45px black; transform: rotate(-3deg); will-change: transform; display: none; }
+
         #visor-video { width: 92%; max-height: 60vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
         #texto-frase { margin-top: 15px; font-size: 28px; text-shadow: 2px 2px 5px black; padding: 0 15px; font-weight: bold; line-height: 1.1; }
 
@@ -57,7 +61,7 @@
         .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
         @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 
-        /* TIMER */
+        /* TIMER (ESTILO V/F) */
         #contenedor-timer { display: none; width: 140px; height: 140px; border-radius: 50%; border: 6px double #333; background: #fdf5e6; color: #222; justify-content: center; align-items: center; font-family: 'Anton', sans-serif; font-size: 75px; margin: 0 auto 15px auto; }
     </style>
 </head>
@@ -186,7 +190,7 @@
             vf: [
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
                 { t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Se llamaba Jazmín.' },
-                { t: 'Mirtha debutó con Daniel Tinayre invitado', r: true, detalle: 'Fue el 3 de junio de 1968.' }
+                { t: 'En el primer almuerzo de Mirtha estuvo Daniel Tinayre', r: true, detalle: 'Debutó el 3 de junio de 1968.' }
             ],
             famositos: [
                 { id: 'rago', img: 'polaroid/ragopolaroid.jpg', r: 'PABLO RAGO' }
@@ -202,6 +206,7 @@
         let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
         let actual = null; let actualPlaca = null; let pIdx = 0; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
         let proximaAccion = null;
+        let activeDeckType = null; // TIPO DE MAZO ACTIVO
 
         function entrarAlJuego() {
             const docElm = document.documentElement;
@@ -213,9 +218,11 @@
 
         function abrirMazo(t) {
             pararTimer(); sonarClick();
+            activeDeckType = t; // GUARDAR TIPO
             document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('area-carta').style.display = 'flex';
             document.getElementById('visor').style.display = 'none';
+            document.getElementById('visor').classList.remove('famosito-card'); // QUITAR CLASE ESPECIAL
             document.getElementById('visor-video').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('bloque-famositos').style.display = 'none';
@@ -251,8 +258,11 @@
             } else if (t === 'famositos') {
                 if (mazoAmarillo.length === 0) mazoAmarillo = [...datos.famositos].sort(() => Math.random() - 0.5);
                 actual = mazoAmarillo.pop();
-                document.getElementById('visor').src = actual.img;
-                document.getElementById('visor').style.display = 'block';
+                const v = document.getElementById('visor');
+                v.src = actual.img;
+                v.style.display = 'block';
+                v.classList.add('famosito-card'); // CLASE ESPECIAL (GIGANTE, ROTADA)
+                
                 document.getElementById('bloque-famositos').style.display = 'flex';
                 document.getElementById('btn-revelar-famosito').style.display = 'block';
                 document.getElementById('txt-resp-famosito').style.display = 'none';
@@ -347,7 +357,12 @@
             document.getElementById('repro-tictac').play();
             intervaloTimer = setInterval(() => {
                 timerSegundos--; cajaTimer.innerText = timerSegundos;
-                if(timerSegundos <= 0) { pararTimer(); }
+                if(timerSegundos <= 0) { 
+                    pararTimer(); 
+                    if (activeDeckType === 'famositos') {
+                        document.getElementById('repro-mal').play(); // SONIDO FINAL
+                    }
+                }
             }, 1000);
         }
 
@@ -357,12 +372,12 @@
             if(respondidoVF) return; respondidoVF = true; pararTimer();
             if(eleccion === actual.r) document.getElementById('repro-bien').play(); else document.getElementById('repro-mal').play();
             const res = actual.r ? '<span style="color:#16a34a; font-size:32px; display:block; margin-bottom:5px;">VERDADERO</span>' : '<span style="color:#e11d48; font-size:32px; display:block; margin-bottom:5px;">FALSO</span>';
-            document.getElementById('resp-vf-texto').innerHTML = res + actual.detail;
+            document.getElementById('resp-vf-texto').innerHTML = res + actual. detalle;
             document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3";
             document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3";
         }
 
-        function cerrar() { pararTimer(); document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; document.getElementById('visor-video').pause(); }
+        function cerrar() { pararTimer(); activeDeckType = null; document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; document.getElementById('visor-video').pause(); }
         function sonarClick() { document.getElementById('repro-click').play(); }
         function sonar() { document.getElementById('repro-frase').src = actual.audios[0].f; document.getElementById('repro-frase').play(); }
     </script>
