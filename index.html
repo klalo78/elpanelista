@@ -41,7 +41,7 @@
         
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
         
-        /* ESTILO FAMOSITOS (SIN BORDE BLANCO, CUADRADO, COMPLETO) */
+        /* ESTILO FAMOSITOS (MODIFICADO: SIN BORDE BLANCO, CUADRADO, COMPLETO) */
         .img-famosito { 
             width: 75% !important; 
             aspect-ratio: 1/1 !important; 
@@ -63,12 +63,12 @@
         .respuesta-placa { font-size: 50px; background: white; color: #f00; padding: 10px 30px; margin-top: 20px; font-weight: bold; display: none; border-radius: 10px; }
         .btn-revelar-placa { font-family: 'Super Sunkissed'; background: #000; color: #fff; border: 3px solid #fff; padding: 10px 30px; font-size: 22px; margin-top: 25px; cursor: pointer; border-radius: 50px; }
 
-        /* BOTÓN VOLVER */
+        /* VOLVER */
         .volver-pie-contenedor { margin-top: auto; margin-bottom: 12vh; cursor: pointer; background: rgba(0, 0, 0, 0.7); border: 2px solid white; padding: 8px 45px; border-radius: 25px; animation: deslizar 2s infinite ease-in-out; }
         .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
         @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 
-        /* TIMER REDONDO */
+        /* TIMER REDONDO PERFECTO */
         #contenedor-timer { 
             display: none; 
             width: 100px; 
@@ -82,6 +82,7 @@
             font-family: 'Anton', sans-serif; 
             font-size: 60px; 
             margin: 0 auto 15px auto; 
+            flex-shrink: 0;
             transition: all 0.3s;
         }
         #contenedor-timer.final { color: #e11d48; border-color: #e11d48; }
@@ -191,9 +192,9 @@
                 { id: 'for_3', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_03.mp3', t:'“Basta chicos”'}] },
                 { id: 'for_4', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_04.mp3', t:'“Por favor... yo no manejo rating, yo manejo Roll Royce”'}] },
                 { id: 'dut_1', img: 'personajes/dutra.jpg', audios: [{f:'sonidos/dutra_01.mp3', t:'“¡Toy tan sorpresa como todos ustedes!”'}] },
-                { id: 'far_1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“Querían ficción? Yo les di ficción.”'}] },
+                { id: 'far_1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“¿Querían ficción? Yo les di ficción.”'}] },
                 { id: 'fei_1', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_01.mp3', t:'“Y sos tan chicanero... pero mal.”'}] },
-                { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“¡Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
+                { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
                 { id: 'ivo_1', img: 'personajes/ivo.jpg', audios: [{f:'sonidos/ivo_01.mp3', t:'“Dos más dos son cuatro, la tierra es redonda, corta la bocha.”'}] },
                 { id: 'jac_1', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_01.mp3', t:'“Billetera... mata galán!”'}] },
                 { id: 'lis_1', img: 'personajes/listorti.jpg', audios: [{f:'sonidos/listorti_01.mp3', t:'“¡Soooopaaaaaa!”'}] },
@@ -206,7 +207,8 @@
                 { id: 'bar_1', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}] },
                 { id: 'pac_1', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“Tinguitingui tinguitingui!”'}] },
                 { id: 'fan_1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}] },
-                { id: 'nac_1', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_01.mp3', t:'“¡Ubicate, pendejo!”'}] }
+                { id: 'nac_1', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_01.mp3', t:'“¡Ubicate, pendejo!”'}] },
+                { id: 'nac_2', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_02.mp3', t:'“¡Qué actos éticos y estéticos has tenido!”'}] }
             ],
             vf: [
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
@@ -310,7 +312,7 @@
             document.getElementById('btn-audio').style.display = 'none';
             document.getElementById('bloque-famositos').style.display = 'none';
             document.getElementById('texto-frase').style.display = 'none';
-            document.getElementById('contenedor-timer').style.display = 'none';
+            document.getElementById('contenedor-timer').style.display = 'none'; // DESACTIVADO AQUÍ
             const v = document.getElementById('visor-video');
             if(videosDisponibles.length === 0) {
                 document.getElementById('mensaje-fin-videos').style.display = 'block';
@@ -324,7 +326,30 @@
 
         function actualizarBotonesPistas() { const btnPrev = document.getElementById('btn-pista-prev'); const btnNext = document.getElementById('btn-pista-next'); btnPrev.style.display = (pIdx > 0) ? 'block' : 'none'; btnNext.style.display = (pIdx < actual.pistas.length - 1) ? 'block' : 'none'; }
         function cambiarPista(d) { pIdx += d; document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx]; actualizarBotonesPistas(); sonarClick(); }
-        function iniciarTimer() { timerSegundos = 10; const cajaTimer = document.getElementById('contenedor-timer'); cajaTimer.innerText = timerSegundos; cajaTimer.style.display = 'flex'; cajaTimer.classList.remove('final'); document.getElementById('repro-tictac').play(); intervaloTimer = setInterval(() => { timerSegundos--; cajaTimer.innerText = timerSegundos; if (timerSegundos <= 3) { cajaTimer.classList.add('final'); } if(timerSegundos <= 0) { pararTimer(); if (activeDeckType === 'famositos') { document.getElementById('repro-mal').play(); } if (activeDeckType === 'vf' && !respondidoVF) chequearVF('tiempo'); } }, 1000); }
+        
+        function iniciarTimer() {
+            timerSegundos = 10;
+            const cajaTimer = document.getElementById('contenedor-timer');
+            cajaTimer.innerText = timerSegundos;
+            cajaTimer.style.display = 'flex';
+            cajaTimer.classList.remove('final'); 
+            document.getElementById('repro-tictac').play();
+            intervaloTimer = setInterval(() => {
+                timerSegundos--;
+                cajaTimer.innerText = timerSegundos;
+                if (timerSegundos <= 3) {
+                    cajaTimer.classList.add('final'); // SE PONE ROJO
+                }
+                if(timerSegundos <= 0) { 
+                    pararTimer(); 
+                    if (activeDeckType === 'famositos') {
+                        document.getElementById('repro-mal').play(); // SONIDO ERROR
+                    }
+                    if (activeDeckType === 'vf' && !respondidoVF) chequearVF('tiempo');
+                }
+            }, 1000);
+        }
+
         function pararTimer() { clearInterval(intervaloTimer); document.getElementById('repro-tictac').pause(); }
         function chequearVF(eleccion) { if(respondidoVF) return; respondidoVF = true; pararTimer(); if(eleccion === actual.r) document.getElementById('repro-bien').play(); else document.getElementById('repro-mal').play(); const res = actual.r ? '<span style="color:#16a34a; font-size:32px; display:block; margin-bottom:5px;">VERDADERO</span>' : '<span style="color:#e11d48; font-size:32px; display:block; margin-bottom:5px;">FALSO</span>'; document.getElementById('resp-vf-texto').innerHTML = res + actual.detalle; document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3"; document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3"; }
         function cerrar() { pararTimer(); activeDeckType = null; document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; document.getElementById('visor-video').pause(); }
