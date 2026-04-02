@@ -41,7 +41,7 @@
         
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
         
-        /* ESTILO FAMOSITOS (MODIFICADO: SIN BORDE BLANCO, CUADRADO, COMPLETO) */
+        /* ESTILO FAMOSITOS (CUADRADO, COMPLETO, SIN BORDE) */
         .img-famosito { 
             width: 75% !important; 
             aspect-ratio: 1/1 !important; 
@@ -194,7 +194,7 @@
                 { id: 'dut_1', img: 'personajes/dutra.jpg', audios: [{f:'sonidos/dutra_01.mp3', t:'“¡Toy tan sorpresa como todos ustedes!”'}] },
                 { id: 'far_1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“¿Querían ficción? Yo les di ficción.”'}] },
                 { id: 'fei_1', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_01.mp3', t:'“Y sos tan chicanero... pero mal.”'}] },
-                { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
+                { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“¡Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
                 { id: 'ivo_1', img: 'personajes/ivo.jpg', audios: [{f:'sonidos/ivo_01.mp3', t:'“Dos más dos son cuatro, la tierra es redonda, corta la bocha.”'}] },
                 { id: 'jac_1', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_01.mp3', t:'“Billetera... mata galán!”'}] },
                 { id: 'lis_1', img: 'personajes/listorti.jpg', audios: [{f:'sonidos/listorti_01.mp3', t:'“¡Soooopaaaaaa!”'}] },
@@ -208,7 +208,15 @@
                 { id: 'pac_1', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“Tinguitingui tinguitingui!”'}] },
                 { id: 'fan_1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}] },
                 { id: 'nac_1', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_01.mp3', t:'“¡Ubicate, pendejo!”'}] },
-                { id: 'nac_2', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_02.mp3', t:'“¡Qué actos éticos y estéticos has tenido!”'}] }
+                { id: 'nac_2', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_02.mp3', t:'“¡Qué actos éticos y estéticos has tenido!”'}] },
+                { id: 'cib_1', img: 'personajes/cibrian.jpg', audios: [{f:'sonidos/cibrian_01.mp3', t:'“¡Hablá, marica!”'}] },
+                { id: 'can_1', img: 'personajes/canaletti.jpg', audios: [{f:'sonidos/canaletti_01.mp3', t:'“¡La plata, la guita, la biyuya!”'}] },
+                { id: 'jel_1', img: 'personajes/jelinek.jpg', audios: [{f:'sonidos/jelinek_01.mp3', t:'“Las chilenas son casi latinas, la mayoría”'}] },
+                { id: 'jel_2', img: 'personajes/jelinek.jpg', audios: [{f:'sonidos/jelinek_02.mp3', t:'“Lo dejo a tu criterio”'}] },
+                { id: 'sol_1', img: 'personajes/soldan.jpg', audios: [{f:'sonidos/soldan_01.mp3', t:'“No puede haber tanta maldad, mi amor”'}] },
+                { id: 'sol_2', img: 'personajes/soldan.jpg', audios: [{f:'sonidos/soldan_02.mp3', t:'“¡Feliz domingo para tooodooss!”'}] },
+                { id: 'fan_w1', img: 'personajes/fan.jpg', audios: [{f:'sonidos/fan_01.mp3', t:'“Dejé de ser vegetariano porque me mordió un perro, entonces me enojé”'}] },
+                { id: 'fan_w2', img: 'personajes/fan.jpg', audios: [{f:'sonidos/fan_02.mp3', t:'“¡Rompiste las fotos de Wandaaaa!”'}] }
             ],
             vf: [
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
@@ -222,7 +230,7 @@
                 { id: 'delboca', img: 'polaroid/delbocapolaroid.jpg', r: 'ANDREA DEL BOCA' },
                 { id: 'guido', img: 'polaroid/guidopolaroid.jpg', r: 'GUIDO KACZKA' },
                 { id: 'josema', img: 'polaroid/josemapolaroid.jpg', r: 'JOSÉ MARÍA LISTORTI' },
-                { id: 'lopilato', img: 'polaroid/lopilatopolaroid.jpg', r: 'LUISANA LOPILATO' },
+                { id: 'lopilato', img: 'polaroid/lopilatopolaroid.jpg', r: 'LUCIANA LOPILATO' },
                 { id: 'luciano', img: 'polaroid/lucianocastropolaroid.jpg', r: 'LUCIANO CASTRO' },
                 { id: 'sbaraglia', img: 'polaroid/sbaragliapolaroid.jpg', r: 'LEONARDO SBARAGLIA' },
                 { id: 'suar', img: 'polaroid/suarpolaroid.jpg', r: 'ADRIÁN SUAR' },
@@ -312,7 +320,7 @@
             document.getElementById('btn-audio').style.display = 'none';
             document.getElementById('bloque-famositos').style.display = 'none';
             document.getElementById('texto-frase').style.display = 'none';
-            document.getElementById('contenedor-timer').style.display = 'none'; // DESACTIVADO AQUÍ
+            document.getElementById('contenedor-timer').style.display = 'none';
             const v = document.getElementById('visor-video');
             if(videosDisponibles.length === 0) {
                 document.getElementById('mensaje-fin-videos').style.display = 'block';
@@ -338,12 +346,12 @@
                 timerSegundos--;
                 cajaTimer.innerText = timerSegundos;
                 if (timerSegundos <= 3) {
-                    cajaTimer.classList.add('final'); // SE PONE ROJO
+                    cajaTimer.classList.add('final'); 
                 }
                 if(timerSegundos <= 0) { 
                     pararTimer(); 
                     if (activeDeckType === 'famositos') {
-                        document.getElementById('repro-mal').play(); // SONIDO ERROR
+                        document.getElementById('repro-mal').play(); 
                     }
                     if (activeDeckType === 'vf' && !respondidoVF) chequearVF('tiempo');
                 }
