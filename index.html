@@ -41,7 +41,7 @@
         
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
         
-        /* FAMOSITOS: CUADRADOS, SIN BORDE */
+        /* ESTILO FAMOSITOS (CUADRADO, SIN BORDE) */
         .img-famosito { 
             width: 75% !important; 
             aspect-ratio: 1/1 !important; 
@@ -68,7 +68,7 @@
         .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
         @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 
-        /* TIMER REDONDO PERFECTO */
+        /* TIMER REDONDO */
         #contenedor-timer { 
             display: none; 
             width: 100px; 
@@ -205,8 +205,8 @@
                 { id: 'fra_1', img: 'personajes/francella.jpg', audios: [{f:'sonidos/francella_01.mp3', t:'“A comeeerlaaa!”'}] },
                 { id: 'riv_1', img: 'personajes/riverito.jpg', audios: [{f:'sonidos/riverito_01.mp3', t:'“¡A cruzar los dedos!”'}] },
                 { id: 'bar_1', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}] },
-                { id: 'bar_2', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri_02.mp3', t:'“¡Escuchá este audio!”'}] },
-                { id: 'bar_3', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri_03.mp3', t:'“¡Escuchá este audio!”'}] },
+                { id: 'bar_2', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri_02.mp3', t:'“¡Pará un poco, loca!”'}] },
+                { id: 'bar_3', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri_03.mp3', t:'“Si pasan esas cosas hay que calmarla”'}] },
                 { id: 'pac_1', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“Tinguitingui tinguitingui!”'}] },
                 { id: 'fan_1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}] },
                 { id: 'nac_1', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_01.mp3', t:'“¡Ubicate, pendejo!”'}] },
@@ -250,6 +250,7 @@
             ]
         };
 
+        // VARIABLES DE JUEGO (STACKS)
         let stacks = { personajes: [], quien_dijo: [], vf: [], famositos: [] };
         let iniciado = { personajes: false, quien_dijo: false, vf: false, famositos: false };
         let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
