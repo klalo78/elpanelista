@@ -26,7 +26,7 @@
         button { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
-        /* --- CONTROLES ABAJO --- */
+        /* --- CONTROLES --- */
         .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 65px; margin-top: 25px; }
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
         #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;}
@@ -41,6 +41,7 @@
         
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
         
+        /* FAMOSITOS: CUADRADOS, SIN BORDE */
         .img-famosito { 
             width: 75% !important; 
             aspect-ratio: 1/1 !important; 
@@ -62,12 +63,12 @@
         .respuesta-placa { font-size: 50px; background: white; color: #f00; padding: 10px 30px; margin-top: 20px; font-weight: bold; display: none; border-radius: 10px; }
         .btn-revelar-placa { font-family: 'Super Sunkissed'; background: #000; color: #fff; border: 3px solid #fff; padding: 10px 30px; font-size: 22px; margin-top: 25px; cursor: pointer; border-radius: 50px; }
 
-        /* BOTONES VOLVER */
+        /* VOLVER */
         .volver-pie-contenedor { margin-top: auto; margin-bottom: 12vh; cursor: pointer; background: rgba(0, 0, 0, 0.7); border: 2px solid white; padding: 8px 45px; border-radius: 25px; animation: deslizar 2s infinite ease-in-out; }
         .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
         @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 
-        /* TIMER REDONDO */
+        /* TIMER REDONDO PERFECTO */
         #contenedor-timer { 
             display: none; 
             width: 100px; 
@@ -175,7 +176,8 @@
                 { id: 'mon_1', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_01.mp3', t:'“¡Ladrones... Sátrapas... Sinvergüenzas!”'}] },
                 { id: 'mon_2', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_02.mp3', t:'“Passarella... ¡Renunciá!”'}] },
                 { id: 'alb_1', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_01.mp3', t:'“¡Perdón... pero tengo las bolas llenas!”'}] },
-                { id: 'alb_2', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_02.mp3', t:'“Perdón... si alguno se ofendió porque después empiezan las ofensa”'}] },
+                { id: 'alb_2', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_02.mp3', t:'“Perdón... si alguno se ofendió porque después empiezan las ofensas”'}] },
+                { id: 'alb_3', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_03.mp3', t:'“¡Qué están protestando, mierda!”'}] },
                 { id: 'gio_1', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_01.mp3', t:'“¡Qué noche Teté!”'}] },
                 { id: 'gio_2', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_02.mp3', t:'“¡No me peguen!... ¡No me peguen soy Giordano!”'}] },
                 { id: 'gio_3', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_03.mp3', t:'“Qué mala leche vos eh”'}] },
@@ -190,7 +192,7 @@
                 { id: 'for_3', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_03.mp3', t:'“Basta chicos”'}] },
                 { id: 'for_4', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_04.mp3', t:'“Por favor... yo no manejo rating, yo manejo Roll Royce”'}] },
                 { id: 'dut_1', img: 'personajes/dutra.jpg', audios: [{f:'sonidos/dutra_01.mp3', t:'“¡Toy tan sorpresa como todos ustedes!”'}] },
-                { id: 'far_1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“Querían ficción? Yo les di ficción.”'}] },
+                { id: 'far_1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“¿Querían ficción? Yo les di ficción.”'}] },
                 { id: 'fei_1', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_01.mp3', t:'“Y sos tan chicanero... pero mal.”'}] },
                 { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“¡Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
                 { id: 'ivo_1', img: 'personajes/ivo.jpg', audios: [{f:'sonidos/ivo_01.mp3', t:'“Dos más dos son cuatro, la tierra es redonda, corta la bocha.”'}] },
@@ -203,6 +205,8 @@
                 { id: 'fra_1', img: 'personajes/francella.jpg', audios: [{f:'sonidos/francella_01.mp3', t:'“A comeeerlaaa!”'}] },
                 { id: 'riv_1', img: 'personajes/riverito.jpg', audios: [{f:'sonidos/riverito_01.mp3', t:'“¡A cruzar los dedos!”'}] },
                 { id: 'bar_1', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}] },
+                { id: 'bar_2', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri_02.mp3', t:'“¡Escuchá este audio!”'}] },
+                { id: 'bar_3', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri_03.mp3', t:'“¡Escuchá este audio!”'}] },
                 { id: 'pac_1', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“Tinguitingui tinguitingui!”'}] },
                 { id: 'fan_1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}] },
                 { id: 'nac_1', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_01.mp3', t:'“¡Ubicate, pendejo!”'}] },
@@ -214,7 +218,10 @@
                 { id: 'sol_1', img: 'personajes/soldan.jpg', audios: [{f:'sonidos/soldan_01.mp3', t:'“No puede haber tanta maldad, mi amor”'}] },
                 { id: 'sol_2', img: 'personajes/soldan.jpg', audios: [{f:'sonidos/soldan_02.mp3', t:'“¡Feliz domingo para tooodooss!”'}] },
                 { id: 'fan_w1', img: 'personajes/fan.jpg', audios: [{f:'sonidos/fan_01.mp3', t:'“Dejé de ser vegetariano porque me mordió un perro, entonces me enojé”'}] },
-                { id: 'fan_w2', img: 'personajes/fan.jpg', audios: [{f:'sonidos/fan_02.mp3', t:'“¡Rompiste las fotos de Wandaaaa!”'}] }
+                { id: 'fan_w2', img: 'personajes/fan.jpg', audios: [{f:'sonidos/fan_02.mp3', t:'“¡Rompiste las fotos de Wandaaaa!”'}] },
+                { id: 'sam_1', img: 'personajes/samid.jpg', audios: [{f:'sonidos/samid_01.mp3', t:'“Usted se tiene que arrepentir de lo que dijo”'}] },
+                { id: 'dar_1', img: 'personajes/darin.jpg', audios: [{f:'sonidos/darin_01.mp3', t:'“Yo me pego dos duchas calientes por día”'}] },
+                { id: 'nel_1', img: 'personajes/nelson.jpg', audios: [{f:'sonidos/nelson_01.mp3', t:'“¡Sí, señora!”'}] }
             ],
             vf: [
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
@@ -223,6 +230,9 @@
             ],
             famositos: [
                 { id: 'rago', img: 'polaroid/ragopolaroid.jpg', r: 'PABLO RAGO' },
+                { id: 'susana', img: 'polaroid/susanapolaroid.jpg', r: 'SUSANA GIMÉNEZ' },
+                { id: 'messi', img: 'polaroid/messipolaroid.jpg', r: 'LIONEL MESSI' },
+                { id: 'fort', img: 'polaroid/fortpolaroid.jpg', r: 'RICARDO FORT' },
                 { id: 'angel', img: 'polaroid/angelpolaroid.jpg', r: 'ANGEL DE BRITO' },
                 { id: 'china', img: 'polaroid/chinasuarezpolaroid.jpg', r: 'LA CHINA SUÁREZ' },
                 { id: 'delboca', img: 'polaroid/delbocapolaroid.jpg', r: 'ANDREA DEL BOCA' },
@@ -240,7 +250,6 @@
             ]
         };
 
-        // VARIABLES DE JUEGO (STACKS)
         let stacks = { personajes: [], quien_dijo: [], vf: [], famositos: [] };
         let iniciado = { personajes: false, quien_dijo: false, vf: false, famositos: false };
         let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
@@ -269,8 +278,7 @@
             
             const v = document.getElementById('visor');
             const msg = document.getElementById('mensaje-fin-mazo');
-            v.style.display = 'none'; v.className = "";
-            msg.style.display = 'none';
+            v.style.display = 'none'; v.className = ""; msg.style.display = 'none';
             document.getElementById('visor-video').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('bloque-famositos').style.display = 'none';
@@ -280,13 +288,11 @@
             document.getElementById('texto-frase').style.display = 'block';
             document.getElementById('texto-frase').innerHTML = "";
 
-            // INICIALIZAR STACK SI ES LA PRIMERA VEZ
             if (!iniciado[t]) {
                 stacks[t] = mezclar([...datos[t]]);
                 iniciado[t] = true;
             }
 
-            // CHEQUEAR SI QUEDAN CARTAS
             if (stacks[t].length === 0) {
                 msg.innerHTML = "¡FIN DE LA RONDA!<br>YA NO HAY MÁS CARTAS EN ESTE MAZO";
                 msg.style.display = 'block';
