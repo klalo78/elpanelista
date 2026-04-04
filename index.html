@@ -41,7 +41,7 @@
         
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
         
-        /* ESTILO FAMOSITOS (CUADRADO, SIN BORDE) */
+        /* ESTILO FAMOSITOS (SIN BORDE BLANCO, CUADRADO, COMPLETO) */
         .img-famosito { 
             width: 75% !important; 
             aspect-ratio: 1/1 !important; 
@@ -197,6 +197,7 @@
                 { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“¡Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
                 { id: 'ivo_1', img: 'personajes/ivo.jpg', audios: [{f:'sonidos/ivo_01.mp3', t:'“Dos más dos son cuatro, la tierra es redonda, corta la bocha.”'}] },
                 { id: 'jac_1', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_01.mp3', t:'“Billetera... mata galán!”'}] },
+                { id: 'jac_2', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_02.mp3', t:'“¡Baaaaassssta!”'}] },
                 { id: 'lis_1', img: 'personajes/listorti.jpg', audios: [{f:'sonidos/listorti_01.mp3', t:'“¡Soooopaaaaaa!”'}] },
                 { id: 'pal_1', img: 'personajes/paleo.jpg', audios: [{f:'sonidos/paleo_01.mp3', t:'“Ay perdón porque escucho con... deleite.”'}] },
                 { id: 'cha_1', img: 'personajes/charlotte.jpg', audios: [{f:'sonidos/charlotte_01.mp3', t:'“A mí me gusta el shampein!”'}] },
@@ -208,6 +209,7 @@
                 { id: 'bar_2', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri_02.mp3', t:'“¡Pará un poco, loca!”'}] },
                 { id: 'bar_3', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri_03.mp3', t:'“Si pasan esas cosas hay que calmarla”'}] },
                 { id: 'pac_1', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“Tinguitingui tinguitingui!”'}] },
+                { id: 'pac_2', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano_02.mp3', t:'“¡Andá a laburar!”'}] },
                 { id: 'fan_1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}] },
                 { id: 'nac_1', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_01.mp3', t:'“¡Ubicate, pendejo!”'}] },
                 { id: 'nac_2', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_02.mp3', t:'“¡Qué actos éticos y estéticos has tenido!”'}] },
@@ -221,7 +223,11 @@
                 { id: 'fan_w2', img: 'personajes/fan.jpg', audios: [{f:'sonidos/fan_02.mp3', t:'“¡Rompiste las fotos de Wandaaaa!”'}] },
                 { id: 'sam_1', img: 'personajes/samid.jpg', audios: [{f:'sonidos/samid_01.mp3', t:'“Usted se tiene que arrepentir de lo que dijo”'}] },
                 { id: 'dar_1', img: 'personajes/darin.jpg', audios: [{f:'sonidos/darin_01.mp3', t:'“Yo me pego dos duchas calientes por día”'}] },
-                { id: 'nel_1', img: 'personajes/nelson.jpg', audios: [{f:'sonidos/nelson_01.mp3', t:'“¡Sí, señora!”'}] }
+                { id: 'nel_1', img: 'personajes/nelson.jpg', audios: [{f:'sonidos/nelson_01.mp3', t:'“¡Sí, señora!”'}] },
+                { id: 'sus_1', img: 'personajes/susana.jpg', audios: [{f:'sonidos/susana_01.mp3', t:'“¿En serio? ¿Vivo?”'}] },
+                { id: 'all_1', img: 'personajes/allon.jpg', audios: [{f:'sonidos/allon_01.mp3', t:'“¡Tomá pa\' vó!”'}] },
+                { id: 'all_2', img: 'personajes/allon.jpg', audios: [{f:'sonidos/allon_02.mp3', t:'“Cambiame la música”'}] },
+                { id: 'mol_1', img: 'personajes/molemoli.jpg', audios: [{f:'sonidos/molemoli_01.mp3', t:'“¿Querés más?”'}] }
             ],
             vf: [
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
@@ -230,9 +236,6 @@
             ],
             famositos: [
                 { id: 'rago', img: 'polaroid/ragopolaroid.jpg', r: 'PABLO RAGO' },
-                { id: 'susana', img: 'polaroid/susanapolaroid.jpg', r: 'SUSANA GIMÉNEZ' },
-                { id: 'messi', img: 'polaroid/messipolaroid.jpg', r: 'LIONEL MESSI' },
-                { id: 'fort', img: 'polaroid/fortpolaroid.jpg', r: 'RICARDO FORT' },
                 { id: 'angel', img: 'polaroid/angelpolaroid.jpg', r: 'ANGEL DE BRITO' },
                 { id: 'china', img: 'polaroid/chinasuarezpolaroid.jpg', r: 'LA CHINA SUÁREZ' },
                 { id: 'delboca', img: 'polaroid/delbocapolaroid.jpg', r: 'ANDREA DEL BOCA' },
@@ -250,7 +253,6 @@
             ]
         };
 
-        // VARIABLES DE JUEGO (STACKS)
         let stacks = { personajes: [], quien_dijo: [], vf: [], famositos: [] };
         let iniciado = { personajes: false, quien_dijo: false, vf: false, famositos: false };
         let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
