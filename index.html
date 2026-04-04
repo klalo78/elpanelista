@@ -41,7 +41,7 @@
         
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
         
-        /* ESTILO FAMOSITOS (SIN BORDE BLANCO, CUADRADO, COMPLETO) */
+        /* ESTILO FAMOSITOS: CUADRADO, SIN BORDE BLANCO */
         .img-famosito { 
             width: 75% !important; 
             aspect-ratio: 1/1 !important; 
@@ -68,7 +68,7 @@
         .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
         @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 
-        /* TIMER REDONDO */
+        /* TIMER REDONDO PERFECTO */
         #contenedor-timer { 
             display: none; 
             width: 100px; 
@@ -242,17 +242,39 @@
                 { id: 'guido', img: 'polaroid/guidopolaroid.jpg', r: 'GUIDO KACZKA' },
                 { id: 'josema', img: 'polaroid/josemapolaroid.jpg', r: 'JOSÉ MARÍA LISTORTI' },
                 { id: 'lopilato', img: 'polaroid/lopilatopolaroid.jpg', r: 'LUISANA LOPILATO' },
-                { id: 'luciano', img: 'polaroid/lucianocastropolaroid.jpg', r: 'LUCIANO CASTRO' },
+                { id: 'luciano_p', img: 'polaroid/lucianocastropolaroid.jpg', r: 'LUCIANO CASTRO' },
                 { id: 'sbaraglia', img: 'polaroid/sbaragliapolaroid.jpg', r: 'LEONARDO SBARAGLIA' },
                 { id: 'suar', img: 'polaroid/suarpolaroid.jpg', r: 'ADRIÁN SUAR' },
                 { id: 'tini', img: 'polaroid/tinipolaroid.jpg', r: 'TINI STOESSEL' },
-                { id: 'benjamin', img: 'polaroid/venjaminpolaroid.jpg', r: 'BENJAMÍN VICUÑA' }
+                { id: 'benjamin', img: 'polaroid/venjaminpolaroid.jpg', r: 'BENJAMÍN VICUÑA' },
+                { id: 'baron', img: 'polaroid/polaroidbaron.jpg', r: 'JIMENA BARÓN' },
+                { id: 'betular', img: 'polaroid/polaroidbetular.jpg', r: 'DAMIÁN BETULAR' },
+                { id: 'cid', img: 'polaroid/polaroidcelestecid.jpg', r: 'CELESTE CID' },
+                { id: 'delmoro', img: 'polaroid/polaroiddelmoro.jpg', r: 'SANTIAGO DEL MORO' },
+                { id: 'dupla', img: 'polaroid/polaroiddupla.jpg', r: 'NANCY DUPLÁA' },
+                { id: 'fantino_f', img: 'polaroid/polaroidfantino.jpg', r: 'ALEJANDRO FANTINO' },
+                { id: 'francella_f', img: 'polaroid/polaroidfrancella.jpg', r: 'GUILLERMO FRANCELLA' },
+                { id: 'jelinek_f', img: 'polaroid/polaroidjelinek.jpg', r: 'KARINA JELINEK' },
+                { id: 'luciano_c', img: 'polaroid/polaroidlucianocastro.jpg', r: 'LUCIANO CASTRO' },
+                { id: 'luciano_pe', img: 'polaroid/polaroidlucianopereyra.jpg', r: 'LUCIANO PEREYRA' },
+                { id: 'maradona', img: 'polaroid/polaroidmaradona.jpg', r: 'DIEGO MARADONA' },
+                { id: 'marengo', img: 'polaroid/polaroidmarengo.jpg', r: 'ROCÍO MARENGO' },
+                { id: 'martinez', img: 'polaroid/polaroidmarianomartinez.jpg', r: 'MARIANO MARTÍNEZ' },
+                { id: 'marley_f', img: 'polaroid/polaroidmarley.jpg', r: 'MARLEY' },
+                { id: 'mirtha_f', img: 'polaroid/polaroidmirta.jpg', r: 'MIRTHA LEGRAND' },
+                { id: 'oreiro', img: 'polaroid/polaroidoreiro.jpg', r: 'NATALIA OREIRO' },
+                { id: 'pauls', img: 'polaroid/polaroidpauls.jpg', r: 'GASTÓN PAULS' },
+                { id: 'torres', img: 'polaroid/polaroidtorres.jpg', r: 'DIEGO TORRES' },
+                { id: 'mazza', img: 'polaroid/polaroidvaleriamasa.jpg', r: 'VALERIA MAZZA' },
+                { id: 'vazquez', img: 'polaroid/polaroidvasquez.jpg', r: 'NICOLÁS VÁZQUEZ' },
+                { id: 'wanda', img: 'polaroid/polaroidwanda.jpg', r: 'WANDA NARA' }
             ],
             placasEspeciales: [
                 { id: 'placa01', pregunta: '¿Quién fue el ganador de MasterChef Celebrity?', respuesta: 'IAN LUCA' }
             ]
         };
 
+        // VARIABLES DE JUEGO (STACKS)
         let stacks = { personajes: [], quien_dijo: [], vf: [], famositos: [] };
         let iniciado = { personajes: false, quien_dijo: false, vf: false, famositos: false };
         let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
