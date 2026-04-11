@@ -26,7 +26,7 @@
         button { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
-        /* --- CONTROLES --- */
+        /* --- CONTROLES ABAJO --- */
         .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 65px; margin-top: 25px; }
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
         #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;}
@@ -41,7 +41,7 @@
         
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
         
-        /* FAMOSITOS: CUADRADOS, ROTADOS, SIN BORDE BLANCO */
+        /* ESTILO FAMOSITOS (SIN BORDE BLANCO, CUADRADO, COMPLETO) */
         .img-famosito { 
             width: 75% !important; 
             aspect-ratio: 1/1 !important; 
@@ -63,12 +63,12 @@
         .respuesta-placa { font-size: 50px; background: white; color: #f00; padding: 10px 30px; margin-top: 20px; font-weight: bold; display: none; border-radius: 10px; }
         .btn-revelar-placa { font-family: 'Super Sunkissed'; background: #000; color: #fff; border: 3px solid #fff; padding: 10px 30px; font-size: 22px; margin-top: 25px; cursor: pointer; border-radius: 50px; }
 
-        /* VOLVER */
+        /* BOTONES VOLVER */
         .volver-pie-contenedor { margin-top: auto; margin-bottom: 12vh; cursor: pointer; background: rgba(0, 0, 0, 0.7); border: 2px solid white; padding: 8px 45px; border-radius: 25px; animation: deslizar 2s infinite ease-in-out; }
         .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
         @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 
-        /* TIMER REDONDO PERFECTO */
+        /* TIMER REDONDO */
         #contenedor-timer { 
             display: none; 
             width: 100px; 
@@ -227,7 +227,19 @@
                 { id: 'sus_1', img: 'personajes/susana.jpg', audios: [{f:'sonidos/susana_01.mp3', t:'“¿En serio? ¿Vivo?”'}] },
                 { id: 'all_1', img: 'personajes/allon.jpg', audios: [{f:'sonidos/allon_01.mp3', t:'“¡Tomá pa\' vó!”'}] },
                 { id: 'all_2', img: 'personajes/allon.jpg', audios: [{f:'sonidos/allon_02.mp3', t:'“Cambiame la música”'}] },
-                { id: 'mol_1', img: 'personajes/molemoli.jpg', audios: [{f:'sonidos/molemoli_01.mp3', t:'“¿Querés más?”'}] }
+                { id: 'mol_1', img: 'personajes/molemoli.jpg', audios: [{f:'sonidos/molemoli_01.mp3', t:'“¿Querés más?”'}] },
+                { id: 'esc_1', img: 'personajes/escudero.jpg', audios: [{f:'sonidos/escudero_01.mp3', t:'“¿Quién es este tipo?”'}] },
+                { id: 'zul_1', img: 'personajes/zulma.jpg', audios: [{f:'sonidos/zulma_01.mp3', t:'“Hasta Tinelli y el Maipo no paro”'}] },
+                { id: 'zul_2', img: 'personajes/zulma.jpg', audios: [{f:'sonidos/zulma_02.mp3', t:'“Vos sos un reverendo estúpido y yo no te lo voy a permitir”'}] },
+                { id: 'mar_1', img: 'personajes/maradona.jpg', audios: [{f:'sonidos/maradona_01.mp3', t:'“Podés ser tan pelotudo viejo”'}] },
+                { id: 'mar_2', img: 'personajes/maradona.jpg', audios: [{f:'sonidos/maradona_02.mp3', t:'“Heeeee imaginate”'}] },
+                { id: 'mar_3', img: 'personajes/maradona.jpg', audios: [{f:'sonidos/maradona_03.mp3', t:'“Vos también la tenés adentro”'}] },
+                { id: 'alf_1', img: 'personajes/alfano.jpg', audios: [{f:'sonidos/alfano_01.mp3', t:'“Si tenés cojones... decilo”'}] },
+                { id: 'san_1', img: 'personajes/sanfilippo.jpg', audios: [{f:'sonidos/sanfilippo_01.mp3', t:'“Ahí ahí eh, garrote y garrote”'}] },
+                { id: 'san_2', img: 'personajes/sanfilippo.jpg', audios: [{f:'sonidos/sanfilippo_02.mp3', t:'“¡Qué personalidad que tieeene!”'}] },
+                { id: 'san_3', img: 'personajes/sanfilippo.jpg', audios: [{f:'sonidos/sanfilippo_03.mp3', t:'“Es una pieeedra”'}] },
+                { id: 'pag_1', img: 'personajes/pagani.jpg', audios: [{f:'sonidos/pagani_01.mp3', t:'“Es un circo todo lo que pasa alrededor”'}] },
+                { id: 'bal_1', img: 'personajes/santiagobal.jpg', audios: [{f:'sonidos/santiagobal_01.mp3', t:'“Creo que se equivocó... creo creo”'}] }
             ],
             vf: [
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
@@ -256,7 +268,7 @@
                 { id: 'jelinek_f', img: 'polaroid/polaroidjelinek.jpg', r: 'KARINA JELINEK' },
                 { id: 'luciano_c', img: 'polaroid/polaroidlucianocastro.jpg', r: 'LUCIANO CASTRO' },
                 { id: 'luciano_pe', img: 'polaroid/polaroidlucianopereyra.jpg', r: 'LUCIANO PEREYRA' },
-                { id: 'maradona', img: 'polaroid/polaroidmaradona.jpg', r: 'DIEGO MARADONA' },
+                { id: 'maradona_f', img: 'polaroid/polaroidmaradona.jpg', r: 'DIEGO MARADONA' },
                 { id: 'marengo', img: 'polaroid/polaroidmarengo.jpg', r: 'ROCÍO MARENGO' },
                 { id: 'martinez', img: 'polaroid/polaroidmarianomartinez.jpg', r: 'MARIANO MARTÍNEZ' },
                 { id: 'marley_f', img: 'polaroid/polaroidmarley.jpg', r: 'MARLEY' },
@@ -266,7 +278,7 @@
                 { id: 'torres', img: 'polaroid/polaroidtorres.jpg', r: 'DIEGO TORRES' },
                 { id: 'mazza', img: 'polaroid/polaroidvaleriamasa.jpg', r: 'VALERIA MAZZA' },
                 { id: 'vazquez', img: 'polaroid/polaroidvasquez.jpg', r: 'NICOLÁS VÁZQUEZ' },
-                { id: 'wanda', img: 'polaroid/polaroidwanda.jpg', r: 'WANDA NARA' }
+                { id: 'wanda_f', img: 'polaroid/polaroidwanda.jpg', r: 'WANDA NARA' }
             ],
             placasEspeciales: [
                 { id: 'placa01', pregunta: '¿Quién fue el ganador de MasterChef Celebrity?', respuesta: 'IAN LUCA' }
