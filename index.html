@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>El Panelista - Versión Final</title>
+    <title>El Panelista - Edición Definitiva</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
@@ -16,14 +16,14 @@
         #pantalla-inicio { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a url('back.jpg') no-repeat center/cover; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; z-index: 9999; padding-top: 3vh; }
         .logo-portada { max-width: 220px; width: 65%; margin-bottom: 10px; animation: latido 2s infinite; }
         @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 5px 20px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black; }
+        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 10px 30px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black; }
 
         /* --- MENU PRINCIPAL --- */
         #menu-principal { display: none; padding: 20px; transition: opacity 0.5s ease; }
         #menu-principal.atenuado { opacity: 0.15; }
         .header-logo { max-width: 260px; width: 75%; margin: 40px auto 20px auto; display: block; }
         .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto 20px auto; }
-        button { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
+        button.mazo-btn { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
         /* --- CONTROLES --- */
@@ -43,15 +43,11 @@
         #visor-video { width: 92%; max-height: 60vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
         #texto-frase { margin-top: 15px; font-size: 28px; text-shadow: 2px 2px 5px black; padding: 0 15px; font-weight: bold; line-height: 1.1; }
 
-        /* --- PLACA ROJA --- */
-        #pantalla-cronica { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f00; z-index: 10000; flex-direction: column; justify-content: center; align-items: center; color: white; border: 15px solid white; box-sizing: border-box; }
-        .texto-cronica { font-family: 'Anton', sans-serif; font-size: 70px; text-transform: uppercase; line-height: 1; text-shadow: 5px 5px 0px black; border: 5px solid white; padding: 15px; animation: zoom-flash 2s infinite ease-in-out; }
-        @keyframes zoom-flash { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-
-        /* TIMER REDONDO */
+        /* --- TIMER REDONDO --- */
         #contenedor-timer { display: none; width: 100px; height: 100px; border-radius: 50%; border: 6px double #333; background: #fdf5e6; color: #222; justify-content: center; align-items: center; font-family: 'Anton', sans-serif; font-size: 60px; margin: 0 auto 15px auto; }
         #contenedor-timer.final { color: #e11d48; border-color: #e11d48; }
 
+        /* VOLVER */
         .volver-pie-contenedor { margin-top: auto; margin-bottom: 12vh; cursor: pointer; background: rgba(0, 0, 0, 0.7); border: 2px solid white; padding: 8px 45px; border-radius: 25px; }
     </style>
 </head>
@@ -62,21 +58,13 @@
         <button class="btn-entrar" onclick="entrarAlJuego()">JUGAR</button>
     </div>
 
-    <div id="pantalla-cronica">
-        <div class="texto-cronica">Último momento</div>
-        <div id="texto-pregunta-placa" style="font-size:32px; margin-top:30px; font-weight:bold;"></div>
-        <div id="texto-respuesta-placa" style="font-size:50px; background:white; color:#f00; padding:10px 30px; margin-top:20px; display:none;"></div>
-        <button id="btn-revelar-placa" class="btn-entrar" style="margin-top:20px;" onclick="revelarRespuestaPlaca()">VER RESPUESTA</button>
-        <div id="btn-volver-placa" class="volver-pie-contenedor" style="display:none; margin-top:30px;" onclick="cerrarCronica()">VOLVER</div>
-    </div>
-
     <div id="menu-principal">
         <img src="logo.png" class="header-logo">
         <div class="tablero">
-            <button class="btn-rojo" onclick="abrirMazo('personajes')">¿QUI&Eacute;NES SON?</button>
-            <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO...</button>
-            <button class="btn-azul" onclick="abrirMazo('vf')">VERDADERO O FALSO</button>
-            <button class="btn-amarillo" onclick="abrirMazo('famositos')">FAMOSITOS</button>
+            <button class="mazo-btn btn-rojo" onclick="abrirMazo('personajes')">¿QUI&Eacute;NES SON?</button>
+            <button class="mazo-btn btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO...</button>
+            <button class="mazo-btn btn-azul" onclick="abrirMazo('vf')">VERDADERO O FALSO</button>
+            <button class="mazo-btn btn-amarillo" onclick="abrirMazo('famositos')">FAMOSITOS</button>
         </div>
         <div class="seccion-controles-abajo">
             <div style="text-align: center;"><div class="seccion-dado"><div id="boton-dado" onclick="tirarDado()">🎲</div></div><div class="label-control">DADO</div></div>
@@ -87,38 +75,42 @@
     <div id="area-carta" class="pantalla-carta">
         <img src="logo.png" class="logo-mazo">
         <div id="contenedor-timer">10</div>
-        <div id="mensaje-fin-mazo" style="display:none; font-size:28px; color:gold;"></div>
+        <div id="mensaje-fin-mazo" style="display:none; font-size:28px; color:gold; font-weight:bold; padding: 0 20px;"></div>
+        
         <img id="visor" style="display:none;">
-        <video id="visor-video" controls style="display:none;"></video>
+        <video id="visor-video" controls style="display:none; width:92%; border-radius:15px;"></video>
+        
         <div id="texto-frase"></div>
 
-        <div id="bloque-famositos" style="display:none; width:90%; margin-top:15px;">
-            <button id="btn-revelar-famosito" style="background:#ca8a04; height:65px; width:100%; color:white; border-radius:15px;" onclick="revelarFamosito()">VER RESPUESTA</button>
-            <div id="txt-resp-famosito" style="margin-top:15px; font-size:32px; color:#facc15; display:none;"></div>
+        <div id="bloque-famositos" style="display:none; flex-direction:column; align-items:center; width:90%; margin-top:15px;">
+            <button id="btn-revelar-famosito" style="background:#ca8a04; border:3px solid white; height:65px; width:100%; font-size:22px; color:white; border-radius:15px;" onclick="revelarFamosito()">VER RESPUESTA</button>
+            <div id="txt-resp-famosito" style="margin-top:15px; font-size:32px; color:#facc15; font-weight:bold; display:none; text-shadow: 2px 2px 4px black;"></div>
         </div>
 
         <div id="mazo-vf" style="display:none; width:90%; flex-direction:column; gap:15px;">
-            <button id="btn-v" style="height:70px; background:#16a34a; color:white;" onclick="chequearVF(true)">VERDADERO</button>
-            <button id="btn-f" style="height:70px; background:#e11d48; color:white;" onclick="chequearVF(false)">FALSO</button>
-            <div id="resp-vf-texto" style="color:#facc15; font-size:24px; margin-top:10px;"></div>
+            <button id="btn-v" style="height:70px; background:#16a34a; border:3px solid white; border-radius:15px; font-size:24px; color:white;" onclick="chequearVF(true)">VERDADERO</button>
+            <button id="btn-f" style="height:70px; background:#e11d48; border:3px solid white; border-radius:15px; font-size:24px; color:white;" onclick="chequearVF(false)">FALSO</button>
+            <div id="resp-vf-texto" style="color:#facc15; font-size:24px; margin-top:10px; font-weight:bold;"></div>
         </div>
 
-        <div id="pistas-bloque" style="display:none;">
-            <div id="txt-pista" style="color:#facc15; font-size:28px; margin-bottom:20px;"></div>
-            <div style="display:flex; gap:15px;">
-                <button id="btn-pista-prev" style="background:#e11d48; padding:10px;" onclick="cambiarPista(-1)">ANTERIOR</button>
-                <button id="btn-pista-next" style="background:#2563eb; padding:10px;" onclick="cambiarPista(1)">SIGUIENTE</button>
+        <div id="pistas-bloque" style="display:none; flex-direction:column; align-items:center;">
+            <div id="txt-pista" style="color:#facc15; font-size:28px; margin-bottom:20px; text-shadow:2px 2px 5px black;"></div>
+            <div style="display:flex; gap:15px; width:90%; justify-content:center;">
+                <button id="btn-pista-prev" style="background:#e11d48; height:65px; border:2px solid white; border-radius:12px; color:white; font-size:18px; min-width:120px;" onclick="cambiarPista(-1)">ANTERIOR</button>
+                <button id="btn-pista-next" style="background:#2563eb; height:65px; border:2px solid white; border-radius:12px; color:white; font-size:18px; min-width:120px;" onclick="cambiarPista(1)">SIGUIENTE</button>
             </div>
         </div>
 
-        <button id="btn-audio" style="display:none; background:#facc15; color:black; width:90%; height:75px; margin-top:20px;" onclick="sonar()">🔊 ESCUCHAR AUDIO</button>
-        <div class="volver-pie-contenedor" onclick="cerrar()">VOLVER</div>
+        <button id="btn-audio" style="display:none; background:#facc15; color:black; width:90%; height:75px; margin-top:20px; border:3px solid white; border-radius:15px; font-size:24px;" onclick="sonar()">🔊 ESCUCHAR AUDIO</button>
+
+        <div class="volver-pie-contenedor" onclick="cerrar()">
+            <div style="font-size: 22px; color: white;">VOLVER</div>
+        </div>
     </div>
 
     <audio id="repro-frase"></audio>
     <audio id="repro-dado" src="sonidos/dado.mp3"></audio>
     <audio id="repro-rojo" src="sonidos/moria_01.mp3"></audio>
-    <audio id="repro-placa" src="sonidos/placa.mp3"></audio>
     <audio id="repro-click" src="sonidos/click.mp3"></audio>
     <audio id="repro-bien" src="sonidos/bien.mp3"></audio>
     <audio id="repro-mal" src="sonidos/mal.mp3"></audio>
@@ -130,42 +122,38 @@
             quien_dijo: [
                 { id: 'mir_1', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_01.mp3', t:'“Esa técnica de mierda, ese tipo que me arruinó un año de trabajo”'}] },
                 { id: 'mir_2', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_02.mp3', t:'“Demasiado esfuerzo hago, carajo, mierda”'}] },
-                { id: 'mir_3', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_03.mp3', t:'“Como te ven te tratan, si te ven mal te maltratan y si te ven bien te contratan”'}] },
-                { id: 'mon_1', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_01.mp3', t:'“¡Ladrones... Sátrapas... Sinvergüenzas!”'}] },
                 { id: 'jac_1', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_01.mp3', t:'“Billetera... mata galán!”'}] },
                 { id: 'jac_2', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_02.mp3', t:'“¡Baaaaassssta!”'}] },
                 { id: 'jac_3', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_03.mp3', t:'“Dejá de humillar de repente, a ese pobre hombre!”'}] },
                 { id: 'fei_2', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_02.mp3', t:'“Te podés callar, un poquito la boca please”'}] },
-                { id: 'esc_1', img: 'personajes/escudero.jpg', audios: [{f:'sonidos/escudero_01.mp3', t:'“¿Quién es este tipo?”'}] },
+                { id: 'can_2', img: 'personajes/canaletti.jpg', audios: [{f:'sonidos/canaletti_02.mp3', t:'“Nacho...agarrate los pantalones”'}] },
+                { id: 'sus_1', img: 'personajes/susana.jpg', audios: [{f:'sonidos/susana_01.mp3', t:'“¿En serio? ¿Vivo?”'}] },
                 { id: 'zul_1', img: 'personajes/zulma.jpg', audios: [{f:'sonidos/zulma_01.mp3', t:'“Hasta Tinelli y el Maipo no paro”'}] },
                 { id: 'zul_2', img: 'personajes/zulma.jpg', audios: [{f:'sonidos/zulma_02.mp3', t:'“Vos sos un reverendo estúpido y yo no te lo voy a permitir”'}] },
                 { id: 'mar_1', img: 'personajes/maradona.jpg', audios: [{f:'sonidos/maradona_01.mp3', t:'“Podés ser tan pelotudo viejo”'}] },
                 { id: 'mar_2', img: 'personajes/maradona.jpg', audios: [{f:'sonidos/maradona_02.mp3', t:'“Heeeee imaginate”'}] },
                 { id: 'mar_3', img: 'personajes/maradona.jpg', audios: [{f:'sonidos/maradona_03.mp3', t:'“Vos también la tenés adentro”'}] },
-                { id: 'san_1', img: 'personajes/sanfilippo.jpg', audios: [{f:'sonidos/sanfilippo_01.mp3', t:'“Ahí ahí eh, garrote y garrote”'}] }
-                // ... (agregar el resto de audios aquí respetando el mismo formato)
+                { id: 'mol_1', img: 'personajes/molemoli.jpg', audios: [{f:'sonidos/molemoli_01.mp3', t:'“¿Querés más?”'}] }
+                // Agregá aquí el resto de tus audios siguiendo el mismo formato
             ],
             vf: [
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
                 { t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Se llamaba Jazmín.' }
             ],
             famositos: [
-                { id: 'rago', img: 'polaroid/ragopolaroid.jpg', r: 'PABLO RAGO' },
                 { id: 'calabro', img: 'polaroid/calabropolaroid.jpg', r: 'MARINA CALABRÓ' },
                 { id: 'caseros', img: 'polaroid/caserospolaroid.jpg', r: 'ALFREDO CASEROS' },
-                { id: 'david', img: 'polaroid/davidpolaroid.jpg', r: 'PAMELA DAVID' },
                 { id: 'bertotti', img: 'polaroid/bertottipolaroid.jpg', r: 'FLORENCIA BERTOTTI' },
                 { id: 'cerati', img: 'polaroid/cerattipolaroid.jpg', r: 'GUSTAVO CERATI' },
-                { id: 'rodrigo', img: 'polaroid/rodrigopolaroid.jpg', r: 'RODRIGO BUENO' }
-                // ... (agregar el resto de famositos aquí)
-            ],
-            placasEspeciales: [{ id: 'placa01', pregunta: '¿Quién fue el ganador de MasterChef Celebrity?', respuesta: 'IAN LUCA' }]
+                { id: 'rodrigo_f', img: 'polaroid/rodrigopolaroid.jpg', r: 'RODRIGO BUENO' }
+                // Agregá aquí el resto de tus famosos siguiendo el mismo formato
+            ]
         };
 
         let stacks = { personajes: [], quien_dijo: [], vf: [], famositos: [] };
         let iniciado = { personajes: false, quien_dijo: false, vf: false, famositos: false };
-        let actual = null; let timerSegundos = 10; let intervaloTimer = null;
-        let contadorDados = 0; let tiroEventoPlaca = Math.floor(Math.random() * 15) + 1;
+        let actual = null; let pIdx = 0; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
+        let activeDeckType = null;
 
         function mezclar(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -175,13 +163,19 @@
             return array;
         }
 
+        // --- SOLUCIÓN PANTALLA COMPLETA ---
         function entrarAlJuego() {
+            const doc = document.documentElement;
+            if (doc.requestFullscreen) doc.requestFullscreen();
+            else if (doc.webkitRequestFullscreen) doc.webkitRequestFullscreen();
+            else if (doc.msRequestFullscreen) doc.msRequestFullscreen();
+
             document.getElementById('pantalla-inicio').style.display = 'none';
             document.getElementById('menu-principal').style.display = 'block';
         }
 
         function abrirMazo(t) {
-            sonarClick();
+            activeDeckType = t; sonarClick();
             document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('area-carta').style.display = 'flex';
             resetPantallaCarta();
@@ -200,7 +194,7 @@
             if (t === 'personajes') {
                 document.getElementById('repro-rojo').play();
                 v.src = actual.img; v.style.display = 'block';
-                document.getElementById('pistas-bloque').style.display = 'block';
+                document.getElementById('pistas-bloque').style.display = 'flex';
                 pIdx = 0; document.getElementById('txt-pista').innerText = actual.pistas[0];
             } else if (t === 'quien_dijo') {
                 v.src = actual.img; v.style.display = 'block';
@@ -208,51 +202,13 @@
                 document.getElementById('texto-frase').innerText = actual.audios[0].t;
             } else if (t === 'famositos') {
                 v.src = actual.img; v.className = "img-famosito"; v.style.display = 'block';
-                document.getElementById('bloque-famositos').style.display = 'block';
+                document.getElementById('bloque-famositos').style.display = 'flex';
                 iniciarTimer();
             } else if (t === 'vf') {
                 document.getElementById('texto-frase').innerText = actual.t;
                 document.getElementById('mazo-vf').style.display = 'flex';
                 iniciarTimer();
             }
-        }
-
-        function tirarDado() {
-            contadorDados++;
-            if (contadorDados === tiroEventoPlaca) {
-                lanzarPlacaEspecial();
-                contadorDados = 0;
-                tiroEventoPlaca = Math.floor(Math.random() * 15) + 1;
-            } else {
-                ejecutarAnimacionDado();
-            }
-        }
-
-        function lanzarPlacaEspecial() {
-            let p = datos.placasEspeciales[0];
-            document.getElementById('texto-pregunta-placa').innerText = p.pregunta;
-            document.getElementById('texto-respuesta-placa').innerText = p.respuesta;
-            document.getElementById('pantalla-cronica').style.display = 'flex';
-            document.getElementById('repro-placa').play();
-        }
-
-        function revelarRespuestaPlaca() {
-            document.getElementById('btn-revelar-placa').style.display = 'none';
-            document.getElementById('texto-respuesta-placa').style.display = 'block';
-            document.getElementById('btn-volver-placa').style.display = 'block';
-        }
-
-        function cerrarCronica() {
-            document.getElementById('pantalla-cronica').style.display = 'none';
-            document.getElementById('btn-revelar-placa').style.display = 'block';
-            document.getElementById('texto-respuesta-placa').style.display = 'none';
-            document.getElementById('btn-volver-placa').style.display = 'none';
-        }
-
-        function sonar() {
-            const r = document.getElementById('repro-frase');
-            r.src = actual.audios[0].f;
-            r.play();
         }
 
         function resetPantallaCarta() {
@@ -265,16 +221,24 @@
             document.getElementById('texto-frase').innerText = "";
             document.getElementById('txt-resp-famosito').style.display = 'none';
             document.getElementById('btn-revelar-famosito').style.display = 'block';
+            document.getElementById('mensaje-fin-mazo').style.display = 'none';
+        }
+
+        function sonar() {
+            const r = document.getElementById('repro-frase');
+            r.src = actual.audios[0].f;
+            r.play();
         }
 
         function iniciarTimer() {
             timerSegundos = 10;
             const t = document.getElementById('contenedor-timer');
-            t.innerText = timerSegundos; t.style.display = 'flex';
+            t.innerText = timerSegundos; t.style.display = 'flex'; t.classList.remove('final');
             document.getElementById('repro-tictac').play();
             intervaloTimer = setInterval(() => {
                 timerSegundos--;
                 t.innerText = timerSegundos;
+                if (timerSegundos <= 3) t.classList.add('final');
                 if (timerSegundos <= 0) { pararTimer(); document.getElementById('repro-mal').play(); }
             }, 1000);
         }
@@ -284,6 +248,13 @@
             document.getElementById('repro-tictac').pause();
         }
 
+        function revelarFamosito() {
+            pararTimer();
+            document.getElementById('btn-revelar-famosito').style.display = 'none';
+            document.getElementById('txt-resp-famosito').innerText = actual.r;
+            document.getElementById('txt-resp-famosito').style.display = 'block';
+        }
+
         function cerrar() {
             pararTimer();
             document.getElementById('menu-principal').classList.remove('atenuado');
@@ -291,6 +262,7 @@
         }
 
         function sonarClick() { document.getElementById('repro-click').play(); }
+        function tirarDado() { sonarClick(); document.getElementById('boton-dado').innerText = Math.floor(Math.random()*6)+1; }
     </script>
 </body>
 </html>
