@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>El Panelista - Edición Definitiva</title>
+    <title>El Panelista</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
@@ -16,17 +16,17 @@
         #pantalla-inicio { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a url('back.jpg') no-repeat center/cover; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; z-index: 9999; padding-top: 3vh; }
         .logo-portada { max-width: 220px; width: 65%; margin-bottom: 10px; animation: latido 2s infinite; }
         @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 10px 30px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black; }
+        .btn-entrar { font-family: 'Super Sunkissed', sans-serif; background: #e11d48; color: white; border: 2px solid white; padding: 5px 20px; font-size: 28px; cursor: pointer; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px black; }
 
         /* --- MENU PRINCIPAL --- */
         #menu-principal { display: none; padding: 20px; transition: opacity 0.5s ease; }
         #menu-principal.atenuado { opacity: 0.15; }
         .header-logo { max-width: 260px; width: 75%; margin: 40px auto 20px auto; display: block; }
         .tablero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto 20px auto; }
-        button.mazo-btn { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
+        button { font-family: 'Super Sunkissed', sans-serif; height: 90px; border-radius: 12px; border: 2px solid white; color: white; font-size: 18px; text-transform: uppercase; cursor: pointer; }
         .btn-rojo { background: #e11d48; } .btn-verde { background: #16a34a; } .btn-amarillo { background: #ca8a04; } .btn-azul { background: #2563eb; }
 
-        /* --- CONTROLES --- */
+        /* --- CONTROLES ABAJO --- */
         .seccion-controles-abajo { display: flex; justify-content: center; align-items: flex-end; gap: 65px; margin-top: 25px; }
         .seccion-dado { background: rgba(0,0,0,0.6); border: 2px dashed #ca8a04; border-radius: 15px; padding: 12px; }
         #boton-dado { background: white; color: black; width: 85px; height: 85px; border-radius: 12px; font-size: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer;}
@@ -38,17 +38,52 @@
         /* --- PANTALLA CARTA --- */
         .pantalla-carta { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('back2.jpg') no-repeat center/cover fixed; z-index: 5000; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 20px; }
         .logo-mazo { max-width: 150px; width: 40%; margin-bottom: 20px; }
+        
         #visor { max-width: 98%; max-height: 46vh; border: 3px solid white; border-radius: 10px; box-shadow: 0 10px 30px black; }
-        .img-famosito { width: 75% !important; aspect-ratio: 1/1 !important; object-fit: contain !important; border-radius: 0 !important; border: none !important; transform: rotate(-3deg); box-shadow: 0 15px 35px black !important; }
+        
+        .img-famosito { 
+            width: 75% !important; 
+            aspect-ratio: 1/1 !important; 
+            object-fit: contain !important; 
+            border-radius: 0 !important; 
+            border: none !important; 
+            transform: rotate(-3deg); 
+            box-shadow: 0 15px 35px black !important;
+        }
+
         #visor-video { width: 92%; max-height: 60vh; border: 4px solid white; border-radius: 15px; background: black; object-fit: contain; }
         #texto-frase { margin-top: 15px; font-size: 28px; text-shadow: 2px 2px 5px black; padding: 0 15px; font-weight: bold; line-height: 1.1; }
 
-        /* --- TIMER REDONDO --- */
-        #contenedor-timer { display: none; width: 100px; height: 100px; border-radius: 50%; border: 6px double #333; background: #fdf5e6; color: #222; justify-content: center; align-items: center; font-family: 'Anton', sans-serif; font-size: 60px; margin: 0 auto 15px auto; }
-        #contenedor-timer.final { color: #e11d48; border-color: #e11d48; }
+        /* --- PLACA ROJA CRÓNICA --- */
+        #pantalla-cronica { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f00; z-index: 10000; flex-direction: column; justify-content: center; align-items: center; color: white; border: 15px solid white; box-sizing: border-box; }
+        .texto-cronica { font-family: 'Anton', sans-serif; font-size: 70px; text-transform: uppercase; line-height: 1; text-shadow: 5px 5px 0px black; border: 5px solid white; padding: 15px; animation: zoom-flash 2s infinite ease-in-out; }
+        @keyframes zoom-flash { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+        .pregunta-placa { font-size: 32px; margin-top: 30px; font-weight: bold; text-shadow: 2px 2px 4px black; padding: 0 20px; }
+        .respuesta-placa { font-size: 50px; background: white; color: #f00; padding: 10px 30px; margin-top: 20px; font-weight: bold; display: none; border-radius: 10px; }
+        .btn-revelar-placa { font-family: 'Super Sunkissed'; background: #000; color: #fff; border: 3px solid #fff; padding: 10px 30px; font-size: 22px; margin-top: 25px; cursor: pointer; border-radius: 50px; }
 
-        /* VOLVER */
-        .volver-pie-contenedor { margin-top: auto; margin-bottom: 12vh; cursor: pointer; background: rgba(0, 0, 0, 0.7); border: 2px solid white; padding: 8px 45px; border-radius: 25px; }
+        /* BOTONES VOLVER */
+        .volver-pie-contenedor { margin-top: auto; margin-bottom: 12vh; cursor: pointer; background: rgba(0, 0, 0, 0.7); border: 2px solid white; padding: 8px 45px; border-radius: 25px; animation: deslizar 2s infinite ease-in-out; }
+        .volver-pie-texto { font-size: 22px; color: white; text-transform: uppercase; font-weight: bold; }
+        @keyframes deslizar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+        /* TIMER REDONDO */
+        #contenedor-timer { 
+            display: none; 
+            width: 100px; 
+            height: 100px; 
+            border-radius: 50% !important; 
+            border: 6px double #333; 
+            background: #fdf5e6; 
+            color: #222; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Anton', sans-serif; 
+            font-size: 60px; 
+            margin: 0 auto 15px auto; 
+            transition: all 0.3s;
+        }
+        #contenedor-timer.final { color: #e11d48; border-color: #e11d48; }
     </style>
 </head>
 <body>
@@ -58,13 +93,23 @@
         <button class="btn-entrar" onclick="entrarAlJuego()">JUGAR</button>
     </div>
 
+    <div id="pantalla-cronica">
+        <div class="texto-cronica">Último momento</div>
+        <div id="texto-pregunta-placa" class="pregunta-placa"></div>
+        <div id="texto-respuesta-placa" class="respuesta-placa"></div>
+        <button id="btn-revelar-placa" class="btn-revelar-placa" onclick="revelarRespuestaPlaca()">VER RESPUESTA</button>
+        <div id="btn-volver-placa" class="volver-pie-contenedor" style="display:none; margin-top: 30px;" onclick="cerrarCronica()">
+            <div class="volver-pie-texto">VOLVER</div>
+        </div>
+    </div>
+
     <div id="menu-principal">
         <img src="logo.png" class="header-logo">
         <div class="tablero">
-            <button class="mazo-btn btn-rojo" onclick="abrirMazo('personajes')">¿QUI&Eacute;NES SON?</button>
-            <button class="mazo-btn btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO...</button>
-            <button class="mazo-btn btn-azul" onclick="abrirMazo('vf')">VERDADERO O FALSO</button>
-            <button class="mazo-btn btn-amarillo" onclick="abrirMazo('famositos')">FAMOSITOS</button>
+            <button class="btn-rojo" onclick="abrirMazo('personajes')">¿QUI&Eacute;NES SON?</button>
+            <button class="btn-verde" onclick="abrirMazo('quien_dijo')">QUI&Eacute;N DIJO...</button>
+            <button class="btn-azul" onclick="abrirMazo('vf')">VERDADERO O FALSO</button>
+            <button class="btn-amarillo" onclick="abrirMazo('famositos')">FAMOSITOS</button>
         </div>
         <div class="seccion-controles-abajo">
             <div style="text-align: center;"><div class="seccion-dado"><div id="boton-dado" onclick="tirarDado()">🎲</div></div><div class="label-control">DADO</div></div>
@@ -75,7 +120,7 @@
     <div id="area-carta" class="pantalla-carta">
         <img src="logo.png" class="logo-mazo">
         <div id="contenedor-timer">10</div>
-        <div id="mensaje-fin-mazo" style="display:none; font-size:28px; color:gold; font-weight:bold; padding: 0 20px;"></div>
+        <div id="mensaje-fin-mazo" style="display:none; font-size:28px; color:gold; text-shadow: 2px 2px 5px black; font-weight:bold; padding: 0 20px;"></div>
         
         <img id="visor" style="display:none;">
         <video id="visor-video" controls style="display:none; width:92%; border-radius:15px;"></video>
@@ -96,21 +141,22 @@
         <div id="pistas-bloque" style="display:none; flex-direction:column; align-items:center;">
             <div id="txt-pista" style="color:#facc15; font-size:28px; margin-bottom:20px; text-shadow:2px 2px 5px black;"></div>
             <div style="display:flex; gap:15px; width:90%; justify-content:center;">
-                <button id="btn-pista-prev" style="background:#e11d48; height:65px; border:2px solid white; border-radius:12px; color:white; font-size:18px; min-width:120px;" onclick="cambiarPista(-1)">ANTERIOR</button>
-                <button id="btn-pista-next" style="background:#2563eb; height:65px; border:2px solid white; border-radius:12px; color:white; font-size:18px; min-width:120px;" onclick="cambiarPista(1)">SIGUIENTE</button>
+                <button id="btn-pista-prev" style="background:#e11d48; font-family:'Super Sunkissed'; height:65px; border:2px solid white; border-radius:12px; color:white; font-size:22px; min-width:140px;" onclick="cambiarPista(-1)">ANTERIOR</button>
+                <button id="btn-pista-next" style="background:#2563eb; font-family:'Super Sunkissed'; height:65px; border:2px solid white; border-radius:12px; color:white; font-size:22px; min-width:140px;" onclick="cambiarPista(1)">SIGUIENTE</button>
             </div>
         </div>
 
-        <button id="btn-audio" style="display:none; background:#facc15; color:black; width:90%; height:75px; margin-top:20px; border:3px solid white; border-radius:15px; font-size:24px;" onclick="sonar()">🔊 ESCUCHAR AUDIO</button>
+        <button id="btn-audio" style="display:none; font-family:'Super Sunkissed'; background:#facc15; color:black; width:90%; height:75px; margin-top:20px; border:3px solid white; border-radius:15px; font-size:24px;" onclick="sonar()">🔊 ESCUCHAR AUDIO</button>
 
         <div class="volver-pie-contenedor" onclick="cerrar()">
-            <div style="font-size: 22px; color: white;">VOLVER</div>
+            <div class="volver-pie-texto">VOLVER</div>
         </div>
     </div>
 
     <audio id="repro-frase"></audio>
     <audio id="repro-dado" src="sonidos/dado.mp3"></audio>
     <audio id="repro-rojo" src="sonidos/moria_01.mp3"></audio>
+    <audio id="repro-placa" src="sonidos/placa.mp3"></audio>
     <audio id="repro-click" src="sonidos/click.mp3"></audio>
     <audio id="repro-bien" src="sonidos/bien.mp3"></audio>
     <audio id="repro-mal" src="sonidos/mal.mp3"></audio>
@@ -122,38 +168,164 @@
             quien_dijo: [
                 { id: 'mir_1', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_01.mp3', t:'“Esa técnica de mierda, ese tipo que me arruinó un año de trabajo”'}] },
                 { id: 'mir_2', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_02.mp3', t:'“Demasiado esfuerzo hago, carajo, mierda”'}] },
+                { id: 'mir_3', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_03.mp3', t:'“Como te ven te tratan, si te ven mal te maltratan y si te ven bien te contratan”'}] },
+                { id: 'mir_4', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_04.mp3', t:'“Yo no necesito de vos para tener rating Silvana Suarez”'}] },
+                { id: 'mir_5', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_05.mp3', t:'“¡Así NO!”'}] },
+                { id: 'mir_6', img: 'personajes/mirtha.jpg', audios: [{f:'sonidos/mirtha_06.mp3', t:'“¿Quién te operó?... La carita, ¿quién te hizo la carita?”'}] },
+                { id: 'mon_1', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_01.mp3', t:'“¡Ladrones... Sátrapas... Sinvergüenzas!”'}] },
+                { id: 'mon_2', img: 'personajes/monti.jpg', audios: [{f:'sonidos/monti_02.mp3', t:'“Passarella... ¡Renunciá!”'}] },
+                { id: 'alb_1', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_01.mp3', t:'“¡Perdón... pero tengo las bolas llenas!”'}] },
+                { id: 'alb_2', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_02.mp3', t:'“Perdón... si alguno se ofendió porque después empiezan las ofensas”'}] },
+                { id: 'alb_3', img: 'personajes/albinoni.jpg', audios: [{f:'sonidos/albinoni_03.mp3', t:'“¡Qué están protestando, mierda!”'}] },
+                { id: 'gio_1', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_01.mp3', t:'“¡Qué noche Teté!”'}] },
+                { id: 'gio_2', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_02.mp3', t:'“¡No me peguen!... ¡No me peguen soy Giordano!”'}] },
+                { id: 'gio_3', img: 'personajes/giordano.jpg', audios: [{f:'sonidos/giordano_03.mp3', t:'“Qué mala leche vos eh”'}] },
+                { id: 'mor_1', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_01.mp3', t:'“¿¡Quiénes son!? ¡¿Quiénes SON?!”'}] },
+                { id: 'mor_2', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_02.mp3', t:'“¡25...25...!”'}] },
+                { id: 'mor_3', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_03.mp3', t:'“¡Saca, saca, saca a esta ridícula!”'}] },
+                { id: 'mor_4', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_04.mp3', t:'“Son dos doñas berretas de peluquería de barrio”'}] },
+                { id: 'mor_5', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_05.mp3', t:'“Entonces no mientas Silvina Escupidero”'}] },
+                { id: 'mor_6', img: 'personajes/moria.jpg', audios: [{f:'sonidos/moria_06.mp3', t:'“Y tengo harem, mucho chongo como nunca”'}] },
+                { id: 'for_1', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_01.mp3', t:'“¡Mamá, cortaste toda la luz!”'}] },
+                { id: 'for_2', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_02.mp3', t:'“¡Maiameeee!”'}] },
+                { id: 'for_3', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_03.mp3', t:'“Basta chicos”'}] },
+                { id: 'for_4', img: 'personajes/fort.jpg', audios: [{f:'sonidos/fort_04.mp3', t:'“Por favor... yo no manejo rating, yo manejo Roll Royce”'}] },
+                { id: 'dut_1', img: 'personajes/dutra.jpg', audios: [{f:'sonidos/dutra_01.mp3', t:'“¡Toy tan sorpresa como todos ustedes!”'}] },
+                { id: 'far_1', img: 'personajes/farinia.jpg', audios: [{f:'sonidos/farinia_01.mp3', t:'“Querían ficción? Yo les di ficción.”'}] },
+                { id: 'fei_1', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_01.mp3', t:'“Y sos tan chicanero... pero mal.”'}] },
+                { id: 'flo_1', img: 'personajes/flordelav.jpg', audios: [{f:'sonidos/flordelav_01.mp3', t:'“¡Soltame... que venga el choto de Ventura y que dé la cara!”'}] },
+                { id: 'ivo_1', img: 'personajes/ivo.jpg', audios: [{f:'sonidos/ivo_01.mp3', t:'“Dos más dos son cuatro, la tierra es redonda, corta la bocha.”'}] },
                 { id: 'jac_1', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_01.mp3', t:'“Billetera... mata galán!”'}] },
                 { id: 'jac_2', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_02.mp3', t:'“¡Baaaaassssta!”'}] },
-                { id: 'jac_3', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_03.mp3', t:'“Dejá de humillar de repente, a ese pobre hombre!”'}] },
-                { id: 'fei_2', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_02.mp3', t:'“Te podés callar, un poquito la boca please”'}] },
-                { id: 'can_2', img: 'personajes/canaletti.jpg', audios: [{f:'sonidos/canaletti_02.mp3', t:'“Nacho...agarrate los pantalones”'}] },
+                { id: 'lis_1', img: 'personajes/listorti.jpg', audios: [{f:'sonidos/listorti_01.mp3', t:'“¡Soooopaaaaaa!”'}] },
+                { id: 'pal_1', img: 'personajes/paleo.jpg', audios: [{f:'sonidos/paleo_01.mp3', t:'“Ay perdón porque escucho con... deleite.”'}] },
+                { id: 'cha_1', img: 'personajes/charlotte.jpg', audios: [{f:'sonidos/charlotte_01.mp3', t:'“A mí me gusta el shampein!”'}] },
+                { id: 'bas_1', img: 'personajes/basile.jpg', audios: [{f:'sonidos/basile_01.mp3', t:'“Qué boludo, mamita querida!”'}] },
+                { id: 'bam_1', img: 'personajes/bambino.jpg', audios: [{f:'sonidos/bambino_01.mp3', t:'“Es una tormenta de facha!”'}] },
+                { id: 'fra_1', img: 'personajes/francella.jpg', audios: [{f:'sonidos/francella_01.mp3', t:'“A comeeerlaaa!”'}] },
+                { id: 'riv_1', img: 'personajes/riverito.jpg', audios: [{f:'sonidos/riverito_01.mp3', t:'“¡A cruzar los dedos!”'}] },
+                { id: 'bar_1', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri01.mp3', t:'“¿Me estás retando?”'}] },
+                { id: 'bar_2', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri_02.mp3', t:'“¡Pará un poco, loca!”'}] },
+                { id: 'bar_3', img: 'personajes/barbieri.jpg', audios: [{f:'sonidos/barbieri_03.mp3', t:'“Si pasan esas cosas hay que calmarla”'}] },
+                { id: 'pac_1', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano01.mp3', t:'“Tinguitingui tinguitingui!”'}] },
+                { id: 'pac_2', img: 'personajes/pachano.jpg', audios: [{f:'sonidos/pachano_02.mp3', t:'“¡Andá a laburar!”'}] },
+                { id: 'fan_1', img: 'personajes/fantino.jpg', audios: [{f:'sonidos/fantino_01.mp3', t:'“¡Para un poco Mose Paraaaa!!”'}] },
+                { id: 'nac_1', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_01.mp3', t:'“¡Ubicate, pendejo!”'}] },
+                { id: 'nac_2', img: 'personajes/nacha.jpg', audios: [{f:'sonidos/nacha_02.mp3', t:'“¡Qué actos éticos y estéticos has tenido!”'}] },
+                { id: 'cib_1', img: 'personajes/cibrian.jpg', audios: [{f:'sonidos/cibrian_01.mp3', t:'“¡Hablá, marica!”'}] },
+                { id: 'can_1', img: 'personajes/canaletti.jpg', audios: [{f:'sonidos/canaletti_01.mp3', t:'“¡La plata, la guita, la biyuya!”'}] },
+                { id: 'jel_1', img: 'personajes/jelinek.jpg', audios: [{f:'sonidos/jelinek_01.mp3', t:'“Las chilenas son casi latinas, la mayoría”'}] },
+                { id: 'jel_2', img: 'personajes/jelinek.jpg', audios: [{f:'sonidos/jelinek_02.mp3', t:'“Lo dejo a tu criterio”'}] },
+                { id: 'sol_1', img: 'personajes/soldan.jpg', audios: [{f:'sonidos/soldan_01.mp3', t:'“No puede haber tanta maldad, mi amor”'}] },
+                { id: 'sol_2', img: 'personajes/soldan.jpg', audios: [{f:'sonidos/soldan_02.mp3', t:'“¡Feliz domingo para tooodooss!”'}] },
+                { id: 'fan_w1', img: 'personajes/fan.jpg', audios: [{f:'sonidos/fan_01.mp3', t:'“Dejé de ser vegetariano porque me mordió un perro, entonces me enojé”'}] },
+                { id: 'fan_w2', img: 'personajes/fan.jpg', audios: [{f:'sonidos/fan_02.mp3', t:'“¡Rompiste las fotos de Wandaaaa!”'}] },
+                { id: 'sam_1', img: 'personajes/samid.jpg', audios: [{f:'sonidos/samid_01.mp3', t:'“Usted se tiene que arrepentir de lo que dijo”'}] },
+                { id: 'dar_1', img: 'personajes/darin.jpg', audios: [{f:'sonidos/darin_01.mp3', t:'“Yo me pego dos duchas calientes por día”'}] },
+                { id: 'nel_1', img: 'personajes/nelson.jpg', audios: [{f:'sonidos/nelson_01.mp3', t:'“¡Sí, señora!”'}] },
                 { id: 'sus_1', img: 'personajes/susana.jpg', audios: [{f:'sonidos/susana_01.mp3', t:'“¿En serio? ¿Vivo?”'}] },
+                { id: 'all_1', img: 'personajes/allon.jpg', audios: [{f:'sonidos/allon_01.mp3', t:'“¡Tomá pa\' vó!”'}] },
+                { id: 'all_2', img: 'personajes/allon.jpg', audios: [{f:'sonidos/allon_02.mp3', t:'“Cambiame la música”'}] },
+                { id: 'mol_1', img: 'personajes/molemoli.jpg', audios: [{f:'sonidos/molemoli_01.mp3', t:'“¿Querés más?”'}] },
+                { id: 'esc_1', img: 'personajes/escudero.jpg', audios: [{f:'sonidos/escudero_01.mp3', t:'“¿Quién es este tipo?”'}] },
                 { id: 'zul_1', img: 'personajes/zulma.jpg', audios: [{f:'sonidos/zulma_01.mp3', t:'“Hasta Tinelli y el Maipo no paro”'}] },
                 { id: 'zul_2', img: 'personajes/zulma.jpg', audios: [{f:'sonidos/zulma_02.mp3', t:'“Vos sos un reverendo estúpido y yo no te lo voy a permitir”'}] },
                 { id: 'mar_1', img: 'personajes/maradona.jpg', audios: [{f:'sonidos/maradona_01.mp3', t:'“Podés ser tan pelotudo viejo”'}] },
                 { id: 'mar_2', img: 'personajes/maradona.jpg', audios: [{f:'sonidos/maradona_02.mp3', t:'“Heeeee imaginate”'}] },
                 { id: 'mar_3', img: 'personajes/maradona.jpg', audios: [{f:'sonidos/maradona_03.mp3', t:'“Vos también la tenés adentro”'}] },
-                { id: 'mol_1', img: 'personajes/molemoli.jpg', audios: [{f:'sonidos/molemoli_01.mp3', t:'“¿Querés más?”'}] }
-                // Agregá aquí el resto de tus audios siguiendo el mismo formato
+                { id: 'alf_1', img: 'personajes/alfano.jpg', audios: [{f:'sonidos/alfano_01.mp3', t:'“Si tenés cojones... decilo”'}] },
+                { id: 'san_1', img: 'personajes/sanfilippo.jpg', audios: [{f:'sonidos/sanfilippo_01.mp3', t:'“Ahí ahí eh, garrote y garrote”'}] },
+                { id: 'san_2', img: 'personajes/sanfilippo.jpg', audios: [{f:'sonidos/sanfilippo_02.mp3', t:'“¡Qué personalidad que tieeene!”'}] },
+                { id: 'san_3', img: 'personajes/sanfilippo.jpg', audios: [{f:'sonidos/sanfilippo_03.mp3', t:'“Es una pieeedra”'}] },
+                { id: 'pag_1', img: 'personajes/pagani.jpg', audios: [{f:'sonidos/pagani_01.mp3', t:'“Es un circo todo lo que pasa alrededor”'}] },
+                { id: 'bal_1', img: 'personajes/santiagobal.jpg', audios: [{f:'sonidos/santiagobal_01.mp3', t:'“Creo que se equivocó... creo creo”'}] },
+                // NUEVAS CARTAS AÑADIDAS AQUÍ:
+                { id: 'can_2', img: 'personajes/canaletti.jpg', audios: [{f:'sonidos/canaletti_02.mp3', t:'“Nacho...agarrate los pantalones”'}] },
+                { id: 'fei_2', img: 'personajes/feiman.jpg', audios: [{f:'sonidos/feiman_02.mp3', t:'“Te podés callar, un poquito la boca”'}] },
+                { id: 'jac_3', img: 'personajes/jacobo.jpg', audios: [{f:'sonidos/jacobo_03.mp3', t:'“Dejá de humillar de repente, a ese pobre hombre!”'}] }
             ],
             vf: [
                 { t: 'Marcela Tauro fue abducida por un OVNI', r: true, detalle: 'Aseguró que fue en Ranelagh.' },
-                { t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Se llamaba Jazmín.' }
+                { t: 'El perro de Susana Jiménez se llamaba Bruno', r: false, detalle: 'Se llamaba Jazmín.' },
+                { t: 'En el primer almuerzo de Mirtha estuvo Daniel Tinayre', r: true, detalle: 'Debutó el 3 de junio de 1968.' }
             ],
             famositos: [
+                { id: 'rago', img: 'polaroid/ragopolaroid.jpg', r: 'PABLO RAGO' },
+                { id: 'angel', img: 'polaroid/angelpolaroid.jpg', r: 'ANGEL DE BRITO' },
+                { id: 'china', img: 'polaroid/chinasuarezpolaroid.jpg', r: 'LA CHINA SUÁREZ' },
+                { id: 'delboca', img: 'polaroid/delbocapolaroid.jpg', r: 'ANDREA DEL BOCA' },
+                { id: 'guido', img: 'polaroid/guidopolaroid.jpg', r: 'GUIDO KACZKA' },
+                { id: 'josema', img: 'polaroid/josemapolaroid.jpg', r: 'JOSÉ MARÍA LISTORTI' },
+                { id: 'lopilato', img: 'polaroid/lopilatopolaroid.jpg', r: 'LUISANA LOPILATO' },
+                { id: 'sbaraglia', img: 'polaroid/sbaragliapolaroid.jpg', r: 'LEONARDO SBARAGLIA' },
+                { id: 'suar', img: 'polaroid/suarpolaroid.jpg', r: 'ADRIÁN SUAR' },
+                { id: 'tini', img: 'polaroid/tinipolaroid.jpg', r: 'TINI STOESSEL' },
+                { id: 'benjamin', img: 'polaroid/venjaminpolaroid.jpg', r: 'BENJAMÍN VICUÑA' },
+                { id: 'baron', img: 'polaroid/polaroidbaron.jpg', r: 'JIMENA BARÓN' },
+                { id: 'betular', img: 'polaroid/polaroidbetular.jpg', r: 'DAMIÁN BETULAR' },
+                { id: 'cid', img: 'polaroid/polaroidcelestecid.jpg', r: 'CELESTE CID' },
+                { id: 'delmoro', img: 'polaroid/polaroiddelmoro.jpg', r: 'SANTIAGO DEL MORO' },
+                { id: 'dupla', img: 'polaroid/polaroiddupla.jpg', r: 'NANCY DUPLÁA' },
+                { id: 'fantino_f', img: 'polaroid/polaroidfantino.jpg', r: 'ALEJANDRO FANTINO' },
+                { id: 'francella_f', img: 'polaroid/polaroidfrancella.jpg', r: 'GUILLERMO FRANCELLA' },
+                { id: 'jelinek_f', img: 'polaroid/polaroidjelinek.jpg', r: 'KARINA JELINEK' },
+                { id: 'luciano_c', img: 'polaroid/polaroidlucianocastro.jpg', r: 'LUCIANO CASTRO' },
+                { id: 'luciano_pe', img: 'polaroid/polaroidlucianopereyra.jpg', r: 'LUCIANO PEREYRA' },
+                { id: 'maradona_f', img: 'polaroid/polaroidmaradona.jpg', r: 'DIEGO MARADONA' },
+                { id: 'marengo', img: 'polaroid/polaroidmarengo.jpg', r: 'ROCÍO MARENGO' },
+                { id: 'martinez', img: 'polaroid/polaroidmarianomartinez.jpg', r: 'MARIANO MARTÍNEZ' },
+                { id: 'marley_f', img: 'polaroid/polaroidmarley.jpg', r: 'MARLEY' },
+                { id: 'mirtha_f', img: 'polaroid/polaroidmirta.jpg', r: 'MIRTHA LEGRAND' },
+                { id: 'oreiro', img: 'polaroid/polaroidoreiro.jpg', r: 'NATALIA OREIRO' },
+                { id: 'pauls', img: 'polaroid/polaroidpauls.jpg', r: 'GASTÓN PAULS' },
+                { id: 'torres', img: 'polaroid/polaroidtorres.jpg', r: 'DIEGO TORRES' },
+                { id: 'mazza', img: 'polaroid/polaroidvaleriamasa.jpg', r: 'VALERIA MAZZA' },
+                { id: 'vazquez', img: 'polaroid/polaroidvasquez.jpg', r: 'NICOLÁS VÁZQUEZ' },
+                { id: 'wanda_f', img: 'polaroid/polaroidwanda.jpg', r: 'WANDA NARA' },
                 { id: 'calabro', img: 'polaroid/calabropolaroid.jpg', r: 'MARINA CALABRÓ' },
                 { id: 'caseros', img: 'polaroid/caserospolaroid.jpg', r: 'ALFREDO CASEROS' },
+                { id: 'david', img: 'polaroid/davidpolaroid.jpg', r: 'PAMELA DAVID' },
+                { id: 'escudero_f', img: 'polaroid/escuderopolaroid.jpg', r: 'SILVINA ESCUDERO' },
+                { id: 'fabianni', img: 'polaroid/fabiannipolaroid.jpg', r: 'MARIANA FABBIANI' },
+                { id: 'fedebal', img: 'polaroid/fedebalpolaroid.jpg', r: 'FEDERICO BAL' },
+                { id: 'furriel', img: 'polaroid/furrielpolaroid.jpg', r: 'JOAQUÍN FURRIEL' },
+                { id: 'juanita', img: 'polaroid/juanitapolaroid.jpg', r: 'JUANITA VIALE' },
+                { id: 'lgante', img: 'polaroid/lgantepolaroid.jpg', r: 'L-GANTE' },
+                { id: 'nachoviale', img: 'polaroid/nachovialepolaroid.jpg', r: 'NACHO VIALE' },
+                { id: 'pampita', img: 'polaroid/pampitapolaroid.jpg', r: 'PAMPITA' },
+                { id: 'pedroalfonso', img: 'polaroid/pedroalfonsopolaroid.jpg', r: 'PEDRO ALFONSO' },
+                { id: 'peretti', img: 'polaroid/perettipolaroid.jpg', r: 'DIEGO PERETTI' },
+                { id: 'pergolini', img: 'polaroid/pergolinipolaroid.jpg', r: 'MARIO PERGOLINI' },
+                { id: 'bossi', img: 'polaroid/bossipolaroid.jpg', r: 'MARTÍN BOSSI' },
+                { id: 'cabre', img: 'polaroid/cabrepolaroid.jpg', r: 'NICOLÁS CABRÉ' },
+                { id: 'cocosily', img: 'polaroid/cocosilipolaroid.jpg', r: 'COCO SILY' },
+                { id: 'ernestina', img: 'polaroid/ernestinapolaroid.jpg', r: 'ERNESTINA PAIS' },
+                { id: 'yanina', img: 'polaroid/latorrepolaroid.jpg', r: 'YANINA LATORRE' },
+                { id: 'lussich', img: 'polaroid/lusichpolaroid.jpg', r: 'RODRIGO LUSSICH' },
+                { id: 'maxilopez', img: 'polaroid/maxilopezpolaroid.jpg', r: 'MAXI LÓPEZ' },
+                { id: 'mazzocco', img: 'polaroid/mazocopolaroid.jpg', r: 'KARINA MAZZOCCO' },
+                { id: 'julietaortega', img: 'polaroid/ortejapolaroid.jpg', r: 'JULIETA ORTEGA' },
+                { id: 'susana_f', img: 'polaroid/susanapolaroid.jpg', r: 'SUSANA GIMÉNEZ' },
+                { id: 'wainraich', img: 'polaroid/wainraichpolaroid.jpg', r: 'SEBASTIÁN WAINRAICH' },
+                { id: 'weich', img: 'polaroid/weichpolaroid.jpg', r: 'JULIÁN WEICH' },
                 { id: 'bertotti', img: 'polaroid/bertottipolaroid.jpg', r: 'FLORENCIA BERTOTTI' },
-                { id: 'cerati', img: 'polaroid/cerattipolaroid.jpg', r: 'GUSTAVO CERATI' },
-                { id: 'rodrigo_f', img: 'polaroid/rodrigopolaroid.jpg', r: 'RODRIGO BUENO' }
-                // Agregá aquí el resto de tus famosos siguiendo el mismo formato
+                { id: 'drago', img: 'polaroid/dragopolaroid.jpg', r: 'HERNÁN DRAGO' },
+                { id: 'migue', img: 'polaroid/granadospolaroid.jpg', r: 'MIGUE GRANADOS' },
+                { id: 'rodrigo_f', img: 'polaroid/rodrigopolaroid.jpg', r: 'RODRIGO BUENO' },
+                { id: 'cerati', img: 'polaroid/cerattipolaroid.jpg', r: 'GUSTAVO CERATI' }
+            ],
+            placasEspeciales: [
+                { id: 'placa01', pregunta: '¿Quién fue el ganador de MasterChef Celebrity?', respuesta: 'IAN LUCA' }
             ]
         };
 
+        // VARIABLES DE JUEGO (STACKS)
         let stacks = { personajes: [], quien_dijo: [], vf: [], famositos: [] };
         let iniciado = { personajes: false, quien_dijo: false, vf: false, famositos: false };
-        let actual = null; let pIdx = 0; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
-        let activeDeckType = null;
+        let videosDisponibles = ['panelistas/pane01.mp4', 'panelistas/pane02.mp4', 'panelistas/pane03.mp4'];
+
+        let actual = null; let respondidoVF = false; let timerSegundos = 10; let intervaloTimer = null;
+        let activeDeckType = null; let contadorDados = 0; let tiroEventoPlaca = Math.floor(Math.random() * 15) + 1;
 
         function mezclar(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -163,106 +335,128 @@
             return array;
         }
 
-        // --- SOLUCIÓN PANTALLA COMPLETA ---
         function entrarAlJuego() {
-            const doc = document.documentElement;
-            if (doc.requestFullscreen) doc.requestFullscreen();
-            else if (doc.webkitRequestFullscreen) doc.webkitRequestFullscreen();
-            else if (doc.msRequestFullscreen) doc.msRequestFullscreen();
-
+            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
             document.getElementById('pantalla-inicio').style.display = 'none';
             document.getElementById('menu-principal').style.display = 'block';
         }
 
         function abrirMazo(t) {
-            activeDeckType = t; sonarClick();
+            pararTimer(); sonarClick(); activeDeckType = t;
             document.getElementById('menu-principal').classList.add('atenuado');
             document.getElementById('area-carta').style.display = 'flex';
-            resetPantallaCarta();
+            
+            const v = document.getElementById('visor');
+            const msg = document.getElementById('mensaje-fin-mazo');
+            v.style.display = 'none'; v.className = ""; msg.style.display = 'none';
+            document.getElementById('visor-video').style.display = 'none';
+            document.getElementById('mazo-vf').style.display = 'none';
+            document.getElementById('bloque-famositos').style.display = 'none';
+            document.getElementById('pistas-bloque').style.display = 'none';
+            document.getElementById('btn-audio').style.display = 'none';
+            document.getElementById('contenedor-timer').style.display = 'none';
+            document.getElementById('texto-frase').style.display = 'block';
+            document.getElementById('texto-frase').innerHTML = "";
 
-            if (!iniciado[t] || stacks[t].length === 0) {
+            if (!iniciado[t]) {
                 stacks[t] = mezclar([...datos[t]]);
                 iniciado[t] = true;
             }
 
-            actual = stacks[t].pop();
-            renderMazo(t);
-        }
+            if (stacks[t].length === 0) {
+                msg.innerHTML = "¡FIN DE LA RONDA!<br>YA NO HAY MÁS CARTAS EN ESTE MAZO";
+                msg.style.display = 'block';
+                document.getElementById('texto-frase').style.display = 'none';
+                return;
+            }
 
-        function renderMazo(t) {
-            const v = document.getElementById('visor');
+            actual = stacks[t].pop();
+
             if (t === 'personajes') {
                 document.getElementById('repro-rojo').play();
-                v.src = actual.img; v.style.display = 'block';
-                document.getElementById('pistas-bloque').style.display = 'flex';
-                pIdx = 0; document.getElementById('txt-pista').innerText = actual.pistas[0];
-            } else if (t === 'quien_dijo') {
-                v.src = actual.img; v.style.display = 'block';
+                v.src = actual.img; v.style.display = 'block'; v.style.borderRadius = "15px";
+                pIdx = 0; document.getElementById('pistas-bloque').style.display = 'flex';
+                document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx];
+                actualizarBotonesPistas();
+            } 
+            else if (t === 'vf') {
+                document.getElementById('texto-frase').innerHTML = actual.t;
+                document.getElementById('mazo-vf').style.display = 'flex';
+                document.getElementById('resp-vf-texto').innerHTML = ""; 
+                document.getElementById('btn-v').style.opacity = "1"; document.getElementById('btn-f').style.opacity = "1";
+                respondidoVF = false; iniciarTimer();
+            } 
+            else if (t === 'quien_dijo') {
+                v.src = actual.img; v.style.display = 'block'; v.style.borderRadius = "15px";
                 document.getElementById('btn-audio').style.display = 'block';
-                document.getElementById('texto-frase').innerText = actual.audios[0].t;
-            } else if (t === 'famositos') {
+                document.getElementById('texto-frase').innerHTML = actual.audios[0].t;
+            } 
+            else if (t === 'famositos') {
                 v.src = actual.img; v.className = "img-famosito"; v.style.display = 'block';
                 document.getElementById('bloque-famositos').style.display = 'flex';
-                iniciarTimer();
-            } else if (t === 'vf') {
-                document.getElementById('texto-frase').innerText = actual.t;
-                document.getElementById('mazo-vf').style.display = 'flex';
+                document.getElementById('btn-revelar-famosito').style.display = 'block';
+                document.getElementById('txt-resp-famosito').style.display = 'none';
+                document.getElementById('texto-frase').innerHTML = "¿QUI&Eacute;N ES ESTE FAMOSITO?";
                 iniciarTimer();
             }
         }
 
-        function resetPantallaCarta() {
+        function revelarFamosito() { pararTimer(); sonarClick(); document.getElementById('btn-revelar-famosito').style.display = 'none'; document.getElementById('txt-resp-famosito').innerHTML = actual.r; document.getElementById('txt-resp-famosito').style.display = 'block'; }
+        function tirarDado() { contadorDados++; if (contadorDados === tiroEventoPlaca) { lanzarPlacaEspecial(); contadorDados = 0; tiroEventoPlaca = Math.floor(Math.random() * 15) + 1; } else { ejecutarAnimacionDado(); } }
+        function lanzarPlacaEspecial() { let p = datos.placasEspeciales[0]; document.getElementById('texto-pregunta-placa').innerHTML = p.pregunta; document.getElementById('texto-respuesta-placa').innerHTML = p.respuesta; document.getElementById('texto-respuesta-placa').style.display = 'none'; document.getElementById('btn-revelar-placa').style.display = 'block'; document.getElementById('btn-volver-placa').style.display = 'none'; document.getElementById('pantalla-cronica').style.display = 'flex'; document.getElementById('repro-placa').play(); }
+        function revelarRespuestaPlaca() { sonarClick(); document.getElementById('btn-revelar-placa').style.display = 'none'; document.getElementById('texto-respuesta-placa').style.display = 'block'; document.getElementById('btn-volver-placa').style.display = 'flex'; }
+        function ejecutarAnimacionDado() { const s = document.getElementById('repro-dado'); s.currentTime = 0; s.play(); let c = 0; let i = setInterval(() => { document.getElementById('boton-dado').innerText = Math.floor(Math.random()*6)+1; if(c++ > 10) clearInterval(i); }, 80); }
+        function cerrarCronica() { document.getElementById('pantalla-cronica').style.display = 'none'; document.getElementById('repro-placa').pause(); document.getElementById('repro-placa').currentTime = 0; ejecutarAnimacionDado(); }
+
+        function abrirVideoAleatorio() {
+            sonarClick(); document.getElementById('menu-principal').classList.add('atenuado');
+            document.getElementById('area-carta').style.display = 'flex';
+            const v = document.getElementById('visor-video');
+            const msg = document.getElementById('mensaje-fin-mazo');
             document.getElementById('visor').style.display = 'none';
-            document.getElementById('visor').className = "";
-            document.getElementById('bloque-famositos').style.display = 'none';
             document.getElementById('mazo-vf').style.display = 'none';
             document.getElementById('pistas-bloque').style.display = 'none';
             document.getElementById('btn-audio').style.display = 'none';
-            document.getElementById('texto-frase').innerText = "";
-            document.getElementById('txt-resp-famosito').style.display = 'none';
-            document.getElementById('btn-revelar-famosito').style.display = 'block';
-            document.getElementById('mensaje-fin-mazo').style.display = 'none';
+            document.getElementById('bloque-famositos').style.display = 'none';
+            document.getElementById('texto-frase').style.display = 'none';
+            document.getElementById('contenedor-timer').style.display = 'none';
+            
+            if(videosDisponibles.length === 0) {
+                msg.innerHTML = "YA NO HAY MÁS PANELISTAS DISPONIBLES...";
+                msg.style.display = 'block';
+                v.style.display = 'none';
+            } else {
+                msg.style.display = 'none';
+                const ve = videosDisponibles.splice(Math.floor(Math.random()*videosDisponibles.length), 1)[0];
+                v.src = ve; v.style.display = 'block'; v.play();
+            }
         }
 
-        function sonar() {
-            const r = document.getElementById('repro-frase');
-            r.src = actual.audios[0].f;
-            r.play();
-        }
-
+        function actualizarBotonesPistas() { document.getElementById('btn-pista-prev').style.display = (pIdx > 0) ? 'block' : 'none'; document.getElementById('btn-pista-next').style.display = (pIdx < actual.pistas.length - 1) ? 'block' : 'none'; }
+        function cambiarPista(d) { pIdx += d; document.getElementById('txt-pista').innerHTML = actual.pistas[pIdx]; actualizarBotonesPistas(); sonarClick(); }
+        
         function iniciarTimer() {
             timerSegundos = 10;
-            const t = document.getElementById('contenedor-timer');
-            t.innerText = timerSegundos; t.style.display = 'flex'; t.classList.remove('final');
+            const cajaTimer = document.getElementById('contenedor-timer');
+            cajaTimer.innerText = timerSegundos; cajaTimer.style.display = 'flex'; cajaTimer.classList.remove('final'); 
             document.getElementById('repro-tictac').play();
             intervaloTimer = setInterval(() => {
                 timerSegundos--;
-                t.innerText = timerSegundos;
-                if (timerSegundos <= 3) t.classList.add('final');
-                if (timerSegundos <= 0) { pararTimer(); document.getElementById('repro-mal').play(); }
+                cajaTimer.innerText = timerSegundos;
+                if (timerSegundos <= 3) cajaTimer.classList.add('final'); 
+                if(timerSegundos <= 0) { 
+                    pararTimer(); 
+                    if (activeDeckType === 'famositos' || activeDeckType === 'vf') document.getElementById('repro-mal').play(); 
+                    if (activeDeckType === 'vf' && !respondidoVF) chequearVF('tiempo');
+                }
             }, 1000);
         }
 
-        function pararTimer() {
-            clearInterval(intervaloTimer);
-            document.getElementById('repro-tictac').pause();
-        }
-
-        function revelarFamosito() {
-            pararTimer();
-            document.getElementById('btn-revelar-famosito').style.display = 'none';
-            document.getElementById('txt-resp-famosito').innerText = actual.r;
-            document.getElementById('txt-resp-famosito').style.display = 'block';
-        }
-
-        function cerrar() {
-            pararTimer();
-            document.getElementById('menu-principal').classList.remove('atenuado');
-            document.getElementById('area-carta').style.display = 'none';
-        }
-
+        function pararTimer() { clearInterval(intervaloTimer); document.getElementById('repro-tictac').pause(); }
+        function chequearVF(eleccion) { if(respondidoVF) return; respondidoVF = true; pararTimer(); if(eleccion === actual.r) document.getElementById('repro-bien').play(); else document.getElementById('repro-mal').play(); const res = actual.r ? '<span style="color:#16a34a; font-size:32px; display:block; margin-bottom:5px;">VERDADERO</span>' : '<span style="color:#e11d48; font-size:32px; display:block; margin-bottom:5px;">FALSO</span>'; document.getElementById('resp-vf-texto').innerHTML = res + actual.detalle; document.getElementById('btn-v').style.opacity = (eleccion === true) ? "1" : "0.3"; document.getElementById('btn-f').style.opacity = (eleccion === false) ? "1" : "0.3"; }
+        function cerrar() { pararTimer(); activeDeckType = null; document.getElementById('menu-principal').classList.remove('atenuado'); document.getElementById('area-carta').style.display = 'none'; document.getElementById('visor-video').pause(); }
         function sonarClick() { document.getElementById('repro-click').play(); }
-        function tirarDado() { sonarClick(); document.getElementById('boton-dado').innerText = Math.floor(Math.random()*6)+1; }
+        function sonar() { document.getElementById('repro-frase').src = actual.audios[0].f; document.getElementById('repro-frase').play(); }
     </script>
 </body>
 </html>
